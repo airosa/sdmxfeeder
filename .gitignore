@@ -1,0 +1,12 @@
+# Directories #
+######################
+output
+node_modules
+
+
+# OS generated files #
+######################
+.DS_Store*
+ehthumbs.db
+Icon?
+Thumbs.db

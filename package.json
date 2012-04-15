@@ -1,0 +1,37 @@
+{
+  "name":         	"sdmxfeeder",
+  "version":      	"0.1.0",
+  "description": 	"Experimental SDMX converter written in coffeescript",
+  "keywords":     	["sdmx", "coffeescript"],
+  "author":       	"Sami Airo",
+  "licenses": [{
+    "type":       	"MIT",
+    "url":        	"http://opensource.org/licenses/mit-license.php"
+  }],
+  "engine":         "node >= 0.6.1",
+  "dependencies": {
+    "log":          "1.3.x",
+    "optimist":     "0.3.x",
+    "request":      "2.9.x",
+    "sax":          "0.4.x",
+    "underscore":   "1.3.x",
+    "xmlbuilder":   "0.3.x",
+    "datejs":       "0.0.x"
+  },
+  "devDependencies": {
+	"coffee-script": "1.3.x",
+    "mocha":         "1.0.x",
+    "should":        "0.6.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/airosa/sdmxfeeder.git"
+  },
+  "directories": {
+    "lib" :       	"./lib"
+  },
+  "main" :        	"./lib/cli",
+  "bin": {
+    "sdmxfeeder":	"./bin/sdmxfeeder"
+  }
+}

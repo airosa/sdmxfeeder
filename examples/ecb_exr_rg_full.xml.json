@@ -1,0 +1,516 @@
+{
+	"header": {
+		"id": "Sample_DSD1_With_Sibling_And_Rate_Groups",
+		"test": false,
+		"prepared": "2010-11-13T16:00:33.000Z",
+		"sender": {
+			"SDMX": {
+				"id": "SDMX"
+			}
+		}
+	},
+	"structures": {
+		"codelists": {
+			"SDMX:CL_DECIMALS(1.0)": {
+				"id": "CL_DECIMALS",
+				"agencyID": "SDMX",
+				"version": "1.0",
+				"urn": "urn:sdmx:org.sdmx.infomodel.codelist.Codelist=SDMX:CL_DECIMALS(1.0)",
+				"name": {
+					"en": "Code list for Decimals (DECIMALS)"
+				},
+				"description": {
+					"en": "It provides a list of values showing the number of decimal digits used in the data."
+				},
+				"codes": {}
+			},
+			"SDMX:CL_FREQ(1.0)": {
+				"id": "CL_FREQ",
+				"agencyID": "SDMX",
+				"version": "1.0",
+				"urn": "urn:sdmx:org.sdmx.infomodel.codelist.Codelist=SDMX:CL_FREQ(1.0)",
+				"name": {
+					"en": "Code list for Frequency (FREQ)"
+				},
+				"description": {
+					"en": "It provides a list of values indicating the \"frequency\" of the data (e.g. monthly) and, thus, indirectly, also implying the type of \"time reference\" that could be used for identifying the data with respect time."
+				},
+				"codes": {}
+			},
+			"SDMX:CL_CONF_STATUS(1.0)": {
+				"id": "CL_CONF_STATUS",
+				"agencyID": "SDMX",
+				"version": "1.0",
+				"urn": "urn:sdmx:org.sdmx.infomodel.codelist.Codelist=SDMX:CL_CONF_STATUS(1.0)",
+				"name": {
+					"en": "code list for Confidentiality Status (CONF_STATUS)"
+				},
+				"description": {
+					"en": "this code list provides coded information about the sensitivity and confidentiality status of the data."
+				},
+				"codes": {}
+			},
+			"SDMX:CL_OBS_STATUS(1.0)": {
+				"id": "CL_OBS_STATUS",
+				"agencyID": "SDMX",
+				"version": "1.0",
+				"urn": "urn:sdmx:org.sdmx.infomodel.codelist.Codelist=SDMX:CL_OBS_STATUS(1.0)",
+				"name": {
+					"en": "Observation status"
+				},
+				"description": {
+					"en": "This code list provides coded information about the \"status\" of an observation (with respect events such as the ones reflected in the codes composing the code list)."
+				},
+				"codes": {}
+			},
+			"SDMX:CL_UNIT_MULT(1.0)": {
+				"id": "CL_UNIT_MULT",
+				"agencyID": "SDMX",
+				"version": "1.0",
+				"urn": "urn:sdmx:org.sdmx.infomodel.codelist.Codelist=SDMX:CL_UNIT_MULT(1.0)",
+				"name": {
+					"en": "code list for the Unit Multiplier (UNIT_MULT)"
+				},
+				"codes": {}
+			},
+			"ECB:CL_EXR_TYPE(1.0)": {
+				"id": "CL_EXR_TYPE",
+				"agencyID": "ECB",
+				"version": "1.0",
+				"urn": "urn:sdmx:org.sdmx.infomodel.codelist.Codelist=ECB:CL_EXR_TYPE(1.0)",
+				"name": {
+					"en": "code list for the exchange rates types"
+				},
+				"codes": {}
+			},
+			"ECB:CL_EXR_VAR(1.0)": {
+				"id": "CL_EXR_VAR",
+				"agencyID": "ECB",
+				"version": "1.0",
+				"urn": "urn:sdmx:org.sdmx.infomodel.codelist.Codelist=ECB:CL_EXR_VAR(1.0)",
+				"name": {
+					"en": "code list for the exchange rate series variation"
+				},
+				"codes": {}
+			},
+			"ISO:CL_CURRENCY(1.0)": {
+				"id": "CL_CURRENCY",
+				"agencyID": "ISO",
+				"version": "1.0",
+				"isPartial": true,
+				"urn": "urn:sdmx:org.sdmx.infomodel.codelist.Codelist=ISO:CL_CURRENCY(1.0)",
+				"name": {
+					"en": "code list for the exchange rate series variation"
+				},
+				"codes": {}
+			}
+		},
+		"concepts": {
+			"SDMX:CROSS_DOMAIN_CONCEPTS(1.0)": {
+				"id": "CROSS_DOMAIN_CONCEPTS",
+				"agencyID": "SDMX",
+				"version": "1.0",
+				"isPartial": true,
+				"urn": "urn:sdmx:org.sdmx.infomodel.conceptscheme.ConceptScheme=SDMX:CROSS_DOMAIN_CONCEPTS(1.0)",
+				"name": {
+					"en": "SDMX Cross Domain Concept Scheme"
+				},
+				"concepts": {
+					"COLL_METHOD": {
+						"id": "COLL_METHOD",
+						"urn": "urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:CROSS_DOMAIN_CONCEPTS(1.0).COLL_METHOD",
+						"name": {
+							"en": "Data Collection Method"
+						},
+						"description": {
+							"en": "Systematic process of gathering data for official statistics."
+						}
+					},
+					"CONF": {
+						"id": "CONF",
+						"urn": "urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:CROSS_DOMAIN_CONCEPTS(1.0).CONF",
+						"name": {
+							"en": "Confidentiality"
+						},
+						"description": {
+							"en": "A property of data indicating the extent to which their unauthorised disclosure could be prejudicial or harmful to the interest of the source or other relevant parties."
+						}
+					},
+					"CONF_STATUS": {
+						"id": "CONF_STATUS",
+						"urn": "urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:CROSS_DOMAIN_CONCEPTS(1.0).CONF_STATUS",
+						"name": {
+							"en": "Confidentiality - status"
+						},
+						"description": {
+							"en": "Information about the confidentiality status of the object to which this attribute is attached."
+						}
+					},
+					"CURRENCY": {
+						"id": "CURRENCY",
+						"urn": "urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:CROSS_DOMAIN_CONCEPTS(1.0).CURRENCY",
+						"name": {
+							"en": "Currency"
+						},
+						"description": {
+							"en": "Monetary denomination of the object being measured."
+						}
+					},
+					"DECIMALS": {
+						"id": "DECIMALS",
+						"urn": "urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:CROSS_DOMAIN_CONCEPTS(1.0).DECIMALS",
+						"name": {
+							"en": "Decimals"
+						},
+						"description": {
+							"en": "The number of digits of an observation to the right of a decimal point."
+						}
+					},
+					"FREQ": {
+						"id": "FREQ",
+						"urn": "urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:CROSS_DOMAIN_CONCEPTS(1.0).FREQ",
+						"name": {
+							"en": "Frequency"
+						},
+						"description": {
+							"en": "The time interval at which observations occur over a given time period."
+						}
+					},
+					"OBS_VALUE": {
+						"id": "OBS_VALUE",
+						"urn": "urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:CROSS_DOMAIN_CONCEPTS(1.0). OBS_VALUE",
+						"name": {
+							"en": "Observation value"
+						},
+						"description": {
+							"en": "The value of a particular variable at a particular period."
+						}
+					},
+					"OBS_STATUS": {
+						"id": "OBS_STATUS",
+						"urn": "urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:CROSS_DOMAIN_CONCEPTS(1.0).OBS_STATUS",
+						"name": {
+							"en": "Observation Status"
+						},
+						"description": {
+							"en": "Information on the quality of a value or an unusual or missing value."
+						}
+					},
+					"TIME_PERIOD": {
+						"id": "TIME_PERIOD",
+						"urn": "urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:CROSS_DOMAIN_CONCEPTS(1.0).TIME_PERIOD",
+						"name": {
+							"en": "Time Period"
+						},
+						"description": {
+							"en": "The period of time or point in time to which the measured observation refers."
+						}
+					},
+					"TITLE": {
+						"id": "TITLE",
+						"urn": "urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:CROSS_DOMAIN_CONCEPTS(1.0).TITLE",
+						"name": {
+							"en": "Title"
+						},
+						"description": {
+							"en": "Textual label used as identification of a statistical object."
+						}
+					},
+					"UNIT_MULT": {
+						"id": "UNIT_MULT",
+						"urn": "urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:CROSS_DOMAIN_CONCEPTS(1.0).UNIT_MULT",
+						"name": {
+							"en": "Unit Multiplier"
+						},
+						"description": {
+							"en": "Exponent in base 10 specified so that multiplying the observation numeric values by 10^UNIT_MULT gives a value expressed in the UNIT."
+						}
+					},
+					"UNIT_MEASURE": {
+						"id": "UNIT_MEASURE",
+						"urn": "urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:CROSS_DOMAIN_CONCEPTS(1.0).UNIT_MEASURE",
+						"name": {
+							"en": "Unit of Measure"
+						},
+						"description": {
+							"en": "The unit in which the data values are measured."
+						}
+					}
+				}
+			},
+			"ECB:ECB_CONCEPTS(1.0)": {
+				"id": "ECB_CONCEPTS",
+				"agencyID": "ECB",
+				"version": "1.0",
+				"isPartial": true,
+				"urn": "urn:sdmx:org.sdmx.infomodel.conceptscheme.ConceptScheme=ECB:ECB_CONCEPTS(1.0)",
+				"name": {
+					"en": "Concepts maintained by the ECB"
+				},
+				"concepts": {
+					"CURRENCY_DENOM": {
+						"id": "CURRENCY_DENOM",
+						"urn": "urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=ECB:ECB_CONCEPTS(1.0).CURRENCY_DENOM",
+						"name": {
+							"en": "Currency denominator"
+						}
+					},
+					"EXR_VAR": {
+						"id": "EXR_VAR",
+						"urn": "urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=ECB:ECB_CONCEPTS(1.0).EXR_VAR",
+						"name": {
+							"en": "Series variation - EXR context"
+						}
+					},
+					"EXR_TYPE": {
+						"id": "EXR_TYPE",
+						"urn": "urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=ECB:ECB_CONCEPTS(1.0).EXR_TYPE",
+						"name": {
+							"en": "Exchange rate type"
+						}
+					}
+				}
+			}
+		},
+		"dataStructures": {
+			"ECB:ECB_EXR_CG(1.0)": {
+				"id": "ECB_EXR_CG",
+				"agencyID": "ECB",
+				"version": "1.0",
+				"name": {
+					"en": "Sample Data Structure Definition for exchange rates, with sibling and rate groups defined."
+				},
+				"dimensionDescriptor": {
+					"FREQ": {
+						"id": "FREQ",
+						"order": 1,
+						"type": "dimension",
+						"conceptIdentity": {
+							"ref": {
+								"agencyID": "SDMX",
+								"maintainableParentID": "CROSS_DOMAIN_CONCEPTS",
+								"maintainableParentVersion": "1.0",
+								"id": "FREQ"
+							}
+						}
+					},
+					"CURRENCY": {
+						"id": "CURRENCY",
+						"order": 2,
+						"type": "dimension",
+						"conceptIdentity": {
+							"ref": {
+								"agencyID": "SDMX",
+								"maintainableParentID": "CROSS_DOMAIN_CONCEPTS",
+								"maintainableParentVersion": "1.0",
+								"id": "CURRENCY"
+							}
+						}
+					},
+					"CURRENCY_DENOM": {
+						"id": "CURRENCY_DENOM",
+						"order": 3,
+						"type": "dimension",
+						"conceptIdentity": {
+							"ref": {
+								"agencyID": "ECB",
+								"maintainableParentID": "ECB_CONCEPTS",
+								"maintainableParentVersion": "1.0",
+								"id": "CURRENCY_DENOM"
+							}
+						}
+					},
+					"EXR_TYPE": {
+						"id": "EXR_TYPE",
+						"order": 4,
+						"type": "dimension",
+						"conceptIdentity": {
+							"ref": {
+								"agencyID": "ECB",
+								"maintainableParentID": "ECB_CONCEPTS",
+								"maintainableParentVersion": "1.0",
+								"id": "EXR_TYPE"
+							}
+						}
+					},
+					"EXR_VAR": {
+						"id": "EXR_VAR",
+						"order": 5,
+						"type": "dimension",
+						"conceptIdentity": {
+							"ref": {
+								"agencyID": "ECB",
+								"maintainableParentID": "ECB_CONCEPTS",
+								"maintainableParentVersion": "1.0",
+								"id": "EXR_VAR"
+							}
+						}
+					},
+					"TIME_PERIOD": {
+						"id": "TIME_PERIOD",
+						"order": 6,
+						"type": "timeDimension",
+						"conceptIdentity": {
+							"ref": {
+								"agencyID": "SDMX",
+								"maintainableParentID": "CROSS_DOMAIN_CONCEPTS",
+								"maintainableParentVersion": "1.0",
+								"id": "TIME_PERIOD"
+							}
+						}
+					}
+				},
+				"dimensionGroupDescriptor": {
+					"SiblingGroup": {
+						"id": "SiblingGroup",
+						"dimension": [
+							"CURRENCY",
+							"CURRENCY_DENOM",
+							"EXR_TYPE",
+							"EXR_VAR"
+						]
+					},
+					"RateGroup": {
+						"id": "RateGroup",
+						"dimension": [
+							"EXR_TYPE",
+							"EXR_VAR"
+						]
+					}
+				},
+				"attributeDescriptor": {
+					"COLL_METHOD": {
+						"assignmentStatus": "Conditional",
+						"id": "COLL_METHOD",
+						"conceptIdentity": {
+							"ref": {
+								"agencyID": "SDMX",
+								"maintainableParentID": "CROSS_DOMAIN_CONCEPTS",
+								"maintainableParentVersion": "1.0",
+								"id": "COLL_METHOD"
+							}
+						},
+						"attributeRelationship": {
+							"group": "RateGroup"
+						}
+					},
+					"DECIMALS": {
+						"assignmentStatus": "Mandatory",
+						"id": "DECIMALS",
+						"conceptIdentity": {
+							"ref": {
+								"agencyID": "SDMX",
+								"maintainableParentID": "CROSS_DOMAIN_CONCEPTS",
+								"maintainableParentVersion": "1.0",
+								"id": "DECIMALS"
+							}
+						},
+						"attributeRelationship": {
+							"dimension": [
+								"CURRENCY",
+								"CURRENCY_DENOM",
+								"EXR_TYPE"
+							]
+						}
+					},
+					"UNIT_MEASURE": {
+						"assignmentStatus": "Mandatory",
+						"id": "UNIT_MEASURE",
+						"conceptIdentity": {
+							"ref": {
+								"agencyID": "SDMX",
+								"maintainableParentID": "CROSS_DOMAIN_CONCEPTS",
+								"maintainableParentVersion": "1.0",
+								"id": "UNIT_MEASURE"
+							}
+						},
+						"attributeRelationship": {
+							"dimension": [
+								"CURRENCY",
+								"CURRENCY_DENOM",
+								"EXR_TYPE"
+							]
+						}
+					},
+					"UNIT_MULT": {
+						"assignmentStatus": "Mandatory",
+						"id": "UNIT_MULT",
+						"conceptIdentity": {
+							"ref": {
+								"agencyID": "SDMX",
+								"maintainableParentID": "CROSS_DOMAIN_CONCEPTS",
+								"maintainableParentVersion": "1.0",
+								"id": "UNIT_MULT"
+							}
+						},
+						"attributeRelationship": {
+							"dimension": [
+								"CURRENCY",
+								"CURRENCY_DENOM",
+								"EXR_TYPE"
+							]
+						}
+					},
+					"CONF_STATUS_OBS": {
+						"assignmentStatus": "Conditional",
+						"id": "CONF_STATUS_OBS",
+						"conceptIdentity": {
+							"ref": {
+								"agencyID": "SDMX",
+								"maintainableParentID": "CROSS_DOMAIN_CONCEPTS",
+								"maintainableParentVersion": "1.0",
+								"id": "CONF_STATUS"
+							}
+						},
+						"attributeRelationship": {
+							"primaryMeasure": "OBS_VALUE"
+						}
+					},
+					"OBS_STATUS": {
+						"assignmentStatus": "Mandatory",
+						"id": "OBS_STATUS",
+						"conceptIdentity": {
+							"ref": {
+								"agencyID": "SDMX",
+								"maintainableParentID": "CROSS_DOMAIN_CONCEPTS",
+								"maintainableParentVersion": "1.0",
+								"id": "OBS_STATUS"
+							}
+						},
+						"attributeRelationship": {
+							"primaryMeasure": "OBS_VALUE"
+						}
+					},
+					"TITLE": {
+						"assignmentStatus": "Mandatory",
+						"id": "TITLE",
+						"conceptIdentity": {
+							"ref": {
+								"agencyID": "SDMX",
+								"maintainableParentID": "CROSS_DOMAIN_CONCEPTS",
+								"maintainableParentVersion": "1.0",
+								"id": "TITLE"
+							}
+						},
+						"attributeRelationship": {
+							"group": "SiblingGroup"
+						}
+					}
+				},
+				"measureDescriptor": {
+					"primaryMeasure": {
+						"conceptIdentity": {
+							"ref": {
+								"agencyID": "SDMX",
+								"maintainableParentID": "CROSS_DOMAIN_CONCEPTS",
+								"maintainableParentVersion": "1.0",
+								"id": "OBS_VALUE"
+							}
+						},
+						"id": "OBS_VALUE"
+					}
+				}
+			}
+		}
+	}
+}
