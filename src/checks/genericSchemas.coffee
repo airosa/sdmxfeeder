@@ -238,7 +238,7 @@ schemas =
 				properties:
 					textType:
 						type: 'string'
-						enum: ['AlphaNumeric','Numeric','Alpha','ObservationalTimePeriod']
+						enum: ['String','AlphaNumeric','Numeric','Alpha','ObservationalTimePeriod']
 					minLength:
 						type: 'integer'
 						minimum: 1

@@ -352,7 +352,7 @@
                   </structure:Enumeration>
                </structure:CoreRepresentation>
             </structure:Concept>
-            <structure:Concept id="OBS_VALUE" urn="urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:CROSS_DOMAIN_CONCEPTS(1.0). OBS_VALUE">
+            <structure:Concept id="OBS_VALUE" urn="urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:CROSS_DOMAIN_CONCEPTS(1.0).OBS_VALUE">
                <common:Annotations>
                   <common:Annotation>
                      <common:AnnotationType>CONTEXT</common:AnnotationType>

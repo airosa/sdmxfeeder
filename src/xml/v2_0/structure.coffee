@@ -54,6 +54,7 @@ entryActions =
 		renameProperty codeListCur, 'agency', 'agencyID'
 	'CodeLists/CodeList/Code': (attrs) ->
 		codeCur = _.extend {}, attrs
+		renameProperty codeCur, 'value', 'id'
 	'Concepts': (attrs) ->
 		conceptSchemeTmp = {}
 	'Concepts/Concept': (attrs) ->
@@ -117,17 +118,15 @@ exitActions =
 		@emitSDMX 'codelist', codeListCur
 	'CodeLists/CodeList/Code': (attrs) ->
 		codeListCur.codes ?= {}
-		codeListCur.codes[codeCur.value] = {}
-		codeListCur.codes[codeCur.value].id = codeCur.value
-		codeListCur.codes[codeCur.value].name = codeCur.description
+		codeListCur.codes[codeCur.id] = codeCur
 	'CodeLists/CodeList/Name': (attrs) ->
 		attrs['xml:lang'] ?= 'en'
 		codeListCur.name ?= {}
 		codeListCur.name[ attrs['xml:lang'] ] = @stringBuffer
 	'CodeLists/CodeList/Code/Description': (attrs) ->
 		attrs['xml:lang'] ?= 'en'
-		codeCur.description ?= {}
-		codeCur.description[ attrs['xml:lang'] ] = @stringBuffer
+		codeCur.name ?= {}
+		codeCur.name[ attrs['xml:lang'] ] = @stringBuffer
 	'Concepts/Concept': (attrs) ->
 		conceptSchemeTmp.concepts[conceptCur.id] = conceptCur
 	'Concepts': (attrs) ->

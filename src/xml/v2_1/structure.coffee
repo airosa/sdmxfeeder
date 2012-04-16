@@ -24,6 +24,9 @@ entryActions =
 		conceptSchemeCur.isPartial = (conceptSchemeCur.isPartial is 'true') if conceptSchemeCur.isPartial?
 	'Structures/Concepts/ConceptScheme/Concept': (attrs) ->
 		conceptCur = _.extend {}, attrs
+	'Structures/Concepts/ConceptScheme/Concept/CoreRepresentation/TextFormat': (attrs) ->
+		conceptCur.coreRepresentation ?= {}
+		conceptCur.coreRepresentation.textFormat = attrs
 
 	'Structures/DataStructures/DataStructure': (attrs) ->
 		dataStructureCur = _.extend {}, attrs
@@ -63,7 +66,7 @@ exitActions =
 		@emitSDMX 'codelist', codeListCur
 	'Structures/Codelists/Codelist/Code': (attrs) ->
 		codeListCur.codes ?= {}
-		codeListCur.codes[codeCur.id] = codeCur.Name
+		codeListCur.codes[codeCur.id] = codeCur
 	'Structures/Codelists/Codelist/Name': (attrs) ->
 		attrs['xml:lang'] ?= 'en'
 		codeListCur.name ?= {}
@@ -98,6 +101,10 @@ exitActions =
 		attrs['xml:lang'] ?= 'en'
 		conceptCur.description ?= {}
 		conceptCur.description[ attrs['xml:lang'] ] = @stringBuffer
+	'Structures/Concepts/ConceptScheme/Concept/CoreRepresentation/Enumeration/URN': ->
+		conceptCur.coreRepresentation ?= {}
+		conceptCur.coreRepresentation.enumeration ?= {}
+		conceptCur.coreRepresentation.enumeration.ref = @parseURN @stringBuffer
 
 	'Structures/DataStructures/DataStructure': (attrs) ->
 		@emitSDMX 'dataStructure', dataStructureCur

@@ -49,12 +49,16 @@ class XMLReader extends StringToSDMXStream
 
 	parseURN: (urn) ->
 		ref = {}
-		result = urn.match /^urn:\S*\=(\w+):(\w+)\((\S*)\)\.(\w*)/
+		result = urn.match /^urn:\S*\=(\w+):(\w+)\((\S*)\)\.*(\w*)/
 		if result?
 			ref.agencyID = result[1]
-			ref.maintainableParentID = result[2]
-			ref.maintainableParentVersion = result[3]
-			ref.id = result[4]
+			if 0 < result[4].length 
+				ref.maintainableParentID = result[2]
+				ref.maintainableParentVersion = result[3]
+				ref.id = result[4]
+			else
+				ref.id = result[2]
+				ref.version = result[3]			
 		ref
 
 	parseTag: (name) ->

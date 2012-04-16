@@ -8,13 +8,22 @@ path = require 'path'
 describe 'XMLReader helpers', ->
 	log = new Log Log['INFO'], process.stderr
 
-	it 'parse URN to ref', ->
+	testURN = (urn, agencyID, parentID, parentVersion, id) ->
 		reader = new XMLReader log
-		ref = reader.parseURN 'urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=ECB:ECB_CONCEPTS(1.0).EXR_VAR'
-		ref.should.have.property 'id', 'EXR_VAR'
-		ref.should.have.property 'agencyID', 'ECB'
-		ref.should.have.property 'maintainableParentID', 'ECB_CONCEPTS'
-		ref.should.have.property 'maintainableParentVersion', '1.0'
+		ref = reader.parseURN urn
+		ref.should.have.property 'id', id if id?
+		ref.should.have.property 'agencyID', agencyID
+		if id?
+			ref.should.have.property 'maintainableParentID', parentID
+			ref.should.have.property 'maintainableParentVersion', parentVersion if parentVersion?
+		else
+			ref.should.have.property 'id', parentID
+			ref.should.have.property 'version', parentVersion if parentVersion?
+
+	it 'parse URN to ref', ->
+		testURN 'urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=ECB:ECB_CONCEPTS(1.0).EXR_VAR', 'ECB', 'ECB_CONCEPTS', '1.0', 'EXR_VAR'
+		testURN 'urn:sdmx:org.sdmx.infomodel.codelist.Codelist=SDMX:CL_CONF_STATUS(1.0)', 'SDMX', 'CL_CONF_STATUS', '1.0'
+		#testURN 'urn:sdmx:org.sdmx.infomodel.codelist.Codelist=SDMX:CL_CONF_STATUS', 'SDMX', 'CL_CONF_STATUS'
 
 
 describe 'XMLReader', ->
@@ -41,8 +50,8 @@ describe 'XMLReader', ->
 		checker.counters.undefined.should.equal 0
 		checker.counters.error.should.equal 0
 		(checker.counters.structure + checker.counters.data).should.be.above 0
-		checker.errors.length.should.equal 0
 		console.log checker.errors if 0 < checker.errors.length
+		checker.errors.length.should.equal 0
 
 	it 'parses v2.0 generic data', (done) ->
 		runTest 'v2_0/GenericSample.xml', done

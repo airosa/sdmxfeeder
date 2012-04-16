@@ -22,7 +22,68 @@
 				"description": {
 					"en": "It provides a list of values showing the number of decimal digits used in the data."
 				},
-				"codes": {}
+				"codes": {
+					"0": {
+						"id": "0",
+						"name": {
+							"en": "Zero"
+						}
+					},
+					"1": {
+						"id": "1",
+						"name": {
+							"en": "One"
+						}
+					},
+					"2": {
+						"id": "2",
+						"name": {
+							"en": "Two"
+						}
+					},
+					"3": {
+						"id": "3",
+						"name": {
+							"en": "Three"
+						}
+					},
+					"4": {
+						"id": "4",
+						"name": {
+							"en": "Four"
+						}
+					},
+					"5": {
+						"id": "5",
+						"name": {
+							"en": "Five"
+						}
+					},
+					"6": {
+						"id": "6",
+						"name": {
+							"en": "Six"
+						}
+					},
+					"7": {
+						"id": "7",
+						"name": {
+							"en": "Seven"
+						}
+					},
+					"8": {
+						"id": "8",
+						"name": {
+							"en": "Eight"
+						}
+					},
+					"9": {
+						"id": "9",
+						"name": {
+							"en": "Nine"
+						}
+					}
+				}
 			},
 			"SDMX:CL_FREQ(1.0)": {
 				"id": "CL_FREQ",
@@ -35,7 +96,56 @@
 				"description": {
 					"en": "It provides a list of values indicating the \"frequency\" of the data (e.g. monthly) and, thus, indirectly, also implying the type of \"time reference\" that could be used for identifying the data with respect time."
 				},
-				"codes": {}
+				"codes": {
+					"A": {
+						"id": "A",
+						"name": {
+							"en": "Annual"
+						}
+					},
+					"B": {
+						"id": "B",
+						"name": {
+							"en": "Daily - business week"
+						}
+					},
+					"D": {
+						"id": "D",
+						"name": {
+							"en": "Daily"
+						}
+					},
+					"M": {
+						"id": "M",
+						"name": {
+							"en": "Monthly"
+						}
+					},
+					"N": {
+						"id": "N",
+						"name": {
+							"en": "Minutely"
+						}
+					},
+					"Q": {
+						"id": "Q",
+						"name": {
+							"en": "Quarterly"
+						}
+					},
+					"S": {
+						"id": "S",
+						"name": {
+							"en": "Half Yearly, semester"
+						}
+					},
+					"W": {
+						"id": "W",
+						"name": {
+							"en": "Weekly"
+						}
+					}
+				}
 			},
 			"SDMX:CL_CONF_STATUS(1.0)": {
 				"id": "CL_CONF_STATUS",
@@ -48,7 +158,38 @@
 				"description": {
 					"en": "this code list provides coded information about the sensitivity and confidentiality status of the data."
 				},
-				"codes": {}
+				"codes": {
+					"C": {
+						"id": "C",
+						"name": {
+							"en": "Confidential statistical information"
+						}
+					},
+					"D": {
+						"id": "D",
+						"name": {
+							"en": "Secondary confidentiality set by the sender, not for publication"
+						}
+					},
+					"F": {
+						"id": "F",
+						"name": {
+							"en": "Free"
+						}
+					},
+					"N": {
+						"id": "N",
+						"name": {
+							"en": "Not for publication, restricted for internal use only"
+						}
+					},
+					"S": {
+						"id": "S",
+						"name": {
+							"en": "Secondary confidentiality set and managed by the receiver, not for publication"
+						}
+					}
+				}
 			},
 			"SDMX:CL_OBS_STATUS(1.0)": {
 				"id": "CL_OBS_STATUS",
@@ -61,7 +202,56 @@
 				"description": {
 					"en": "This code list provides coded information about the \"status\" of an observation (with respect events such as the ones reflected in the codes composing the code list)."
 				},
-				"codes": {}
+				"codes": {
+					"A": {
+						"id": "A",
+						"name": {
+							"en": "Normal"
+						}
+					},
+					"B": {
+						"id": "B",
+						"name": {
+							"en": "Break"
+						}
+					},
+					"E": {
+						"id": "E",
+						"name": {
+							"en": "Estimated value"
+						}
+					},
+					"F": {
+						"id": "F",
+						"name": {
+							"en": "Forecast value"
+						}
+					},
+					"I": {
+						"id": "I",
+						"name": {
+							"en": "Imputed value (CCSA definition)"
+						}
+					},
+					"M": {
+						"id": "M",
+						"name": {
+							"en": "Missing value"
+						}
+					},
+					"P": {
+						"id": "P",
+						"name": {
+							"en": "Provisional value"
+						}
+					},
+					"S": {
+						"id": "S",
+						"name": {
+							"en": "Strike"
+						}
+					}
+				}
 			},
 			"SDMX:CL_UNIT_MULT(1.0)": {
 				"id": "CL_UNIT_MULT",
@@ -71,7 +261,62 @@
 				"name": {
 					"en": "code list for the Unit Multiplier (UNIT_MULT)"
 				},
-				"codes": {}
+				"codes": {
+					"0": {
+						"id": "0",
+						"name": {
+							"en": "Units"
+						}
+					},
+					"1": {
+						"id": "1",
+						"name": {
+							"en": "Tens"
+						}
+					},
+					"2": {
+						"id": "2",
+						"name": {
+							"en": "Hundreds"
+						}
+					},
+					"3": {
+						"id": "3",
+						"name": {
+							"en": "Thousands"
+						}
+					},
+					"4": {
+						"id": "4",
+						"name": {
+							"en": "Tens of thousands"
+						}
+					},
+					"6": {
+						"id": "6",
+						"name": {
+							"en": "Millions"
+						}
+					},
+					"9": {
+						"id": "9",
+						"name": {
+							"en": "Billions"
+						}
+					},
+					"12": {
+						"id": "12",
+						"name": {
+							"en": "Trillions"
+						}
+					},
+					"15": {
+						"id": "15",
+						"name": {
+							"en": "Quadrillions"
+						}
+					}
+				}
 			},
 			"ECB:CL_EXR_TYPE(1.0)": {
 				"id": "CL_EXR_TYPE",
@@ -81,7 +326,26 @@
 				"name": {
 					"en": "code list for the exchange rates types"
 				},
-				"codes": {}
+				"codes": {
+					"CR00": {
+						"id": "CR00",
+						"name": {
+							"en": "Official fixing"
+						}
+					},
+					"RR00": {
+						"id": "RR00",
+						"name": {
+							"en": "Reference rate"
+						}
+					},
+					"SP00": {
+						"id": "SP00",
+						"name": {
+							"en": "Spot"
+						}
+					}
+				}
 			},
 			"ECB:CL_EXR_VAR(1.0)": {
 				"id": "CL_EXR_VAR",
@@ -91,7 +355,20 @@
 				"name": {
 					"en": "code list for the exchange rate series variation"
 				},
-				"codes": {}
+				"codes": {
+					"E": {
+						"id": "E",
+						"name": {
+							"en": "End-of-period"
+						}
+					},
+					"P": {
+						"id": "P",
+						"name": {
+							"en": "Growth rate over previous period"
+						}
+					}
+				}
 			},
 			"ISO:CL_CURRENCY(1.0)": {
 				"id": "CL_CURRENCY",
@@ -102,7 +379,38 @@
 				"name": {
 					"en": "code list for the exchange rate series variation"
 				},
-				"codes": {}
+				"codes": {
+					"CHF": {
+						"id": "CHF",
+						"name": {
+							"en": "Swiss franc"
+						}
+					},
+					"EUR": {
+						"id": "EUR",
+						"name": {
+							"en": "Euro"
+						}
+					},
+					"GBP": {
+						"id": "GBP",
+						"name": {
+							"en": "Pound sterling"
+						}
+					},
+					"JPY": {
+						"id": "JPY",
+						"name": {
+							"en": "Japanese yen"
+						}
+					},
+					"USD": {
+						"id": "USD",
+						"name": {
+							"en": "United States dollar"
+						}
+					}
+				}
 			}
 		},
 		"concepts": {
@@ -124,6 +432,11 @@
 						},
 						"description": {
 							"en": "Systematic process of gathering data for official statistics."
+						},
+						"coreRepresentation": {
+							"textFormat": {
+								"textType": "String"
+							}
 						}
 					},
 					"CONF": {
@@ -134,6 +447,11 @@
 						},
 						"description": {
 							"en": "A property of data indicating the extent to which their unauthorised disclosure could be prejudicial or harmful to the interest of the source or other relevant parties."
+						},
+						"coreRepresentation": {
+							"textFormat": {
+								"textType": "String"
+							}
 						}
 					},
 					"CONF_STATUS": {
@@ -144,6 +462,15 @@
 						},
 						"description": {
 							"en": "Information about the confidentiality status of the object to which this attribute is attached."
+						},
+						"coreRepresentation": {
+							"enumeration": {
+								"ref": {
+									"agencyID": "SDMX",
+									"id": "CL_CONF_STATUS",
+									"version": "1.0"
+								}
+							}
 						}
 					},
 					"CURRENCY": {
@@ -164,6 +491,15 @@
 						},
 						"description": {
 							"en": "The number of digits of an observation to the right of a decimal point."
+						},
+						"coreRepresentation": {
+							"enumeration": {
+								"ref": {
+									"agencyID": "SDMX",
+									"id": "CL_DECIMALS",
+									"version": "1.0"
+								}
+							}
 						}
 					},
 					"FREQ": {
@@ -174,16 +510,30 @@
 						},
 						"description": {
 							"en": "The time interval at which observations occur over a given time period."
+						},
+						"coreRepresentation": {
+							"enumeration": {
+								"ref": {
+									"agencyID": "SDMX",
+									"id": "CL_FREQ",
+									"version": "1.0"
+								}
+							}
 						}
 					},
 					"OBS_VALUE": {
 						"id": "OBS_VALUE",
-						"urn": "urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:CROSS_DOMAIN_CONCEPTS(1.0). OBS_VALUE",
+						"urn": "urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=SDMX:CROSS_DOMAIN_CONCEPTS(1.0).OBS_VALUE",
 						"name": {
 							"en": "Observation value"
 						},
 						"description": {
 							"en": "The value of a particular variable at a particular period."
+						},
+						"coreRepresentation": {
+							"textFormat": {
+								"textType": "String"
+							}
 						}
 					},
 					"OBS_STATUS": {
@@ -194,6 +544,15 @@
 						},
 						"description": {
 							"en": "Information on the quality of a value or an unusual or missing value."
+						},
+						"coreRepresentation": {
+							"enumeration": {
+								"ref": {
+									"agencyID": "SDMX",
+									"id": "CL_OBS_STATUS",
+									"version": "1.0"
+								}
+							}
 						}
 					},
 					"TIME_PERIOD": {
@@ -204,6 +563,11 @@
 						},
 						"description": {
 							"en": "The period of time or point in time to which the measured observation refers."
+						},
+						"coreRepresentation": {
+							"textFormat": {
+								"textType": "ObservationalTimePeriod"
+							}
 						}
 					},
 					"TITLE": {
@@ -214,6 +578,11 @@
 						},
 						"description": {
 							"en": "Textual label used as identification of a statistical object."
+						},
+						"coreRepresentation": {
+							"textFormat": {
+								"textType": "String"
+							}
 						}
 					},
 					"UNIT_MULT": {
@@ -224,6 +593,15 @@
 						},
 						"description": {
 							"en": "Exponent in base 10 specified so that multiplying the observation numeric values by 10^UNIT_MULT gives a value expressed in the UNIT."
+						},
+						"coreRepresentation": {
+							"enumeration": {
+								"ref": {
+									"agencyID": "SDMX",
+									"id": "CL_UNIT_MULT",
+									"version": "1.0"
+								}
+							}
 						}
 					},
 					"UNIT_MEASURE": {
@@ -253,6 +631,15 @@
 						"urn": "urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=ECB:ECB_CONCEPTS(1.0).CURRENCY_DENOM",
 						"name": {
 							"en": "Currency denominator"
+						},
+						"coreRepresentation": {
+							"enumeration": {
+								"ref": {
+									"agencyID": "ISO",
+									"id": "CL_CURRENCY",
+									"version": "1.0"
+								}
+							}
 						}
 					},
 					"EXR_VAR": {
@@ -260,6 +647,15 @@
 						"urn": "urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=ECB:ECB_CONCEPTS(1.0).EXR_VAR",
 						"name": {
 							"en": "Series variation - EXR context"
+						},
+						"coreRepresentation": {
+							"enumeration": {
+								"ref": {
+									"agencyID": "ECB",
+									"id": "CL_EXR_VAR",
+									"version": "1.0"
+								}
+							}
 						}
 					},
 					"EXR_TYPE": {
@@ -267,6 +663,15 @@
 						"urn": "urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=ECB:ECB_CONCEPTS(1.0).EXR_TYPE",
 						"name": {
 							"en": "Exchange rate type"
+						},
+						"coreRepresentation": {
+							"enumeration": {
+								"ref": {
+									"agencyID": "ECB",
+									"id": "CL_EXR_TYPE",
+									"version": "1.0"
+								}
+							}
 						}
 					}
 				}
