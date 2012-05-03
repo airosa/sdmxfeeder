@@ -1,6 +1,4 @@
 TESTS = $(shell find test -wholename "*Spec.coffee")
-#TESTS = $(shell find test -wholename "*sdmxPipeSpec.coffee")
-#TESTS = $(shell find test -wholename "*readXmlPipeSpec.coffee")
 
 install:
 		@test `which npm` || echo 'You need to have npm installed'

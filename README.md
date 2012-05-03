@@ -16,12 +16,12 @@ Written in [CoffeeScript](http://coffeescript.org), runs with [Node](http://node
 - Writes following formats
 	- SDMX-ML (XML) version 2.1
 	- JSON
-- JSON format is not supported by the SDMX technical standards.
+- JSON is not supported by the SDMX technical standards.
 Examples directory contains some sample JSON files.
 - Validates input data. Generic validation rules are defined in
 [JSON Schema](http://tools.ietf.org/html/draft-zyp-json-schema-03) format.
-Data structure specific validation is not supported.
-- Streams data from input to output. Should convert large files.
+Data structure specific validation is also supported.
+- Streams data from input to output. Should convert and check large files.
 
 ## Installation
 
@@ -54,3 +54,8 @@ Run from the install directory:
 	bin/sdmxfeeder my_input_sdmx_file.xml my_output_sdmx_file.json
 
 File formats depend on the file extensions: .xml -> XML, .json -> JSON, .edi -> EDIFACT.
+
+Conversion of all SDMX-EDI and some SDMX-ML data files requires access to the
+relevant data structure definitions. Create a directory named registry in the current
+directory and copy the structure files (in any supported format) there. Application
+will use them automatically.

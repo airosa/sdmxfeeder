@@ -4,7 +4,7 @@ async = require 'async'
 fs = require 'fs'
 path = require 'path'
 {SimpleRegistry} = require './registry/simpleRegistry'
-{PipeFactory} = require './pipe/pipeFactory'
+factory = require './pipe/pipeFactory'
 
 #-------------------------------------------------------------------------------
 
@@ -20,10 +20,6 @@ argv = optimist
 log = new Log Log[argv.level], process.stderr
 log.info "Logging level is #{argv.level}"
 
-process.on 'exit', ->
-	diff = ((new Date).getTime() - start) / 1000
-	log.info "Finished processing in #{diff}s"
-
 log.info "http://github.com/airosa/sdmxfeeder v0.1.1"
 log.info "Starting to process"
 
@@ -35,31 +31,44 @@ options =
 	log: log
 	registry: registry
 
-factory = new PipeFactory()
+pipeFactory = new factory.PipeFactory()
 
 #-------------------------------------------------------------------------------
 
 loadStructuresFromFiles = (callback) ->
-	findFiles './registry', (err, dirPath, files) ->
-		fileIterator = (file, callback1) ->
-			fullpath = path.join(dirPath, file)
-			format = getFileFormat fullpath
-			source = createReadStream fullpath, format
-			pipe = factory.build [format, 'check', 'submit'], options
-			pipe.on 'end', callback1
-			pipe.pump source
+	path.exists './registry', (exists) ->
+		if exists
+			findFiles './registry', (err, dirPath, files) ->
+				fileIterator = (file, callback1) ->
+					fullpath = path.join(dirPath, file)
+					format = getFileFormat fullpath
+					source = createReadStream fullpath, format
+					pipe = pipeFactory.build [ 'READ_' + format, 'CHECK', 'SUBMIT' ], options
+					pipe.on 'end', callback1
+					pipe.pump source
 
-		async.forEachSeries	files, fileIterator, callback
+				async.forEachSeries	files, fileIterator, callback
+		else
+			callback()
 
 
 processInputFile = (callback) ->
 	formatIn = getFileFormat sourcePath
+	pipes = [ 'READ_' + formatIn, 'CONVERT', 'CHECK' ]
 	source = createReadStream sourcePath, formatIn
+
 	if destinationPath?
 		formatOut = getFileFormat destinationPath
 		destination = createWriteStream destinationPath, formatOut
-	pipe = factory.build [formatIn, 'convert', 'check', formatOut], options
-	destination.on 'end', callback
+		pipes.push 'WRITE_' + formatOut
+
+	pipe = pipeFactory.build pipes, options
+
+	if destination?
+		destination.on 'end', callback
+	else
+		pipe.on 'end', callback
+
 	pipe.pump source, destination
 
 
@@ -104,6 +113,15 @@ createWriteStream = (fullpath, format) ->
 
 getFileFormat = (fullpath) ->
 	format = path.extname(fullpath).toUpperCase().slice 1
+
+#-------------------------------------------------------------------------------
+
+process.on 'exit', ->
+	diff = ((new Date).getTime() - start) / 1000
+	log.info "Finished processing in #{diff}s"
+
+process.on 'uncaughtException', (err) =>
+	log.critical "#{err}"
 
 #-------------------------------------------------------------------------------
 
