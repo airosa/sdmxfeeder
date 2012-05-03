@@ -1,6 +1,7 @@
+sdmx = require '../../lib/pipe/sdmxPipe'
 
-exports.testHeader =
-	type: 'header'
+exports.header =
+	type: sdmx.HEADER
 	data:
 		id: 'Quarterly BoP reporting'
 		test: false
@@ -19,10 +20,19 @@ exports.testHeader =
 						en: 'IS/BoP'
 					telephone: '0049 69 13440' }
 				]
+		structure:
+			ECB_EXR1:
+				structureID: 'ECB_EXR1'
+				structureRef:
+					ref:
+						id: 'ECB_EXR'
+						agencyID: 'ECB'
+						version: '1.0'
 
 
-exports.testCodelist =
-	type: 'codelist'
+
+exports.codelist =
+	type: sdmx.CODE_LIST
 	data:
 		id: 'CL_CURRENCY'
 		agencyID: 'ISO'
@@ -44,8 +54,8 @@ exports.testCodelist =
 					en: 'Swedish krona'
 
 
-exports.testConceptScheme =
-	type: 'conceptScheme'
+exports.conceptScheme =
+	type: sdmx.CONCEPT_SCHEME
 	data:
 		id: 'CROSS_DOMAIN_CONCEPTS'
 		agencyID: 'SDMX'
@@ -62,8 +72,8 @@ exports.testConceptScheme =
 						maxLength: 3
 
 
-exports.testDataStructure =
-	type: 'dataStructure'
+exports.dataStructureDefinition =
+	type: sdmx.DATA_STRUCTURE_DEFINITION
 	data:
 		id: 'ECB_EXR'
 		agencyID: 'ECB'
@@ -213,7 +223,7 @@ exports.testDataStructure =
 					primaryMeasure: 'OBS_VALUE'
 
 exports.testGroup =
-	type: 'group'
+	type: sdmx.ATTRIBUTE_GROUP
 	data:
 		type: 'SiblingGroup'
 		groupKey:
@@ -224,8 +234,8 @@ exports.testGroup =
 		attributes:
 			TITLE: 'ECB reference exchange rate, U.K. Pound sterling /Euro'
 
-exports.testSeries = ->
-	type: 'series'
+exports.series =
+	type: sdmx.SERIES
 	data:
 		seriesKey:
 			FREQ: 'M'
@@ -245,13 +255,13 @@ exports.testSeries = ->
 				CONF_STATUS_OBS: ['F','F','F']
 
 exports.testDataSetAttributes =
-	type: 'dataSetAttributes'
+	type: sdmx.DATA_SET_ATTRIBUTES
 	data:
 		UNIT_MULT: '0'
 		COLL_METHOD: 'Average of observations through period'
 
-exports.testTimeSeriesDataSetBegin =
-	type: 'dataSet'
+exports.dataSetHeader =
+	type: sdmx.DATA_SET_HEADER
 	data:
 		structureRef: 'ECB_EXR1'
 		setID: 'TEST'

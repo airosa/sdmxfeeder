@@ -1,0 +1,154 @@
+[
+	{
+		"id": "IREF000001",
+		"test": false,
+		"prepared": "1997-05-25T12:39:00.000Z",
+		"receiver": {
+			"ZZZ": {
+				"id": "ZZZ"
+			}
+		},
+		"sender": {
+			"4F0": {
+				"id": "4F0"
+			}
+		},
+		"name": {
+			"en": "Statistical concepts-example list"
+		}
+	},
+	{
+		"concepts": {
+			"EMI:CONCEPTS(1.0)": {
+				"id": "CONCEPTS",
+				"version": "1.0",
+				"name": {
+					"en": "Statistical concepts"
+				},
+				"agencyID": "EMI",
+				"concepts": {
+					"REF_AREA": {
+						"id": "REF_AREA",
+						"name": {
+							"en": "Reference area"
+						}
+					},
+					"FREQ": {
+						"id": "FREQ",
+						"name": {
+							"en": "Frequency"
+						}
+					},
+					"ADJUSTMENT": {
+						"id": "ADJUSTMENT",
+						"name": {
+							"en": "Adjustment indicator"
+						}
+					},
+					"DATA_TYPE": {
+						"id": "DATA_TYPE",
+						"name": {
+							"en": "BoP type/position"
+						}
+					},
+					"BOP_ITEM": {
+						"id": "BOP_ITEM",
+						"name": {
+							"en": "BoP item"
+						}
+					},
+					"BASIS": {
+						"id": "BASIS",
+						"name": {
+							"en": "Data basis"
+						}
+					},
+					"TIME_PERIOD": {
+						"id": "TIME_PERIOD",
+						"name": {
+							"en": "Time period or range"
+						}
+					},
+					"TIME_FORMAT": {
+						"id": "TIME_FORMAT",
+						"name": {
+							"en": "Time format code"
+						}
+					},
+					"OBS_VALUE": {
+						"id": "OBS_VALUE",
+						"name": {
+							"en": "Observation value"
+						}
+					},
+					"TITLE": {
+						"id": "TITLE",
+						"name": {
+							"en": "Title"
+						}
+					},
+					"UNIT": {
+						"id": "UNIT",
+						"name": {
+							"en": "Unit"
+						}
+					},
+					"UNIT_MULTIPLIER": {
+						"id": "UNIT_MULTIPLIER",
+						"name": {
+							"en": "Unit multiplier"
+						}
+					},
+					"DECIMALS": {
+						"id": "DECIMALS",
+						"name": {
+							"en": "Decimals"
+						}
+					},
+					"AVAILABILITY": {
+						"id": "AVAILABILITY",
+						"name": {
+							"en": "Availability"
+						}
+					},
+					"COLLECTION": {
+						"id": "COLLECTION",
+						"name": {
+							"en": "Collection indicator"
+						}
+					},
+					"COMPILATION": {
+						"id": "COMPILATION",
+						"name": {
+							"en": "Compilation explanations"
+						}
+					},
+					"BREAKS": {
+						"id": "BREAKS",
+						"name": {
+							"en": "Explanation for breaks"
+						}
+					},
+					"AGG_EQUN": {
+						"id": "AGG_EQUN",
+						"name": {
+							"en": "Aggregation equation used"
+						}
+					},
+					"OBS_COM": {
+						"id": "OBS_COM",
+						"name": {
+							"en": "Observation comment"
+						}
+					},
+					"ORGANISATION": {
+						"id": "ORGANISATION",
+						"name": {
+							"en": "Organisation"
+						}
+					}
+				}
+			}
+		}
+	}
+]

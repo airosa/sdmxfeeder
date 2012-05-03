@@ -1,5 +1,7 @@
 _ = require 'underscore'
 header = require './header'
+sdmx = require '../../pipe/sdmxPipe'
+util = require '../../util/util'
 
 xmlns_msg = 'http://www.SDMX.org/resources/SDMXML/schemas/v2_0/message'
 xmlns_gen = 'http://www.SDMX.org/resources/SDMXML/schemas/v2_0/generic'
@@ -8,10 +10,29 @@ dataSetCur = {}
 seriesCur = {}
 groupCur = {}
 
+
+convertKeysToDates = (obj, keys) ->
+	for key in keys
+		obj[key] = util.xmlDateToJavascriptDate obj[key] if obj[key]?
+
+
+convertKeysToNumbers = (obj, keys) ->
+	for key in keys
+		obj[key] = Number(obj[key]) if obj[key]?
+
+
+deleteKeys = (obj, keys) ->
+	for key in keys
+		delete obj[key]
+
+
 entryActions =
 	'DataSet': (attrs) ->
 		dataSetCur = _.extend {}, attrs
-		@emitSDMX 'dataSet', dataSetCur
+		convertKeysToDates dataSetCur, ['reportingBeginDate','reportingEndDate','validFromDate','validToDate']
+		convertKeysToNumbers dataSetCur, ['publicationYear']
+		deleteKeys dataSetCur, ['xmlns']
+		@emitSDMX sdmx.DATA_SET_HEADER, dataSetCur
 	'DataSet/Group': (attrs) ->
 		groupCur = _.extend {}, attrs
 	'DataSet/Group/GroupKey/Value': (attrs) ->
@@ -44,11 +65,11 @@ entryActions['DataSet/Series/Obs/ObsDimension'] = entryActions['DataSet/Group/Se
 
 exitActions =
 	'DataSet': () ->
-		@emitSDMX 'dataSetEnd', ''
+		@emitSDMX 'end', ''
 	'DataSet/Group': ->
-		@emitSDMX 'group', groupCur
+		@emitSDMX sdmx.ATTRIBUTE_GROUP, groupCur
 	'DataSet/Group/Series': ->
-		@emitSDMX 'series', seriesCur
+		@emitSDMX sdmx.SERIES, seriesCur
 
 exitActions['DataSet/Series'] = exitActions['DataSet/Group/Series']
 

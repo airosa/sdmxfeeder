@@ -1,0 +1,1064 @@
+[
+	{
+		"id": "BIS_01",
+		"test": true,
+		"name": {
+			"en": "Trans46301"
+		},
+		"prepared": "2002-03-11T04:30:47.000Z",
+		"sender": {
+			"BIS": {
+				"name": {
+					"en": "Bank for International Settlements"
+				},
+				"contact": [
+					{
+						"name": {
+							"en": "G.B. Smith"
+						},
+						"telephone": "+000.000.0000"
+					}
+				],
+				"id": "BIS"
+			}
+		},
+		"receiver": {
+			"ECB": {
+				"name": {
+					"en": "European Central Bank"
+				},
+				"contact": [
+					{
+						"name": {
+							"en": "B.S. Featherstone"
+						},
+						"department": {
+							"en": "Statistics Division"
+						},
+						"telephone": "+000.000.0001"
+					}
+				],
+				"id": "ECB"
+			}
+		},
+		"extracted": "2002-03-11T04:30:47.000Z"
+	},
+	{
+		"codelists": {
+			"BIS:CL_OBS_STATUS(1.0)": {
+				"id": "CL_OBS_STATUS",
+				"agencyID": "BIS",
+				"version": "1.0",
+				"uri": "http://www.bis.org/structure/codelists/cl_obs_status.xml",
+				"name": {
+					"en": "Observation Status"
+				},
+				"codes": {
+					"A": {
+						"id": "A",
+						"name": {
+							"en": "Present"
+						}
+					},
+					"M": {
+						"id": "M",
+						"name": {
+							"en": "Missing"
+						}
+					}
+				}
+			},
+			"BIS:CL_FREQ(1.0)": {
+				"id": "CL_FREQ",
+				"agencyID": "BIS",
+				"version": "1.0",
+				"uri": "http://www.bis.org/structure/codelists/cl_freq.htm",
+				"name": {
+					"en": "Frequency code list (BIS, ECB)"
+				},
+				"codes": {
+					"A": {
+						"id": "A",
+						"name": {
+							"en": "Annual"
+						}
+					},
+					"D": {
+						"id": "D",
+						"name": {
+							"en": "Daily"
+						}
+					},
+					"H": {
+						"id": "H",
+						"name": {
+							"en": "Semi-annual"
+						}
+					},
+					"M": {
+						"id": "M",
+						"name": {
+							"en": "Monthly"
+						}
+					},
+					"Q": {
+						"id": "Q",
+						"name": {
+							"en": "Quarterly"
+						}
+					},
+					"W": {
+						"id": "W",
+						"name": {
+							"en": "Weekly"
+						}
+					}
+				}
+			},
+			"BIS:CL_JD_TYPE(1.0)": {
+				"id": "CL_JD_TYPE",
+				"agencyID": "BIS",
+				"version": "1.0",
+				"uri": "http://www.bis.org/structure/codelists/cl_jd_type.xml",
+				"name": {
+					"en": "Data Type (amounts outstanding, net disbursement or changes)"
+				},
+				"codes": {
+					"P": {
+						"id": "P",
+						"name": {
+							"en": "Amounts outstanding at end of period"
+						}
+					},
+					"Q": {
+						"id": "Q",
+						"name": {
+							"en": "Net Disbursm.(Cat B,C,E,F) or Val.Adj.Change in stocks(Cat A,D,J,L,M)"
+						}
+					}
+				}
+			},
+			"BIS:CL_JD_CATEGORY(1.0)": {
+				"id": "CL_JD_CATEGORY",
+				"agencyID": "BIS",
+				"version": "1.0",
+				"uri": "http://www.bis.org/structure/codelists/cl_jd_category.xml",
+				"name": {
+					"en": "Debt category"
+				},
+				"codes": {
+					"A": {
+						"id": "A",
+						"name": {
+							"en": "External Debt, All Maturities, Bank Loans"
+						}
+					},
+					"B": {
+						"id": "B",
+						"name": {
+							"en": "External Debt, All Maturities, Debt Securities Issued Abroad"
+						}
+					},
+					"C": {
+						"id": "C",
+						"name": {
+							"en": "External Debt, All Maturities, Brady Bonds"
+						}
+					},
+					"D": {
+						"id": "D",
+						"name": {
+							"en": "External Debt, All Maturities, Non-Bank Trade Credits"
+						}
+					},
+					"E": {
+						"id": "E",
+						"name": {
+							"en": "External Debt, All Maturities, Multilateral Claims"
+						}
+					},
+					"F": {
+						"id": "F",
+						"name": {
+							"en": "External Debt, All Maturities, Off. Bilateral Loans (DAC Creditors)"
+						}
+					},
+					"G": {
+						"id": "G",
+						"name": {
+							"en": "Debt due within 1 year, Liabilities To Banks"
+						}
+					},
+					"H": {
+						"id": "H",
+						"name": {
+							"en": "Debt due within 1 year, Debt Securities Issued Abroad"
+						}
+					},
+					"I": {
+						"id": "I",
+						"name": {
+							"en": "Debt due within 1 year, Non-Bank Trade Credits"
+						}
+					},
+					"J": {
+						"id": "J",
+						"name": {
+							"en": "Memorandum Item, Liabilities to Banks (Locational)"
+						}
+					},
+					"K": {
+						"id": "K",
+						"name": {
+							"en": "Memorandum Item, Liabilities to Banks (Consolidated)"
+						}
+					},
+					"L": {
+						"id": "L",
+						"name": {
+							"en": "Memorandum Item, Total Trade Credits"
+						}
+					},
+					"M": {
+						"id": "M",
+						"name": {
+							"en": "Memorandum Item, Total Claims on Banks"
+						}
+					},
+					"N": {
+						"id": "N",
+						"name": {
+							"en": "Memorandum Item, International Reserve Assets (excl. Gold)"
+						}
+					}
+				}
+			},
+			"BIS:CL_TIME_FORMAT(1.0)": {
+				"id": "CL_TIME_FORMAT",
+				"agencyID": "BIS",
+				"version": "1.0",
+				"uri": "http://www.bis.org/structure/codelists/cl_time_format.xml",
+				"name": {
+					"en": "Time formats based on ISO 8601."
+				},
+				"codes": {
+					"P1Y": {
+						"id": "P1Y",
+						"name": {
+							"en": "Annual"
+						}
+					},
+					"P6M": {
+						"id": "P6M",
+						"name": {
+							"en": "Semi-annual"
+						}
+					},
+					"P3M": {
+						"id": "P3M",
+						"name": {
+							"en": "Quarterly"
+						}
+					},
+					"P1M": {
+						"id": "P1M",
+						"name": {
+							"en": "Monthly"
+						}
+					},
+					"P7D": {
+						"id": "P7D",
+						"name": {
+							"en": "Weekly"
+						}
+					},
+					"P1D": {
+						"id": "P1D",
+						"name": {
+							"en": "Daily"
+						}
+					},
+					"PT1M": {
+						"id": "PT1M",
+						"name": {
+							"en": "Minutely"
+						}
+					}
+				}
+			},
+			"BIS:CL_BIS_IF_REF_AREA(1.0)": {
+				"id": "CL_BIS_IF_REF_AREA",
+				"agencyID": "BIS",
+				"version": "1.0",
+				"uri": "http://www.bis.org/structure/codelists/cl_bis_if-ref_area.xml",
+				"name": {
+					"en": "Reference Area Code for BIS-IFS"
+				},
+				"codes": {
+					"CH": {
+						"id": "CH",
+						"name": {
+							"en": "Switzerland (includes the Bank for International Settlements)"
+						}
+					},
+					"DE": {
+						"id": "DE",
+						"name": {
+							"en": "Germany (includes the European Central Bank)"
+						}
+					},
+					"US": {
+						"id": "US",
+						"name": {
+							"en": "United States (includes American Samoa, Guam, Midway Islands)"
+						}
+					},
+					"MX": {
+						"id": "MX",
+						"name": {
+							"en": "Mexico"
+						}
+					}
+				}
+			},
+			"BIS:CL_AVAILABILITY(1.0)": {
+				"id": "CL_AVAILABILITY",
+				"agencyID": "BIS",
+				"version": "1.0",
+				"uri": "http://www.bis.org/structure/codelists/cl_availability.xml",
+				"name": {
+					"en": "Availability"
+				},
+				"codes": {
+					"A": {
+						"id": "A",
+						"name": {
+							"en": "Free"
+						}
+					}
+				}
+			},
+			"BIS:CL_COLLECTION(1.0)": {
+				"id": "CL_COLLECTION",
+				"agencyID": "BIS",
+				"version": "1.0",
+				"uri": "http://www.bis.org/structure/codelists/cl_collection.xml",
+				"name": {
+					"en": "Collection"
+				},
+				"codes": {
+					"A": {
+						"id": "A",
+						"name": {
+							"en": "Average of observations through period"
+						}
+					},
+					"B": {
+						"id": "B",
+						"name": {
+							"en": "Beginning of period"
+						}
+					},
+					"E": {
+						"id": "E",
+						"name": {
+							"en": "End of period"
+						}
+					},
+					"H": {
+						"id": "H",
+						"name": {
+							"en": "Highest in period"
+						}
+					},
+					"L": {
+						"id": "L",
+						"name": {
+							"en": "Lowest in period"
+						}
+					},
+					"M": {
+						"id": "M",
+						"name": {
+							"en": "Middle of period"
+						}
+					},
+					"S": {
+						"id": "S",
+						"name": {
+							"en": "Summed through period"
+						}
+					},
+					"U": {
+						"id": "U",
+						"name": {
+							"en": "Unknown"
+						}
+					},
+					"V": {
+						"id": "V",
+						"name": {
+							"en": "Other"
+						}
+					},
+					"Y": {
+						"id": "Y",
+						"name": {
+							"en": "Annualised summed"
+						}
+					}
+				}
+			},
+			"BIS:CL_DECIMALS(1.0)": {
+				"id": "CL_DECIMALS",
+				"agencyID": "BIS",
+				"version": "1.0",
+				"uri": "http://www.bis.org/structure/codelists/cl_decimals.xml",
+				"name": {
+					"en": "Decimals codelist (BIS, ECB)"
+				},
+				"codes": {
+					"1": {
+						"id": "1",
+						"name": {
+							"en": "one"
+						}
+					},
+					"2": {
+						"id": "2",
+						"name": {
+							"en": "two"
+						}
+					},
+					"3": {
+						"id": "3",
+						"name": {
+							"en": "three"
+						}
+					},
+					"4": {
+						"id": "4",
+						"name": {
+							"en": "four"
+						}
+					},
+					"5": {
+						"id": "5",
+						"name": {
+							"en": "five"
+						}
+					},
+					"6": {
+						"id": "6",
+						"name": {
+							"en": "six"
+						}
+					},
+					"7": {
+						"id": "7",
+						"name": {
+							"en": "seven"
+						}
+					},
+					"8": {
+						"id": "8",
+						"name": {
+							"en": "eight"
+						}
+					}
+				}
+			},
+			"BIS:CL_BIS_OBS_CONF(1.0)": {
+				"id": "CL_BIS_OBS_CONF",
+				"agencyID": "BIS",
+				"version": "1.0",
+				"uri": "http://www.bis.org/structure/codelists/cl_bis_obs_conf.xml",
+				"name": {
+					"en": "Observation confidentiality code list"
+				},
+				"codes": {
+					"C": {
+						"id": "C",
+						"name": {
+							"en": "Non-publishable and confidential"
+						}
+					},
+					"F": {
+						"id": "F",
+						"name": {
+							"en": "Free"
+						}
+					},
+					"N": {
+						"id": "N",
+						"name": {
+							"en": "Non-publishable, but non-confidential"
+						}
+					},
+					"R": {
+						"id": "R",
+						"name": {
+							"en": "Confidential statistical information due to identifiable respondents"
+						}
+					}
+				}
+			},
+			"BIS:CL_BIS_UNIT(1.0)": {
+				"id": "CL_BIS_UNIT",
+				"agencyID": "BIS",
+				"version": "1.0",
+				"uri": "http://www.bis.org/structure/codelists/cl_bis_unit.xml",
+				"name": {
+					"en": "BIS Unit"
+				},
+				"codes": {
+					"CHF": {
+						"id": "CHF",
+						"name": {
+							"en": "Swiss Francs"
+						}
+					},
+					"USD": {
+						"id": "USD",
+						"name": {
+							"en": "United States Dollars"
+						}
+					},
+					"NZD": {
+						"id": "NZD",
+						"name": {
+							"en": "New Zealand Dollars"
+						}
+					},
+					"EUR": {
+						"id": "EUR",
+						"name": {
+							"en": "Euros"
+						}
+					}
+				}
+			},
+			"BIS:CL_UNIT_MULT(1.0)": {
+				"id": "CL_UNIT_MULT",
+				"agencyID": "BIS",
+				"version": "1.0",
+				"uri": "http://www.bis.org/structure/codelists/cl_unit_mult.xml",
+				"name": {
+					"en": "Unit multiplier"
+				},
+				"codes": {
+					"0": {
+						"id": "0",
+						"name": {
+							"en": "Units"
+						}
+					},
+					"1": {
+						"id": "1",
+						"name": {
+							"en": "Tens"
+						}
+					},
+					"2": {
+						"id": "2",
+						"name": {
+							"en": "Hundreds"
+						}
+					},
+					"3": {
+						"id": "3",
+						"name": {
+							"en": "Thousands"
+						}
+					},
+					"4": {
+						"id": "4",
+						"name": {
+							"en": "Ten Thousands"
+						}
+					},
+					"5": {
+						"id": "5",
+						"name": {
+							"en": "Millions"
+						}
+					},
+					"6": {
+						"id": "6",
+						"name": {
+							"en": "Billions"
+						}
+					}
+				}
+			}
+		},
+		"concepts": {
+			"BIS:CONCEPTS(undefined)": {
+				"id": "CONCEPTS",
+				"agencyID": "BIS",
+				"name": {
+					"en": "Statistical concepts"
+				},
+				"concepts": {
+					"TIME": {
+						"id": "TIME",
+						"uri": "http://www.bis.org/structure/concepts/VIS_CTY.xml",
+						"name": {
+							"en": "Time"
+						}
+					},
+					"FREQ": {
+						"id": "FREQ",
+						"uri": "http://www.bis.org/structure/concepts/FREQ.xml",
+						"name": {
+							"en": "Frequency"
+						}
+					},
+					"JD_TYPE": {
+						"id": "JD_TYPE",
+						"uri": "http://www.bis.org/structure/concepts/JD_TYPE.xml",
+						"name": {
+							"en": "Data Type (amounts outstanding, net disbursement or changes)"
+						}
+					},
+					"JD_CATEGORY": {
+						"id": "JD_CATEGORY",
+						"uri": "http://www.bis.org/structure/concepts/JD_CATEGORY.xml",
+						"name": {
+							"en": "Debt category"
+						}
+					},
+					"VIS_CTY": {
+						"id": "VIS_CTY",
+						"uri": "http://www.bis.org/structure/concepts/VIS_CTY.xml",
+						"name": {
+							"en": "Vis-a-vis country"
+						}
+					},
+					"AVAILABILITY": {
+						"id": "AVAILABILITY",
+						"uri": "http://www.bis.org/structure/concepts/AVAILABILITY.xml",
+						"name": {
+							"en": "Availability"
+						}
+					},
+					"COLLECTION": {
+						"id": "COLLECTION",
+						"uri": "http://www.bis.org/structure/concepts/COLLECTION.xml",
+						"name": {
+							"en": "Collection indicator"
+						}
+					},
+					"DECIMALS": {
+						"id": "DECIMALS",
+						"uri": "http://www.bis.org/structure/concepts/DECIMALS.xml",
+						"name": {
+							"en": "Decimals"
+						}
+					},
+					"OBS_CONF": {
+						"id": "OBS_CONF",
+						"uri": "http://www.bis.org/structure/concepts/OBS_CONF.xml",
+						"name": {
+							"en": "Observation confidentiality"
+						}
+					},
+					"TIME_FORMAT": {
+						"id": "TIME_FORMAT",
+						"uri": "http://www.bis.org/structure/concepts/TIME_FORMAT.xml",
+						"name": {
+							"en": "Time Format"
+						}
+					},
+					"OBS_STATUS": {
+						"id": "OBS_STATUS",
+						"uri": "http://www.bis.org/structure/concepts/OBS_STATUS.xml",
+						"name": {
+							"en": "Observation status"
+						}
+					},
+					"OBS_PRE_BREAK": {
+						"id": "OBS_PRE_BREAK",
+						"uri": "http://www.bis.org/structure/concepts/OBS_PRE_BREAK.xml",
+						"name": {
+							"en": "Pre-break observation"
+						}
+					},
+					"BIS_UNIT": {
+						"id": "BIS_UNIT",
+						"uri": "http://www.bis.org/structure/concepts/UNIT.xml",
+						"name": {
+							"en": "Unit"
+						}
+					},
+					"UNIT_MULT": {
+						"id": "UNIT_MULT",
+						"uri": "http://www.bis.org/structure/concepts/UNIT_MULT.xml",
+						"name": {
+							"en": "Unit multiplier"
+						}
+					},
+					"OBS_VALUE": {
+						"id": "OBS_VALUE",
+						"uri": "http://www.bis.org/structure/concepts/OBS_VALUE.xml",
+						"name": {
+							"en": "Observation value"
+						}
+					},
+					"STOCKS": {
+						"id": "STOCKS",
+						"uri": "http://www.bis.org/structure/concepts/STOCKS.xml",
+						"name": {
+							"en": "Stocks as measure"
+						}
+					},
+					"FLOWS": {
+						"id": "FLOWS",
+						"uri": "http://www.bis.org/structure/concepts/FLOWS.xml",
+						"name": {
+							"en": "Flows as measure"
+						}
+					}
+				}
+			}
+		},
+		"dataStructures": {
+			"BIS:BIS_JOINT_DEBT(1.0)": {
+				"id": "BIS_JOINT_DEBT",
+				"agencyID": "BIS",
+				"version": "1.0",
+				"measureDescriptor": {
+					"primaryMeasure": {
+						"conceptIdentity": {
+							"ref": {
+								"id": "OBS_VALUE",
+								"agencyID": "BIS",
+								"maintainableParentID": "CONCEPTS"
+							}
+						},
+						"id": "OBS_VALUE",
+						"localRepresentation": {
+							"textFormat": {
+								"textType": "Numeric"
+							}
+						}
+					}
+				},
+				"name": {
+					"en": "Joint BIS-IMF-OECD-World Bank stats - external debt"
+				},
+				"dimensionDescriptor": {
+					"FREQ": {
+						"conceptIdentity": {
+							"ref": {
+								"id": "FREQ",
+								"agencyID": "BIS",
+								"maintainableParentID": "CONCEPTS"
+							}
+						},
+						"id": "FREQ",
+						"order": 1,
+						"type": "dimension",
+						"localRepresentation": {
+							"enumeration": {
+								"ref": {
+									"id": "CL_FREQ",
+									"agencyID": "BIS"
+								}
+							}
+						}
+					},
+					"JD_TYPE": {
+						"conceptIdentity": {
+							"ref": {
+								"id": "JD_TYPE",
+								"agencyID": "BIS",
+								"maintainableParentID": "CONCEPTS"
+							}
+						},
+						"id": "JD_TYPE",
+						"order": 2,
+						"type": "measureDimension",
+						"localRepresentation": {
+							"enumeration": {
+								"ref": {
+									"id": "CL_JD_TYPE",
+									"agencyID": "BIS"
+								}
+							}
+						}
+					},
+					"JD_CATEGORY": {
+						"conceptIdentity": {
+							"ref": {
+								"id": "JD_CATEGORY",
+								"agencyID": "BIS",
+								"maintainableParentID": "CONCEPTS"
+							}
+						},
+						"id": "JD_CATEGORY",
+						"order": 3,
+						"type": "dimension",
+						"localRepresentation": {
+							"enumeration": {
+								"ref": {
+									"id": "CL_JD_CATEGORY",
+									"agencyID": "BIS"
+								}
+							}
+						}
+					},
+					"VIS_CTY": {
+						"conceptIdentity": {
+							"ref": {
+								"id": "VIS_CTY",
+								"agencyID": "BIS",
+								"maintainableParentID": "CONCEPTS"
+							}
+						},
+						"id": "VIS_CTY",
+						"order": 4,
+						"type": "dimension",
+						"localRepresentation": {
+							"enumeration": {
+								"ref": {
+									"id": "CL_BIS_IF_REF_AREA",
+									"agencyID": "BIS"
+								}
+							}
+						}
+					},
+					"TIME": {
+						"conceptIdentity": {
+							"ref": {
+								"id": "TIME",
+								"agencyID": "BIS",
+								"maintainableParentID": "CONCEPTS"
+							}
+						},
+						"id": "TIME",
+						"order": 5,
+						"type": "timeDimension"
+					}
+				},
+				"dimensionGroupDescriptor": {
+					"SiblingGroup": {
+						"id": "SiblingGroup",
+						"dimensions": [
+							"JD_TYPE",
+							"JD_CATEGORY",
+							"VIS_CTY"
+						]
+					}
+				},
+				"attributeDescriptor": {
+					"AVAILABILITY": {
+						"assignmentStatus": "Mandatory",
+						"conceptIdentity": {
+							"ref": {
+								"id": "AVAILABILITY",
+								"agencyID": "BIS",
+								"maintainableParentID": "CONCEPTS"
+							}
+						},
+						"id": "AVAILABILITY",
+						"localRepresentation": {
+							"enumeration": {
+								"ref": {
+									"id": "CL_AVAILABILITY",
+									"agencyID": "BIS"
+								}
+							}
+						},
+						"attributeRelationship": {
+							"group": "SiblingGroup"
+						}
+					},
+					"TIME_FORMAT": {
+						"assignmentStatus": "Mandatory",
+						"conceptIdentity": {
+							"ref": {
+								"id": "TIME_FORMAT",
+								"agencyID": "BIS",
+								"maintainableParentID": "CONCEPTS"
+							}
+						},
+						"id": "TIME_FORMAT",
+						"localRepresentation": {
+							"enumeration": {
+								"ref": {
+									"id": "CL_TIME_FORMAT",
+									"agencyID": "BIS"
+								}
+							}
+						},
+						"attributeRelationship": {
+							"dimensions": [
+								"FREQ",
+								"JD_TYPE",
+								"JD_CATEGORY",
+								"VIS_CTY"
+							]
+						}
+					},
+					"COLLECTION": {
+						"assignmentStatus": "Mandatory",
+						"conceptIdentity": {
+							"ref": {
+								"id": "COLLECTION",
+								"agencyID": "BIS",
+								"maintainableParentID": "CONCEPTS"
+							}
+						},
+						"id": "COLLECTION",
+						"localRepresentation": {
+							"enumeration": {
+								"ref": {
+									"id": "CL_COLLECTION",
+									"agencyID": "BIS"
+								}
+							}
+						},
+						"attributeRelationship": {
+							"dimensions": [
+								"FREQ",
+								"JD_TYPE",
+								"JD_CATEGORY",
+								"VIS_CTY"
+							]
+						}
+					},
+					"DECIMALS": {
+						"assignmentStatus": "Mandatory",
+						"conceptIdentity": {
+							"ref": {
+								"id": "DECIMALS",
+								"agencyID": "BIS",
+								"maintainableParentID": "CONCEPTS"
+							}
+						},
+						"id": "DECIMALS",
+						"localRepresentation": {
+							"enumeration": {
+								"ref": {
+									"id": "CL_DECIMALS",
+									"agencyID": "BIS"
+								}
+							}
+						},
+						"attributeRelationship": {
+							"group": "SiblingGroup"
+						}
+					},
+					"OBS_CONF": {
+						"assignmentStatus": "Conditional",
+						"conceptIdentity": {
+							"ref": {
+								"id": "OBS_CONF",
+								"agencyID": "BIS",
+								"maintainableParentID": "CONCEPTS"
+							}
+						},
+						"id": "OBS_CONF",
+						"localRepresentation": {
+							"enumeration": {
+								"ref": {
+									"id": "CL_BIS_OBS_CONF",
+									"agencyID": "BIS"
+								}
+							}
+						},
+						"attributeRelationship": {
+							"primaryMeasure": "OBS_VALUE"
+						}
+					},
+					"OBS_STATUS": {
+						"assignmentStatus": "Mandatory",
+						"conceptIdentity": {
+							"ref": {
+								"id": "OBS_STATUS",
+								"agencyID": "BIS",
+								"maintainableParentID": "CONCEPTS"
+							}
+						},
+						"id": "OBS_STATUS",
+						"localRepresentation": {
+							"enumeration": {
+								"ref": {
+									"id": "CL_OBS_STATUS",
+									"agencyID": "BIS"
+								}
+							}
+						},
+						"attributeRelationship": {
+							"primaryMeasure": "OBS_VALUE"
+						}
+					},
+					"OBS_PRE_BREAK": {
+						"assignmentStatus": "Conditional",
+						"conceptIdentity": {
+							"ref": {
+								"id": "OBS_PRE_BREAK",
+								"agencyID": "BIS",
+								"maintainableParentID": "CONCEPTS"
+							}
+						},
+						"id": "OBS_PRE_BREAK",
+						"attributeRelationship": {
+							"primaryMeasure": "OBS_VALUE"
+						},
+						"localRepresentation": {
+							"textFormat": {
+								"textType": "AlphaNumeric"
+							}
+						}
+					},
+					"BIS_UNIT": {
+						"assignmentStatus": "Mandatory",
+						"conceptIdentity": {
+							"ref": {
+								"id": "BIS_UNIT",
+								"agencyID": "BIS",
+								"maintainableParentID": "CONCEPTS"
+							}
+						},
+						"id": "BIS_UNIT",
+						"localRepresentation": {
+							"enumeration": {
+								"ref": {
+									"id": "CL_BIS_UNIT",
+									"agencyID": "BIS"
+								}
+							}
+						},
+						"attributeRelationship": {
+							"group": "SiblingGroup"
+						}
+					},
+					"UNIT_MULT": {
+						"assignmentStatus": "Mandatory",
+						"conceptIdentity": {
+							"ref": {
+								"id": "UNIT_MULT",
+								"agencyID": "BIS",
+								"maintainableParentID": "CONCEPTS"
+							}
+						},
+						"id": "UNIT_MULT",
+						"localRepresentation": {
+							"enumeration": {
+								"ref": {
+									"id": "CL_UNIT_MULT",
+									"agencyID": "BIS"
+								}
+							}
+						},
+						"attributeRelationship": {
+							"group": "SiblingGroup"
+						}
+					}
+				}
+			}
+		}
+	}
+]

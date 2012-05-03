@@ -1,6 +1,7 @@
 {parseFormat} = require './parser'
 _ = require 'underscore'
 time = require '../util/time'
+sdmx = require '../pipe/sdmxPipe'
 
 DEFINITIONS = '73'
 DATA = '74'
@@ -120,6 +121,7 @@ entryActions =
 		@codelist.name = {} if spec.description?
 		@codelist.name.en = spec.description if spec.description?
 		@codelist.agencyID = @helper.maintenanceAgency if @helper.maintenanceAgency?
+		@codelist.version = '1.0'
 	'UNB/UNH/VLI/CDV': (p, spec) ->
 		p.expect('CDV').element().read(spec,'code').end()
 		@helper.code = spec.code if spec.code?
@@ -134,6 +136,7 @@ entryActions =
 		if not @conceptScheme.agencyID?
 			@conceptScheme = {}
 			@conceptScheme.id = 'CONCEPTS'
+			@conceptScheme.version = '1.0'
 			@conceptScheme.name = {}
 			@conceptScheme.name.en = 'Statistical concepts'
 			@conceptScheme.agencyID = @helper.maintenanceAgency if @helper.maintenanceAgency?
@@ -146,13 +149,14 @@ entryActions =
 		@conceptScheme.concepts[@helper.conceptID].name.en += spec.description
 	'UNB/UNH/ASI': (p, spec) ->
 		if not _.isEmpty @conceptScheme.concepts
-			@emit 'conceptScheme', @conceptScheme
+			@emitSDMX sdmx.CONCEPT_SCHEME, @conceptScheme
 			@conceptScheme.concepts = {}
 		p.expect('ASI').element().read(spec,'id').end()
 		@dsd = {}
 		delete @helper.primaryMeasure
 		@dsd.id = spec.id if spec.id?
 		@dsd.agencyID = @helper.maintenanceAgency if @helper.maintenanceAgency?
+		@dsd.version = '1.0'
 		@dsd.dimensionGroupDescriptor = {}
 		@dsd.dimensionGroupDescriptor['TIMESERIES'] = { id: 'TIMESERIES', dimensions: [] }
 		@dsd.dimensionGroupDescriptor['SIBLING_GROUP'] = { id: 'SIBLING_GROUP', dimensions: [] }
@@ -245,12 +249,14 @@ entryActions =
 	'UNB/UNH/DSI/IDE': (p, spec) ->
 		p.expect('IDE').element().expect('5').element().read(spec,'dsd').end()
 		@header.structure = {}
-		@header.structure.structureID = spec.dsd
-		@header.structure.dimensionAtObservation = 'TIME_PERIOD'
-		@header.structure.structure = {}
-		@header.structure.structure.ref = {}
-		@header.structure.structure.ref.id = spec.dsd
-		@header.structure.structure.ref.agencyID = @helper.maintenanceAgency
+		@header.structure[spec.dsd] =
+			structureID: spec.dsd
+			dimensionAtObservation: 'TIME_PERIOD'
+			structureRef:
+				ref:
+					id: spec.dsd
+					agencyID: @helper.maintenanceAgency
+					version: '1.0'
 		@dataSetBegin.structureRef = spec.dsd
 	'UNB/UNH/DSI/IDE/GIS': (p, spec) ->
 		p.expect('GIS').element()
@@ -374,7 +380,7 @@ entryActions =
 			@attributes.attributes[@helper.attributeID] = spec.text
 	'UNB/UNT': (p, spec) ->
 		if not _.isEmpty @conceptScheme.concepts
-			@emitSDMX 'conceptScheme', @conceptScheme
+			@emitSDMX sdmx.CONCEPT_SCHEME, @conceptScheme
 			@conceptScheme.concepts = {}
 		p.expect('UNT')
 			.element().read(spec,'value')
@@ -388,15 +394,15 @@ entryActions =
 
 exitActions =
 	'UNB/UNH/BGM': ->
-		@emitSDMX 'header', @header if @helper.messageFunction is DEFINITIONS
+		@emitSDMX sdmx.HEADER, @header if @helper.messageFunction is DEFINITIONS
 	'UNB/UNH/DSI/IDE': ->
 		if @helper.messageFunction is DATA
-			@emitSDMX 'header', @header
-			@emitSDMX 'dataSet', @dataSetBegin
+			@emitSDMX sdmx.HEADER, @header
+			@emitSDMX sdmx.DATA_SET_HEADER, @dataSetBegin
 	'UNB/UNH/VLI': ->
-		@emitSDMX 'codelist', @codelist
+		@emitSDMX sdmx.CODE_LIST, @codelist
 	'UNB/UNH/ASI': ->
-		@emitSDMX 'dataStructure', @dsd
+		@emitSDMX sdmx.DATA_STRUCTURE_DEFINITION, @dsd
 	'UNB/UNH/ASI/SCD': ->
 		switch @helper.componentType
 			when TIME
@@ -419,15 +425,14 @@ exitActions =
 				@dsd.attributeDescriptor = {} unless @dsd.attributeDescriptor?
 				@dsd.attributeDescriptor[@component.id] = @component
 	'UNB/UNH/DSI/ARR': ->
-		@emitSDMX 'series', @series
+		@emitSDMX sdmx.SERIES, @series
 	'UNB/UNH/DSI/FNS/REL/ARR': ->
 		switch @helper.attributeScope
-			when OBSERVATION, TIMESERIES then @emitSDMX 'series', @attributes
+			when OBSERVATION, TIMESERIES then @emitSDMX sdmx.SERIES, @attributes
 			when SIBLING_GROUP
-				#console.log @attributes if @attributes.seriesKey?
 				@attributes.type = 'SiblingGroup'
-				@emitSDMX 'group', @attributes
-			when DATASET then @emitSDMX 'dataSetAttributes', @attributes
+				@emitSDMX sdmx.ATTRIBUTE_GROUP, @attributes
+			when DATASET then @emitSDMX sdmx.DATA_SET_ATTRIBUTES, @attributes
 
 exports.fst = _.extend {}, guards, entryActions, exitActions
 exports.guards = guards

@@ -1,5 +1,6 @@
 _ = require 'underscore'
 header = require './header'
+sdmx = require '../../pipe/sdmxPipe'
 
 xmlns_msg = 'http://www.SDMX.org/resources/SDMXML/schemas/v2_0/message'
 xmlns_gen = 'http://www.SDMX.org/resources/SDMXML/schemas/v2_0/generic'
@@ -39,13 +40,13 @@ entryActions['DataSet/Series/Obs/Attributes/Value'] = entryActions['DataSet/Grou
 exitActions =
 	'DataSet/KeyFamilyRef': () ->
 		dataSetCur.structureRef = @stringBuffer
-		@emitSDMX 'dataSet', dataSetCur
+		@emitSDMX sdmx.DATA_SET_HEADER, dataSetCur
 	'DataSet': () ->
 		#@emitSDMX 'dataSetEnd', ''
 	'DataSet/Group': ->
-		@emitSDMX 'group', groupCur
+		@emitSDMX sdmx.ATTRIBUTE_GROUP, groupCur
 	'DataSet/Group/Series': ->
-		@emitSDMX 'series', seriesCur
+		@emitSDMX sdmx.SERIES, seriesCur
 	'DataSet/Group/Series/Obs/Time': ->
 		seriesCur.obs.obsDimension.push @stringBuffer
 

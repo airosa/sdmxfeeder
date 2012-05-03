@@ -1,5 +1,7 @@
 _ = require 'underscore'
 header = require './header'
+sdmx = require '../../pipe/sdmxPipe'
+
 
 codeListCur = {}
 codeCur = {}
@@ -115,7 +117,7 @@ entryActions =
 
 exitActions =
 	'CodeLists/CodeList': (attrs) ->
-		@emitSDMX 'codelist', codeListCur
+		@emitSDMX sdmx.CODE_LIST, codeListCur
 	'CodeLists/CodeList/Code': (attrs) ->
 		codeListCur.codes ?= {}
 		codeListCur.codes[codeCur.id] = codeCur
@@ -130,13 +132,13 @@ exitActions =
 	'Concepts/Concept': (attrs) ->
 		conceptSchemeTmp.concepts[conceptCur.id] = conceptCur
 	'Concepts': (attrs) ->
-		@emitSDMX 'conceptScheme', conceptSchemeTmp
+		@emitSDMX sdmx.CONCEPT_SCHEME, conceptSchemeTmp
 	'Concepts/Concept/Name': (attrs) ->
 		attrs['xml:lang'] ?= 'en'
 		conceptCur.name ?= {}
 		conceptCur.name[ attrs['xml:lang'] ] = @stringBuffer
 	'KeyFamilies/KeyFamily': (attrs) ->
-		@emitSDMX 'dataStructure', dsdCur
+		@emitSDMX sdmx.DATA_STRUCTURE_DEFINITION, dsdCur
 	'KeyFamilies/KeyFamily/Name': (attrs) ->
 		attrs['xml:lang'] ?= 'en'
 		dsdCur.name ?= {}

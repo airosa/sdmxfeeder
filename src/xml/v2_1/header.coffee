@@ -18,8 +18,8 @@ entryActions =
 	'Header/Structure': (attrs) ->
 		structureCur = _.extend {}, attrs
 	'Header/Structure/Structure/Ref': (attrs) ->
-		structureCur.structure = {}
-		structureCur.structure.ref = _.extend {}, attrs
+		structureCur.structureRef = {}
+		structureCur.structureRef.ref = _.extend {}, attrs
 
 entryActions['Header/Receiver'] = entryActions['Header/Sender']
 entryActions['Header/Receiver/Contact'] = entryActions['Header/Sender/Contact']
@@ -79,7 +79,8 @@ exitActions =
 		headerCur.receiver[ attrs.id ] = partyCur
 
 	'Header/Structure': (attrs) ->
-		headerCur.structure = structureCur
+		headerCur.structure ?= {}
+		headerCur.structure[ structureCur.structureID ] = structureCur
 
 	'Header/KeyFamilyRef': ->
 		headerCur.keyFamilyRef = @stringBuffer

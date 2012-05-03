@@ -1,0 +1,167 @@
+[
+	{
+		"id": "JD014",
+		"test": true,
+		"name": {
+			"en": "Trans46302"
+		},
+		"prepared": "2001-03-11T04:30:47.000Z",
+		"sender": {
+			"BIS": {
+				"name": {
+					"en": "Bank for International Settlements"
+				},
+				"contact": [
+					{
+						"name": {
+							"en": "G.B. Smith"
+						},
+						"telephone": "+000.000.0000"
+					}
+				],
+				"id": "BIS"
+			}
+		},
+		"receiver": {
+			"ECB": {
+				"name": {
+					"en": "European Central Bank"
+				},
+				"contact": [
+					{
+						"name": {
+							"en": "B.S. Featherstone"
+						},
+						"department": {
+							"en": "Statistics Division"
+						},
+						"telephone": "+000.000.0001"
+					}
+				],
+				"id": "ECB"
+			}
+		},
+		"dataSetID": "BIS_JD_237",
+		"dataSetAction": "Append",
+		"extracted": "2001-03-11T04:30:47.000Z",
+		"reportingBegin": "2000-01-01T00:00:00",
+		"reportingEnd": "2000-12-01T00:00:00",
+		"structure": {
+			"BIS_JOINT_DEBT": {
+				"structureID": "BIS_JOINT_DEBT",
+				"structureRef": {
+					"ref": {
+						"agencyID": "BIS",
+						"id": "BIS_JOINT_DEBT",
+						"version": "1.0"
+					}
+				}
+			}
+		}
+	},
+	{},
+	[
+		{
+			"structureRef": "BIS_JOINT_DEBT"
+		},
+		[
+			{
+				"seriesKey": {
+					"FREQ": "M",
+					"JD_TYPE": "P",
+					"JD_CATEGORY": "A",
+					"VIS_CTY": "MX"
+				},
+				"attributes": {
+					"COLLECTION": "B",
+					"TIME_FORMAT": "P1M"
+				},
+				"obs": {
+					"obsDimension": [
+						"2000-01",
+						"2000-02",
+						"2000-03",
+						"2000-04",
+						"2000-05",
+						"2000-06",
+						"2000-07",
+						"2000-08",
+						"2000-09",
+						"2000-10",
+						"2000-11",
+						"2000-12"
+					],
+					"obsValue": [
+						3.14,
+						3.14,
+						4.29,
+						6.04,
+						5.18,
+						5.07,
+						3.13,
+						1.17,
+						1.14,
+						3.04,
+						1.14,
+						3.24
+					],
+					"attributes": {
+						"OBS_STATUS": [
+							"A",
+							"A",
+							"A",
+							"A",
+							"A",
+							"A",
+							"A",
+							"A",
+							"A",
+							"A",
+							"A",
+							"A"
+						]
+					}
+				}
+			},
+			{
+				"seriesKey": {
+					"FREQ": "A",
+					"JD_TYPE": "P",
+					"JD_CATEGORY": "A",
+					"VIS_CTY": "MX"
+				},
+				"attributes": {
+					"COLLECTION": "B",
+					"TIME_FORMAT": "P1Y"
+				},
+				"obs": {
+					"obsDimension": [
+						"2000-01"
+					],
+					"obsValue": [
+						3.14
+					],
+					"attributes": {
+						"OBS_STATUS": [
+							"A"
+						]
+					}
+				}
+			},
+			{
+				"type": "SiblingGroup",
+				"groupKey": {
+					"JD_TYPE": "P",
+					"JD_CATEGORY": "A",
+					"VIS_CTY": "MX"
+				},
+				"attributes": {
+					"AVAILABILITY": "A",
+					"DECIMALS": "2",
+					"BIS_UNIT": "USD",
+					"UNIT_MULT": "5"
+				}
+			}
+		]
+	]
+]

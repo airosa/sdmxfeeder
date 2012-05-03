@@ -1,0 +1,551 @@
+[
+	{
+		"id": "IREF000003",
+		"test": false,
+		"prepared": "1997-05-25T12:39:00.000Z",
+		"receiver": {
+			"ZZZ": {
+				"id": "ZZZ"
+			}
+		},
+		"sender": {
+			"4F0": {
+				"id": "4F0"
+			}
+		},
+		"name": {
+			"en": "Ad hoc message - example key family"
+		}
+	},
+	{
+		"dataStructures": {
+			"EMI:EMI_TEST_BOP(1.0)": {
+				"id": "EMI_TEST_BOP",
+				"agencyID": "EMI",
+				"version": "1.0",
+				"dimensionGroupDescriptor": {
+					"TIMESERIES": {
+						"id": "TIMESERIES",
+						"dimensions": [
+							"FREQ",
+							"REF_AREA",
+							"ADJUSTMENT",
+							"DATA_TYPE",
+							"BOP_ITEM",
+							"BASIS"
+						]
+					},
+					"SIBLING_GROUP": {
+						"id": "SIBLING_GROUP",
+						"dimensions": [
+							"REF_AREA",
+							"ADJUSTMENT",
+							"DATA_TYPE",
+							"BOP_ITEM",
+							"BASIS"
+						]
+					}
+				},
+				"name": {
+					"en": "Test kf for BoP Statistics"
+				},
+				"dimensionDescriptor": {
+					"FREQ": {
+						"order": 1,
+						"type": "dimension",
+						"id": "FREQ",
+						"conceptIdentity": {
+							"ref": {
+								"id": "FREQ",
+								"agencyID": "EMI",
+								"maintainableParentID": "CONCEPTS"
+							}
+						},
+						"localRepresentation": {
+							"textFormat": {
+								"textType": "AlphaNumeric",
+								"maxLength": 1,
+								"minLength": 1
+							},
+							"enumeration": {
+								"ref": {
+									"id": "CL_FREQ",
+									"agencyID": "EMI"
+								}
+							}
+						}
+					},
+					"REF_AREA": {
+						"order": 2,
+						"type": "dimension",
+						"id": "REF_AREA",
+						"conceptIdentity": {
+							"ref": {
+								"id": "REF_AREA",
+								"agencyID": "EMI",
+								"maintainableParentID": "CONCEPTS"
+							}
+						},
+						"localRepresentation": {
+							"textFormat": {
+								"textType": "AlphaNumeric",
+								"maxLength": 2,
+								"minLength": 2
+							},
+							"enumeration": {
+								"ref": {
+									"id": "CL_AREA_EE",
+									"agencyID": "EMI"
+								}
+							}
+						}
+					},
+					"ADJUSTMENT": {
+						"order": 3,
+						"type": "dimension",
+						"id": "ADJUSTMENT",
+						"conceptIdentity": {
+							"ref": {
+								"id": "ADJUSTMENT",
+								"agencyID": "EMI",
+								"maintainableParentID": "CONCEPTS"
+							}
+						},
+						"localRepresentation": {
+							"textFormat": {
+								"textType": "AlphaNumeric",
+								"maxLength": 1,
+								"minLength": 1
+							},
+							"enumeration": {
+								"ref": {
+									"id": "CL_ADJUSTMENT",
+									"agencyID": "EMI"
+								}
+							}
+						}
+					},
+					"DATA_TYPE": {
+						"order": 4,
+						"type": "dimension",
+						"id": "DATA_TYPE",
+						"conceptIdentity": {
+							"ref": {
+								"id": "DATA_TYPE",
+								"agencyID": "EMI",
+								"maintainableParentID": "CONCEPTS"
+							}
+						},
+						"localRepresentation": {
+							"textFormat": {
+								"textType": "AlphaNumeric",
+								"maxLength": 1,
+								"minLength": 1
+							},
+							"enumeration": {
+								"ref": {
+									"id": "CL_DATA_TYPE",
+									"agencyID": "EMI"
+								}
+							}
+						}
+					},
+					"BOP_ITEM": {
+						"order": 5,
+						"type": "dimension",
+						"id": "BOP_ITEM",
+						"conceptIdentity": {
+							"ref": {
+								"id": "BOP_ITEM",
+								"agencyID": "EMI",
+								"maintainableParentID": "CONCEPTS"
+							}
+						},
+						"localRepresentation": {
+							"textFormat": {
+								"textType": "AlphaNumeric",
+								"maxLength": 3,
+								"minLength": 3
+							},
+							"enumeration": {
+								"ref": {
+									"id": "CL_BOP_ITEM",
+									"agencyID": "EMI"
+								}
+							}
+						}
+					},
+					"BASIS": {
+						"order": 6,
+						"type": "dimension",
+						"id": "BASIS",
+						"conceptIdentity": {
+							"ref": {
+								"id": "BASIS",
+								"agencyID": "EMI",
+								"maintainableParentID": "CONCEPTS"
+							}
+						},
+						"localRepresentation": {
+							"textFormat": {
+								"textType": "AlphaNumeric",
+								"maxLength": 1,
+								"minLength": 1
+							},
+							"enumeration": {
+								"ref": {
+									"id": "CL_BASIS",
+									"agencyID": "EMI"
+								}
+							}
+						}
+					},
+					"TIME_PERIOD": {
+						"order": 7,
+						"type": "timeDimension",
+						"id": "TIME_PERIOD",
+						"conceptIdentity": {
+							"ref": {
+								"id": "TIME_PERIOD",
+								"agencyID": "EMI",
+								"maintainableParentID": "CONCEPTS"
+							}
+						},
+						"localRepresentation": {
+							"textFormat": {
+								"textType": "AlphaNumeric",
+								"maxLength": 35
+							}
+						}
+					},
+					"TIME_FORMAT": {
+						"order": 8,
+						"type": "timeDimension",
+						"id": "TIME_FORMAT",
+						"conceptIdentity": {
+							"ref": {
+								"id": "TIME_FORMAT",
+								"agencyID": "EMI",
+								"maintainableParentID": "CONCEPTS"
+							}
+						},
+						"localRepresentation": {
+							"textFormat": {
+								"textType": "AlphaNumeric",
+								"maxLength": 3,
+								"minLength": 3
+							}
+						}
+					}
+				},
+				"measureDescriptor": {
+					"primaryMeasure": {
+						"id": "OBS_VALUE",
+						"conceptIdentity": {
+							"ref": {
+								"id": "OBS_VALUE",
+								"agencyID": "EMI",
+								"maintainableParentID": "CONCEPTS"
+							}
+						},
+						"localRepresentation": {
+							"textFormat": {
+								"textType": "AlphaNumeric",
+								"maxLength": 15
+							}
+						}
+					}
+				},
+				"attributeDescriptor": {
+					"OBS_STATUS": {
+						"id": "OBS_STATUS",
+						"conceptIdentity": {
+							"ref": {
+								"id": "OBS_STATUS",
+								"agencyID": "EMI",
+								"maintainableParentID": "CONCEPTS"
+							}
+						},
+						"localRepresentation": {
+							"textFormat": {
+								"textType": "AlphaNumeric",
+								"maxLength": 1,
+								"minLength": 1
+							},
+							"enumeration": {
+								"ref": {
+									"id": "CL_OBS_STATUS",
+									"agencyID": "EMI"
+								}
+							}
+						},
+						"assignmentStatus": "Mandatory",
+						"attributeRelationship": {
+							"primaryMeasure": "OBS_VALUE"
+						}
+					},
+					"OBS_CONF": {
+						"id": "OBS_CONF",
+						"conceptIdentity": {
+							"ref": {
+								"id": "OBS_CONF",
+								"agencyID": "EMI",
+								"maintainableParentID": "CONCEPTS"
+							}
+						},
+						"localRepresentation": {
+							"textFormat": {
+								"textType": "AlphaNumeric",
+								"maxLength": 1,
+								"minLength": 1
+							},
+							"enumeration": {
+								"ref": {
+									"id": "CL_OBS_CONF",
+									"agencyID": "EMI"
+								}
+							}
+						},
+						"assignmentStatus": "Conditional",
+						"attributeRelationship": {
+							"primaryMeasure": "OBS_VALUE"
+						}
+					},
+					"TITLE": {
+						"id": "TITLE",
+						"conceptIdentity": {
+							"ref": {
+								"id": "TITLE",
+								"agencyID": "EMI",
+								"maintainableParentID": "CONCEPTS"
+							}
+						},
+						"localRepresentation": {
+							"textFormat": {
+								"textType": "AlphaNumeric",
+								"maxLength": 70
+							}
+						},
+						"assignmentStatus": "Mandatory",
+						"attributeRelationship": {
+							"group": "SIBLING_GROUP"
+						}
+					},
+					"UNIT": {
+						"id": "UNIT",
+						"conceptIdentity": {
+							"ref": {
+								"id": "UNIT",
+								"agencyID": "EMI",
+								"maintainableParentID": "CONCEPTS"
+							}
+						},
+						"localRepresentation": {
+							"textFormat": {
+								"textType": "AlphaNumeric",
+								"maxLength": 12
+							},
+							"enumeration": {
+								"ref": {
+									"id": "CL_UNIT",
+									"agencyID": "EMI"
+								}
+							}
+						},
+						"assignmentStatus": "Mandatory",
+						"attributeRelationship": {
+							"group": "SIBLING_GROUP"
+						}
+					},
+					"UNIT_MULTIPLIER": {
+						"id": "UNIT_MULTIPLIER",
+						"conceptIdentity": {
+							"ref": {
+								"id": "UNIT_MULTIPLIER",
+								"agencyID": "EMI",
+								"maintainableParentID": "CONCEPTS"
+							}
+						},
+						"localRepresentation": {
+							"textFormat": {
+								"textType": "AlphaNumeric",
+								"maxLength": 2
+							},
+							"enumeration": {
+								"ref": {
+									"id": "CL_UNIT_MULT",
+									"agencyID": "EMI"
+								}
+							}
+						},
+						"assignmentStatus": "Mandatory",
+						"attributeRelationship": {
+							"group": "SIBLING_GROUP"
+						}
+					},
+					"DECIMALS": {
+						"id": "DECIMALS",
+						"conceptIdentity": {
+							"ref": {
+								"id": "DECIMALS",
+								"agencyID": "EMI",
+								"maintainableParentID": "CONCEPTS"
+							}
+						},
+						"localRepresentation": {
+							"textFormat": {
+								"textType": "AlphaNumeric",
+								"maxLength": 1,
+								"minLength": 1
+							},
+							"enumeration": {
+								"ref": {
+									"id": "CL_DECIMALS",
+									"agencyID": "EMI"
+								}
+							}
+						},
+						"assignmentStatus": "Mandatory",
+						"attributeRelationship": {
+							"group": "SIBLING_GROUP"
+						}
+					},
+					"COLLECTION": {
+						"id": "COLLECTION",
+						"conceptIdentity": {
+							"ref": {
+								"id": "COLLECTION",
+								"agencyID": "EMI",
+								"maintainableParentID": "CONCEPTS"
+							}
+						},
+						"localRepresentation": {
+							"textFormat": {
+								"textType": "AlphaNumeric",
+								"maxLength": 1,
+								"minLength": 1
+							},
+							"enumeration": {
+								"ref": {
+									"id": "CL_COLLECTION",
+									"agencyID": "EMI"
+								}
+							}
+						},
+						"assignmentStatus": "Mandatory",
+						"attributeRelationship": {
+							"group": "TIMESERIES"
+						}
+					},
+					"AVAILABILITY": {
+						"id": "AVAILABILITY",
+						"conceptIdentity": {
+							"ref": {
+								"id": "AVAILABILITY",
+								"agencyID": "EMI",
+								"maintainableParentID": "CONCEPTS"
+							}
+						},
+						"localRepresentation": {
+							"textFormat": {
+								"textType": "AlphaNumeric",
+								"maxLength": 1,
+								"minLength": 1
+							},
+							"enumeration": {
+								"ref": {
+									"id": "CL_AVAILABILITY",
+									"agencyID": "EMI"
+								}
+							}
+						},
+						"assignmentStatus": "Mandatory",
+						"attributeRelationship": {
+							"group": "TIMESERIES"
+						}
+					},
+					"COMPILATION": {
+						"id": "COMPILATION",
+						"conceptIdentity": {
+							"ref": {
+								"id": "COMPILATION",
+								"agencyID": "EMI",
+								"maintainableParentID": "CONCEPTS"
+							}
+						},
+						"localRepresentation": {
+							"textFormat": {
+								"textType": "AlphaNumeric",
+								"maxLength": 70
+							}
+						},
+						"assignmentStatus": "Mandatory",
+						"attributeRelationship": {
+							"group": "SIBLING_GROUP"
+						}
+					},
+					"BREAKS": {
+						"id": "BREAKS",
+						"conceptIdentity": {
+							"ref": {
+								"id": "BREAKS",
+								"agencyID": "EMI",
+								"maintainableParentID": "CONCEPTS"
+							}
+						},
+						"localRepresentation": {
+							"textFormat": {
+								"textType": "AlphaNumeric",
+								"maxLength": 70
+							}
+						},
+						"assignmentStatus": "Conditional",
+						"attributeRelationship": {
+							"group": "TIMESERIES"
+						}
+					},
+					"AGG_EQUN": {
+						"id": "AGG_EQUN",
+						"conceptIdentity": {
+							"ref": {
+								"id": "AGG_EQUN",
+								"agencyID": "EMI",
+								"maintainableParentID": "CONCEPTS"
+							}
+						},
+						"localRepresentation": {
+							"textFormat": {
+								"textType": "AlphaNumeric",
+								"maxLength": 70
+							}
+						},
+						"assignmentStatus": "Conditional",
+						"attributeRelationship": {
+							"group": "SIBLING_GROUP"
+						}
+					},
+					"OBS_COM": {
+						"id": "OBS_COM",
+						"conceptIdentity": {
+							"ref": {
+								"id": "OBS_COM",
+								"agencyID": "EMI",
+								"maintainableParentID": "CONCEPTS"
+							}
+						},
+						"localRepresentation": {
+							"textFormat": {
+								"textType": "AlphaNumeric",
+								"maxLength": 70
+							}
+						},
+						"assignmentStatus": "Conditional",
+						"attributeRelationship": {
+							"primaryMeasure": "OBS_VALUE"
+						}
+					}
+				}
+			}
+		}
+	}
+]

@@ -9,6 +9,8 @@ exports.array2DToObject = ( array ) ->
 	return tmp
 
 ###
+ * http://stackoverflow.com/questions/2731579/convert-an-xml-schema-date-string-to-a-javascript-date
+ *
  * Return a Javascript Date for the given XML Schema date string.  Return
  * null if the date cannot be parsed.
  *

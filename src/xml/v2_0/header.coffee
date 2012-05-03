@@ -1,5 +1,6 @@
 _ = require 'underscore'
 util = require '../../util/util'
+sdmx = require '../../pipe/sdmxPipe'
 
 xmlns_msg = 'http://www.SDMX.org/resources/SDMXML/schemas/v2_0/message'
 
@@ -20,7 +21,7 @@ entryActions['Header/Receiver/Contact'] = entryActions['Header/Sender/Contact']
 
 exitActions =
 	'Header': ->
-		@emitSDMX 'header', headerCur
+		@emitSDMX sdmx.HEADER, headerCur
 	'Header/ID': ->
 		headerCur.id = @stringBuffer
 	'Header/Test': ->

@@ -1,5 +1,6 @@
 _ = require 'underscore'
 header = require './header'
+sdmx = require '../../pipe/sdmxPipe'
 util = require '../../util/util'
 
 codeListCur = {}
@@ -36,11 +37,17 @@ entryActions =
 		dimensionPos += 1
 		componentCur.order = dimensionPos
 		componentCur.type = 'dimension'
+	'Structures/DataStructures/DataStructure/DataStructureComponents/DimensionList/Dimension/ConceptIdentity/Ref': (attrs) ->
+		componentCur.conceptIdentity ?= {}
+		componentCur.conceptIdentity.ref ?= _.extend {}, attrs
 	'Structures/DataStructures/DataStructure/DataStructureComponents/DimensionList/TimeDimension': (attrs) ->
 		componentCur = _.extend {}, attrs
 		dimensionPos += 1
 		componentCur.order = dimensionPos
 		componentCur.type = 'timeDimension'
+	'Structures/DataStructures/DataStructure/DataStructureComponents/DimensionList/TimeDimension/ConceptIdentity/Ref': (attrs) ->
+		componentCur.conceptIdentity ?= {}
+		componentCur.conceptIdentity.ref ?= _.extend {}, attrs
 	'Structures/DataStructures/DataStructure/DataStructureComponents/Group': (attrs) ->
 		componentCur = _.extend {}, attrs
 	'Structures/DataStructures/DataStructure/DataStructureComponents/Group/GroupDimension/DimensionReference/Ref': (attrs) ->
@@ -48,6 +55,9 @@ entryActions =
 		componentCur.dimension.push attrs.id
 	'Structures/DataStructures/DataStructure/DataStructureComponents/AttributeList/Attribute': (attrs) ->
 		componentCur = _.extend {}, attrs
+	'Structures/DataStructures/DataStructure/DataStructureComponents/AttributeList/Attribute/ConceptIdentity/Ref': (attrs) ->
+		componentCur.conceptIdentity ?= {}
+		componentCur.conceptIdentity.ref ?= _.extend {}, attrs
 	'Structures/DataStructures/DataStructure/DataStructureComponents/AttributeList/Attribute/AttributeRelationship/Dimension/Ref': (attrs) ->
 		componentCur.attributeRelationship ?= {}
 		componentCur.attributeRelationship.dimension ?= []
@@ -60,10 +70,13 @@ entryActions =
 		componentCur.attributeRelationship.primaryMeasure = attrs.id
 	'Structures/DataStructures/DataStructure/DataStructureComponents/MeasureList/PrimaryMeasure': (attrs) ->
 		componentCur = _.extend {}, attrs
+	'Structures/DataStructures/DataStructure/DataStructureComponents/MeasureList/PrimaryMeasure/ConceptIdentity/Ref': (attrs) ->
+		componentCur.conceptIdentity ?= {}
+		componentCur.conceptIdentity.ref ?= _.extend {}, attrs
 
 exitActions =
 	'Structures/Codelists/Codelist': (attrs) ->
-		@emitSDMX 'codelist', codeListCur
+		@emitSDMX sdmx.CODE_LIST, codeListCur
 	'Structures/Codelists/Codelist/Code': (attrs) ->
 		codeListCur.codes ?= {}
 		codeListCur.codes[codeCur.id] = codeCur
@@ -85,7 +98,7 @@ exitActions =
 		codeCur.description[ attrs['xml:lang'] ] = @stringBuffer
 
 	'Structures/Concepts/ConceptScheme': (attrs) ->
-		@emitSDMX 'conceptScheme', conceptSchemeCur
+		@emitSDMX sdmx.CONCEPT_SCHEME, conceptSchemeCur
 	'Structures/Concepts/ConceptScheme/Name': (attrs) ->
 		attrs['xml:lang'] ?= 'en'
 		conceptSchemeCur.name ?= {}
@@ -107,7 +120,7 @@ exitActions =
 		conceptCur.coreRepresentation.enumeration.ref = @parseURN @stringBuffer
 
 	'Structures/DataStructures/DataStructure': (attrs) ->
-		@emitSDMX 'dataStructure', dataStructureCur
+		@emitSDMX sdmx.DATA_STRUCTURE_DEFINITION, dataStructureCur
 	'Structures/DataStructures/DataStructure/Name': (attrs) ->
 		attrs['xml:lang'] ?= 'en'
 		dataStructureCur.name ?= {}

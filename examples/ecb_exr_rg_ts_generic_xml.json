@@ -1,0 +1,235 @@
+[
+	{
+		"id": "Generic",
+		"test": false,
+		"prepared": "2010-01-04T17:21:49.000Z",
+		"sender": {
+			"ECB": {
+				"id": "ECB"
+			}
+		},
+		"structure": {
+			"STR1": {
+				"structureID": "STR1",
+				"dimensionAtObservation": "TIME_PERIOD",
+				"structureRef": {
+					"ref": {
+						"agencyID": "ECB",
+						"id": "ECB_EXR_RG",
+						"version": "1.0"
+					}
+				}
+			}
+		}
+	},
+	{},
+	[
+		{
+			"structureRef": "STR1"
+		},
+		[
+			{
+				"type": "RateGroup",
+				"groupKey": {
+					"EXR_TYPE": "SP00",
+					"EXR_VAR": "E"
+				},
+				"attributes": {
+					"COLL_METHOD": "Average of observations through period"
+				}
+			},
+			{
+				"type": "SiblingGroup",
+				"groupKey": {
+					"CURRENCY": "CHF",
+					"CURRENCY_DENOM": "EUR",
+					"EXR_TYPE": "SP00",
+					"EXR_VAR": "E"
+				},
+				"attributes": {
+					"DECIMALS": "4",
+					"UNIT_MEASURE": "CHF",
+					"UNIT_MULT": "0",
+					"TITLE": "ECB reference exchange rate, Swiss franc/Euro"
+				}
+			},
+			{
+				"type": "SiblingGroup",
+				"groupKey": {
+					"CURRENCY": "GBP",
+					"CURRENCY_DENOM": "EUR",
+					"EXR_TYPE": "SP00",
+					"EXR_VAR": "E"
+				},
+				"attributes": {
+					"DECIMALS": "5",
+					"UNIT_MEASURE": "GBP",
+					"UNIT_MULT": "0",
+					"TITLE": "ECB reference exchange rate, U.K. Pound sterling /Euro"
+				}
+			},
+			{
+				"type": "SiblingGroup",
+				"groupKey": {
+					"CURRENCY": "JPY",
+					"CURRENCY_DENOM": "EUR",
+					"EXR_TYPE": "SP00",
+					"EXR_VAR": "E"
+				},
+				"attributes": {
+					"DECIMALS": "2",
+					"UNIT_MEASURE": "JPY",
+					"UNIT_MULT": "0",
+					"TITLE": "ECB reference exchange rate, Japanese yen/Euro"
+				}
+			},
+			{
+				"type": "SiblingGroup",
+				"groupKey": {
+					"CURRENCY": "USD",
+					"CURRENCY_DENOM": "EUR",
+					"EXR_TYPE": "SP00",
+					"EXR_VAR": "E"
+				},
+				"attributes": {
+					"DECIMALS": "4",
+					"UNIT_MEASURE": "USD",
+					"UNIT_MULT": "0",
+					"TITLE": "ECB reference exchange rate, U.S. dollar/Euro"
+				}
+			},
+			{
+				"seriesKey": {
+					"FREQ": "M",
+					"CURRENCY": "CHF",
+					"CURRENCY_DENOM": "EUR",
+					"EXR_TYPE": "SP00",
+					"EXR_VAR": "E"
+				},
+				"obs": {
+					"obsDimension": [
+						"2010-08",
+						"2010-09",
+						"2010-10"
+					],
+					"obsValue": [
+						1.3413,
+						1.3089,
+						1.3452
+					],
+					"attributes": {
+						"OBS_STATUS": [
+							"A",
+							"A",
+							"A"
+						],
+						"CONF_STATUS_OBS": [
+							"F",
+							"F",
+							"F"
+						]
+					}
+				}
+			},
+			{
+				"seriesKey": {
+					"FREQ": "M",
+					"CURRENCY": "GBP",
+					"CURRENCY_DENOM": "EUR",
+					"EXR_TYPE": "SP00",
+					"EXR_VAR": "E"
+				},
+				"obs": {
+					"obsDimension": [
+						"2010-08",
+						"2010-09",
+						"2010-10"
+					],
+					"obsValue": [
+						0.82363,
+						0.83987,
+						0.87637
+					],
+					"attributes": {
+						"OBS_STATUS": [
+							"A",
+							"A",
+							"A"
+						],
+						"CONF_STATUS_OBS": [
+							"F",
+							"F",
+							"F"
+						]
+					}
+				}
+			},
+			{
+				"seriesKey": {
+					"FREQ": "M",
+					"CURRENCY": "JPY",
+					"CURRENCY_DENOM": "EUR",
+					"EXR_TYPE": "SP00",
+					"EXR_VAR": "E"
+				},
+				"obs": {
+					"obsDimension": [
+						"2010-08",
+						"2010-09",
+						"2010-10"
+					],
+					"obsValue": [
+						110.04,
+						110.26,
+						113.67
+					],
+					"attributes": {
+						"OBS_STATUS": [
+							"A",
+							"A",
+							"A"
+						],
+						"CONF_STATUS_OBS": [
+							"F",
+							"F",
+							"F"
+						]
+					}
+				}
+			},
+			{
+				"seriesKey": {
+					"FREQ": "M",
+					"CURRENCY": "USD",
+					"CURRENCY_DENOM": "EUR",
+					"EXR_TYPE": "SP00",
+					"EXR_VAR": "E"
+				},
+				"obs": {
+					"obsDimension": [
+						"2010-08",
+						"2010-09",
+						"2010-10"
+					],
+					"obsValue": [
+						1.2894,
+						1.3067,
+						1.3898
+					],
+					"attributes": {
+						"OBS_STATUS": [
+							"A",
+							"A",
+							"A"
+						],
+						"CONF_STATUS_OBS": [
+							"F",
+							"F",
+							"F"
+						]
+					}
+				}
+			}
+		]
+	]
+]

@@ -1,12 +1,14 @@
-schemas =
 
-	maintainableRef:
-		id: 'maintainableRef'
+schemas = [
+	{
+		$schema : 'http://json-schema.org/draft-03/schema#'
+		id: 'urn:sdmxfeeder.infomodel.maintainableref'
 		type: 'object'
 		additionalProperties: false
 		properties:
 			ref:
 				type: 'object'
+				required: true
 				additionalProperties: false
 				properties:
 					id:
@@ -24,9 +26,10 @@ schemas =
 						type: 'string'
 					package:
 						type: 'string'
-
-	itemRef:
-		id: 'itemRef'
+	},
+	{
+		$schema : 'http://json-schema.org/draft-03/schema#'
+		id: 'urn:sdmxfeeder.infomodel.itemref'
 		type: 'object'
 		additionalProperties: false
 		properties:
@@ -46,8 +49,10 @@ schemas =
 					agencyID:
 						type: 'string'
 						required: true
-
-	dataProviderRef:
+	},
+	{
+		$schema : 'http://json-schema.org/draft-03/schema#'
+		id: 'urn:sdmxfeeder.infomodel.dataproviderref'
 		type: 'object'
 		additionalProperties: false
 		properties:
@@ -69,9 +74,10 @@ schemas =
 					class:
 						type: 'string'
 						enum: ['"Agency','DataConsumer','DataProvider','OrganisationUnit']
-
-
-	party:
+	},
+	{
+		$schema : 'http://json-schema.org/draft-03/schema#'
+		id: 'urn:sdmxfeeder.infomodel.party'
 		type: 'object'
 		additionalProperties: false
 		patternProperties:
@@ -84,18 +90,18 @@ schemas =
 						type: 'string'
 						required: true
 					name:
-						extends: 'internationalString'
+						$ref: 'urn:sdmxfeeder.infomodel.internationalstring'
 					contact:
 						type: 'array'
 						items:
 							type: 'object'
 							properties:
 								name:
-									extends: 'internationalString'
+									$ref: 'urn:sdmxfeeder.infomodel.internationalstring'
 								department:
-									extends: 'internationalString'
+									$ref: 'urn:sdmxfeeder.infomodel.internationalstring'
 								role:
-									extends: 'internationalString'
+									$ref: 'urn:sdmxfeeder.infomodel.internationalstring'
 								telephone:
 									type: 'string'
 								fax:
@@ -106,10 +112,10 @@ schemas =
 									type: 'string'
 								email:
 									type: 'string'
-
-
-	header:
-		id: 'header'
+	},
+	{
+		$schema : 'http://json-schema.org/draft-03/schema#'
+		id: 'urn:sdmxfeeder.infomodel.header'
 		type: 'object'
 		additionalProperties: false
 		properties:
@@ -123,39 +129,46 @@ schemas =
 				type: 'date'
 				required: true
 			sender:
-				extends: 'party'
+				id: 'urn:sdmxfeeder.infomodel.sender'
+				extends:
+					$ref: 'urn:sdmxfeeder.infomodel.party'
 				required: true
 			receiver:
-				extends: 'party'
+				$ref: 'urn:sdmxfeeder.infomodel.party'
 			name:
-				extends: 'internationalString'
+				$ref: 'urn:sdmxfeeder.infomodel.internationalstring'
 			structure:
 				type: 'object'
-				additionalProperties: false
-				properties:
-					structureID:
-						type: 'string'
-						required: true
-					schemaURL:
-						type: 'string'
-					namespace:
-						type: 'string'
-					dimensionAtObservation:
-						type: 'string'
-					explicitMeasures:
-						type: 'boolean'
-					serviceURL:
-						type: 'string'
-					structureURL:
-						type: 'string'
-					provisionAgreement:
-						extends: 'maintainableRef'
-					structureUsage:
-						extends: 'maintainableRef'
-					structure:
-						extends: 'maintainableRef'
+				additionalProperties:
+					id: 'urn:sdmxfeeder.infomodel.header.structure'
+					type: 'object'
+					properties:
+						structureID:
+							type: 'string'
+							required: true
+						schemaURL:
+							type: 'string'
+						namespace:
+							type: 'string'
+						dimensionAtObservation:
+							type: 'string'
+						explicitMeasures:
+							type: 'boolean'
+						serviceURL:
+							type: 'string'
+						structureURL:
+							type: 'string'
+						provisionAgreementRef:
+							$ref: 'urn:sdmxfeeder.infomodel.maintainableref'
+						structureUsageRef:
+							$ref: 'urn:sdmxfeeder.infomodel.maintainableref'
+						structureRef:
+							id: 'urn:sdmxfeeder.infomodel.header.structure.structureref'
+							required: true
+							extends:
+								$ref: 'urn:sdmxfeeder.infomodel.maintainableref'
 			dataProvider:
-				extends: 'dataProviderRef'
+				$ref: 'urn:sdmxfeeder.infomodel.dataproviderref'
 			dataSetAction:
 				type: 'string'
 				enum: ['Append','Replace','Delete','Information']
@@ -170,10 +183,11 @@ schemas =
 			embargoDate:
 				type: 'date'
 			source:
-				extends: 'internationalString'
-
-	footer:
-		id: 'footer'
+				$ref: 'urn:sdmxfeeder.infomodel.internationalstring'
+	},
+	{
+		$schema : 'http://json-schema.org/draft-03/schema#'
+		id: 'urn:sdmxfeeder.infomodel.footer'
 		type: 'array'
 		items:
 			type: 'object'
@@ -185,18 +199,20 @@ schemas =
 				code:
 					type: 'string'
 				text:
-					extends: 'internationalString'
-
-	internationalString:
-		id: 'internationalString'
+					$ref: 'urn:sdmxfeeder.infomodel.internationalstring'
+	},
+	{
+		$schema : 'http://json-schema.org/draft-03/schema#'
+		id: 'urn:sdmxfeeder.infomodel.internationalstring'
 		type: 'object'
 		additionalProperties: false
 		patternProperties:
 			'^[a-z][a-z]$':
 				type: 'string'
-
-	identifiableArtefact:
-		id: 'identifiableArtefact'
+	},
+	{
+		$schema : 'http://json-schema.org/draft-03/schema#'
+		id: 'urn:sdmxfeeder.infomodel.identifiableartefact'
 		type: 'object'
 		properties:
 			id:
@@ -209,9 +225,10 @@ schemas =
 			uri:
 				type: 'string'
 				format: 'uri'
-
-	representation:
-		id: 'representation'
+	},
+	{
+		$schema : 'http://json-schema.org/draft-03/schema#'
+		id: 'urn:sdmxfeeder.infomodel.representation'
 		type: 'object'
 		additionalProperties: false
 		properties:
@@ -245,20 +262,24 @@ schemas =
 					maxLength:
 						type: 'integer'
 						minimum: 1
-
-	nameableArtefact:
-		id: 'nameableArtefact'
-		extends: 'identifiableArtefact'
+	},
+	{
+		$schema : 'http://json-schema.org/draft-03/schema#'
+		id: 'urn:sdmxfeeder.infomodel.nameableartefact'
+		extends:
+			$ref: 'urn:sdmxfeeder.infomodel.identifiableartefact'
 		properties:
 			name:
 				required: true
-				extends: 'internationalString'
+				$ref: 'urn:sdmxfeeder.infomodel.internationalstring'
 			description:
-				extends: 'internationalString'
-
-	maintainableArtefact:
-		id: 'maintainableArtefact'
-		extends: 'nameableArtefact'
+				$ref: 'urn:sdmxfeeder.infomodel.internationalstring'
+	},
+	{
+		$schema : 'http://json-schema.org/draft-03/schema#'
+		id: 'urn:sdmxfeeder.infomodel.maintainableartefact'
+		extends:
+			$ref: 'urn:sdmxfeeder.infomodel.nameableartefact'
 		properties:
 			agencyID:
 				type: 'string'
@@ -279,25 +300,30 @@ schemas =
 				type: 'date'
 			validTo:
 				type: 'date'
-
-	itemScheme:
-		id: 'itemScheme'
-		extends: 'maintainableArtefact'
+	},
+	{
+		$schema : 'http://json-schema.org/draft-03/schema#'
+		id: 'urn:sdmxfeeder.infomodel.itemscheme'
+		extends:
+			$ref: 'urn:sdmxfeeder.infomodel.maintainableartefact'
 		properties:
 			isPartial:
 				type: 'boolean'
-
-	item:
-		id: 'item'
-		extends: 'nameableArtefact'
-		additionalProperties: false
+	},
+	{
+		$schema : 'http://json-schema.org/draft-03/schema#'
+		id: 'urn:sdmxfeeder.infomodel.item'
+		extends:
+			$ref: 'urn:sdmxfeeder.infomodel.nameableartefact'
 		properties:
 			parent:
 				type: 'string'
-
-	codelist:
-		id: 'codelist'
-		extends: 'itemScheme'
+	},
+	{
+		$schema : 'http://json-schema.org/draft-03/schema#'
+		id: 'urn:sdmxfeeder.infomodel.codelist'
+		extends:
+			$ref: 'urn:sdmxfeeder.infomodel.itemscheme'
 		additionalProperties: false
 		properties:
 			codes:
@@ -306,121 +332,138 @@ schemas =
 				additionalProperties: false
 				patternProperties:
 					'[A-Z0-9_@$\-]+':
-						extends: 'item'
-
-	concept:
-		id: 'object'
-		extends: 'item'
+						$ref: 'urn:sdmxfeeder.infomodel.item'
+	},
+	{
+		$schema : 'http://json-schema.org/draft-03/schema#'
+		id: 'urn:sdmxfeeder.infomodel.concept'
+		extends:
+			$ref: 'urn:sdmxfeeder.infomodel.item'
+		additionalProperties: false
 		properties:
 			coreRepresentation:
-				extends: 'representation'
-
-	conceptScheme:
-		id: 'conceptScheme'
-		extends: 'itemScheme'
+				$ref: 'urn:sdmxfeeder.infomodel.representation'
+	},
+	{
+		$schema : 'http://json-schema.org/draft-03/schema#'
+		id: 'urn:sdmxfeeder.infomodel.conceptscheme'
+		extends:
+			$ref: 'urn:sdmxfeeder.infomodel.itemscheme'
 		additionalProperties: false
 		properties:
 			concepts:
 				type: 'object'
 				required: true
-				additionalProperties: false
-				patternProperties:
-					'[A-Z0-9_@$\-]+':
-						extends: 'concept'
-
-	component:
-		id: 'component'
-		extends: 'identifiableArtefact'
+				additionalProperties:
+					$ref: 'urn:sdmxfeeder.infomodel.concept'
+	},
+	{
+		$schema : 'http://json-schema.org/draft-03/schema#'
+		id: 'urn:sdmxfeeder.infomodel.component'
+		extends:
+			$ref: 'urn:sdmxfeeder.infomodel.identifiableartefact'
 		properties:
 			conceptIdentity:
-				extends: 'itemRef'
+				extends:
+					$ref: 'urn:sdmxfeeder.infomodel.itemref'
 				required: true
 			localRepresentation:
-				extends: 'representation'
-
-	structure:
-		id: 'structure'
-		extends: 'maintainableArtefact'
-
-	componentList:
-		id: 'componentList'
+				$ref: 'urn:sdmxfeeder.infomodel.representation'
+	},
+	{
+		$schema : 'http://json-schema.org/draft-03/schema#'
+		id: 'urn:sdmxfeeder.infomodel.structure'
+		extends:
+			$ref: 'urn:sdmxfeeder.infomodel.maintainableartefact'
+	},
+	{
+		$schema : 'http://json-schema.org/draft-03/schema#'
+		id: 'urn:sdmxfeeder.infomodel.componentlist'
 		type: 'object'
-
-	dataStructure:
-		id: 'dataStructure'
-		extends: 'structure'
+	},
+	{
+		$schema : 'http://json-schema.org/draft-03/schema#'
+		id: 'urn:sdmxfeeder.infomodel.datastructure'
+		extends:
+			$ref: 'urn:sdmxfeeder.infomodel.structure'
 		additionalProperties: false
 		properties:
 			dimensionDescriptor:
-				extends: 'componentList'
+				id: 'urn:sdmxfeeder.infomodel.dimensiondescriptor'
+				type: 'object'
 				required: true
-				additionalProperties: false
-				patternProperties:
-					'[A-Z0-9_@$\-]+':
-						extends: 'component'
-						properties:
-							order:
-								type: 'integer'
-								required: true
-							type:
-								type: 'string'
-								required: true
-								enum: [ 'dimension', 'measureDimension', 'timeDimension' ]
+				additionalProperties:
+					id: 'urn:sdmxfeeder.infomodel.dimension'
+					extends:
+						$ref: 'urn:sdmxfeeder.infomodel.component'
+					properties:
+						order:
+							type: 'integer'
+							required: true
+						type:
+							type: 'string'
+							required: true
+							enum: [ 'dimension', 'measureDimension', 'timeDimension' ]
+					additionalProperties: false
 			dimensionGroupDescriptor:
-				extends: 'componentList'
-				additionalProperties: false
+				id: 'urn:sdmxfeeder.infomodel.dimensiongroupdescriptor'
+				type: 'object'
 				properties:
 					isAttachmentConstraint:
 						type: 'boolean'
-				patternProperties:
-					'[A-Z0-9_@$\-]+':
-						type: 'object'
-						properties:
-							id:
+				additionalProperties:
+					id: 'urn:sdmxfeeder.infomodel.dimensiongroup'
+					type: 'object'
+					properties:
+						id:
+							type: 'string'
+						dimensions:
+							type: 'array'
+							additionalItems: false
+							uniqueIlems: true
+							items:
 								type: 'string'
-							dimensions:
-								type: 'array'
-								additionalItems: false
-								uniqueItems: true
-								items:
-									type: 'string'
 			attributeDescriptor:
-				extends: 'componentList'
-				additionalProperties: false
-				patternProperties:
-					'[A-Z0-9_@$\-]+':
-						extends: 'component'
-						additionalProperties: false
-						properties:
-							assignmentStatus:
-								type: 'string'
-								required: true
-								enum: [ 'Mandatory', 'Conditional' ]
-							attributeRelationship:
-								type: 'object'
-								properties:
-									group:
+				id: 'urn:sdmxfeeder.infomodel.attributedescriptor'
+				type: 'object'
+				additionalProperties:
+					id: 'urn:sdmxfeeder.infomodel.attribute'
+					extends:
+						$ref: 'urn:sdmxfeeder.infomodel.component'
+					additionalProperties: false
+					properties:
+						assignmentStatus:
+							type: 'string'
+							required: true
+							enum: [ 'Mandatory', 'Conditional' ]
+						attributeRelationship:
+							type: 'object'
+							properties:
+								group:
+									type: 'string'
+								dimensions:
+									type: 'array'
+									additionalItems: false
+									uniqueItems: true
+									items:
 										type: 'string'
-									dimensions:
-										type: 'array'
-										additionalItems: false
-										uniqueItems: true
-										items:
-											type: 'string'
-									primaryMeasure:
-										type: 'string'
+								primaryMeasure:
+									type: 'string'
 			measureDescriptor:
-				extends: 'componentList'
+				extends:
+					$ref: 'urn:sdmxfeeder.infomodel.componentlist'
 				additionalProperties: false
 				required: true
 				properties:
 					primaryMeasure:
-						extends: 'component'
+						extends:
+							$ref: 'urn:sdmxfeeder.infomodel.component'
 						required: true
 						additionalProperties: false
-
-	observation:
-		id: 'observation'
+	},
+	{
+		$schema : 'http://json-schema.org/draft-03/schema#'
+		id: 'urn:sdmxfeeder.infomodel.observation'
 		type: 'object'
 		properties:
 			TIME_PERIOD:
@@ -432,9 +475,10 @@ schemas =
 				patternProperties:
 					'[A-Z0-9_@$\-]+':
 						type: 'string'
-
-	group:
-		id: 'group'
+	},
+	{
+		$schema : 'http://json-schema.org/draft-03/schema#'
+		id: 'urn:sdmxfeeder.infomodel.group'
 		type: 'object'
 		additionalProperties: false
 		properties:
@@ -452,9 +496,10 @@ schemas =
 				patternProperties:
 					'[A-Z0-9_@$\-]+':
 						type: 'string'
-
-	series:
-		id: 'series'
+	},
+	{
+		$schema : 'http://json-schema.org/draft-03/schema#'
+		id: 'urn:sdmxfeeder.infomodel.series'
 		type: 'object'
 		additionalProperties: false
 		properties:
@@ -490,16 +535,18 @@ schemas =
 								type: 'array'
 								items:
 									type: 'string'
-
-	dataSetAttributes:
-		id: 'dataSetAttributes'
+	},
+	{
+		$schema : 'http://json-schema.org/draft-03/schema#'
+		id: 'urn:sdmxfeeder.infomodel.dataSetattributes'
 		type: 'object'
 		patternProperties:
 			'[A-Z0-9_@$\-]+':
 				type: 'string'
-
-	dataSet:
-		id: 'timeSeriesDataSetBegin'
+	},
+	{
+		$schema : 'http://json-schema.org/draft-03/schema#'
+		id: 'urn:sdmxfeeder.infomodel.datasetheader'
 		type: 'object'
 		additionalProperties: false
 		properties:
@@ -524,9 +571,11 @@ schemas =
 			publicationPeriod:
 				type: 'string'
 			dataProvider:
-				extends: 'dataProviderRef'
-
-	query:
+				$ref: 'urn:sdmxfeeder.infomodel.dataproviderref'
+	},
+	{
+		$schema : 'http://json-schema.org/draft-03/schema#'
+		id: 'urn:sdmxfeeder.infomodel.query'
 		type: 'object'
 		additionalProperties: false
 		properties:
@@ -540,72 +589,44 @@ schemas =
 						type: 'string'
 					version:
 						type: 'string'
-
-	message:
-		id: 'message'
+	},
+	{
+		$schema : 'http://json-schema.org/draft-03/schema#'
+		id: 'urn:sdmxfeeder.infomodel.structures'
 		type: 'object'
 		additionalProperties: false
 		properties:
-			header:
-				extends: 'header'
-			structures:
+			codelists:
 				type: 'object'
-				additionalProperties: false
-				properties:
-					codelists:
-						type: 'object'
-					concepts:
-						type: 'object'
-					dataStructures:
-						type: 'object'
-			dataSet:
-				extends: 'dataSet'
-				properties:
-					data:
-						type: 'array'
-			query:
-				extends: 'query'
+			concepts:
+				type: 'object'
+			dataStructures:
+				type: 'object'
+	},
+	{
+		$schema : 'http://json-schema.org/draft-03/schema#'
+		id: 'urn:sdmxfeeder.infomodel.dataset'
+		type: 'array'
+		items: [
+			{ $ref: 'urn:sdmxfeeder.infomodel.datasetheader' },
+		]
+	},
+	{
+		$schema : 'http://json-schema.org/draft-03/schema#'
+		id: 'urn:sdmxfeeder.infomodel.message'
+		type: 'array'
+		items: [
+			{ $ref: 'urn:sdmxfeeder.infomodel.header' },
+			{ type: [
+					{ type: 'object', default: {} },
+					{ $ref: 'urn:sdmxfeeder.infomodel.structures' }
+				]
+			},
+			{ $ref: 'urn:sdmxfeeder.infomodel.dataset' }
+			{ $ref: 'urn:sdmxfeeder.infomodel.footer' }
+		]
+		additionalItems: false
+	}
+]
 
-
-
-extendSchema = (schema, root) ->
-	extended = {}
-	tmp = {}
-
-	if schema.extends? and root[schema.extends]?
-		extended = extendSchema root[schema.extends], root
-
-	for property, value of schema when property isnt 'extends'
-		if value instanceof Array or typeof value isnt 'object'
-			extended[property] = value
-			continue
-
-		value = extendSchema value, root
-		if extended[property]?
-			if typeof extended[property] is 'object'
-				for property2, value2 of value
-					extended[property][property2] = value2
-			else
-				extended[property] = value
-		else
-			extended[property] = value
-
-	return extended
-
-
-convertForJSON = (schema) ->
-	for key, value of schema
-		convertForJSON2 value
-	return schema
-
-convertForJSON2 = (schema) ->
-	if schema.type? and schema.type is 'date'
-		schema.type = 'string'
-		schema.pattern = '^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d+[+-][0-2]\\d:[0-5]\\d|Z$'
-	if schema.properties?
-		for key, value of schema.properties
-			convertForJSON2 value
-
-
-exports.schemas = extendSchema schemas, schemas
-exports.schemasForJSON = convertForJSON extendSchema(schemas, schemas)
+exports.schemas = schemas

@@ -1,0 +1,530 @@
+[
+	{
+		"id": "IREF000002",
+		"test": false,
+		"prepared": "1997-05-25T12:39:00.000Z",
+		"receiver": {
+			"ZZZ": {
+				"id": "ZZZ"
+			}
+		},
+		"sender": {
+			"4F0": {
+				"id": "4F0"
+			}
+		},
+		"name": {
+			"en": "Message with example code lists"
+		}
+	},
+	{
+		"codelists": {
+			"EMI:CL_FREQ(1.0)": {
+				"id": "CL_FREQ",
+				"name": {
+					"en": "Frequency code list"
+				},
+				"agencyID": "EMI",
+				"version": "1.0",
+				"codes": {
+					"M": {
+						"id": "M",
+						"name": {
+							"en": "monthly"
+						}
+					},
+					"Q": {
+						"id": "Q",
+						"name": {
+							"en": "quarterly"
+						}
+					}
+				}
+			},
+			"EMI:CL_AREA_EE(1.0)": {
+				"id": "CL_AREA_EE",
+				"name": {
+					"en": "Area code list (EUROSTAT/ECB)"
+				},
+				"agencyID": "EMI",
+				"version": "1.0",
+				"codes": {
+					"4D": {
+						"id": "4D",
+						"name": {
+							"en": "European Commission"
+						}
+					},
+					"4F": {
+						"id": "4F",
+						"name": {
+							"en": "European Monetary Institute"
+						}
+					},
+					"5B": {
+						"id": "5B",
+						"name": {
+							"en": "Bank for International Settlements"
+						}
+					},
+					"BE": {
+						"id": "BE",
+						"name": {
+							"en": "Belgium"
+						}
+					},
+					"DK": {
+						"id": "DK",
+						"name": {
+							"en": "Denmark"
+						}
+					},
+					"FR": {
+						"id": "FR",
+						"name": {
+							"en": "France"
+						}
+					},
+					"GB": {
+						"id": "GB",
+						"name": {
+							"en": "United Kingdom"
+						}
+					},
+					"GR": {
+						"id": "GR",
+						"name": {
+							"en": "Greece"
+						}
+					},
+					"LU": {
+						"id": "LU",
+						"name": {
+							"en": "Luxembourg"
+						}
+					},
+					"NO": {
+						"id": "NO",
+						"name": {
+							"en": "Norway"
+						}
+					},
+					"US": {
+						"id": "US",
+						"name": {
+							"en": "United States of America"
+						}
+					}
+				}
+			},
+			"EMI:CL_ADJUSTMENT(1.0)": {
+				"id": "CL_ADJUSTMENT",
+				"name": {
+					"en": "Adjustment indicator code list"
+				},
+				"agencyID": "EMI",
+				"version": "1.0",
+				"codes": {
+					"N": {
+						"id": "N",
+						"name": {
+							"en": "neither seasonally or working day adjusted"
+						}
+					},
+					"S": {
+						"id": "S",
+						"name": {
+							"en": "seasonally adjusted, not working day adjusted"
+						}
+					},
+					"W": {
+						"id": "W",
+						"name": {
+							"en": "working day adjusted, not seasonally adjusted"
+						}
+					},
+					"Y": {
+						"id": "Y",
+						"name": {
+							"en": "working day and seasonally adjusted"
+						}
+					}
+				}
+			},
+			"EMI:CL_DATA_TYPE(1.0)": {
+				"id": "CL_DATA_TYPE",
+				"name": {
+					"en": "BoP type/position code list"
+				},
+				"agencyID": "EMI",
+				"version": "1.0",
+				"codes": {
+					"1": {
+						"id": "1",
+						"name": {
+							"en": "Stocks at the beginning of the period"
+						}
+					},
+					"2": {
+						"id": "2",
+						"name": {
+							"en": "Credit flows"
+						}
+					},
+					"3": {
+						"id": "3",
+						"name": {
+							"en": "Debit flows"
+						}
+					},
+					"4": {
+						"id": "4",
+						"name": {
+							"en": "Net flows"
+						}
+					},
+					"5": {
+						"id": "5",
+						"name": {
+							"en": "Price valuation adjustment"
+						}
+					},
+					"6": {
+						"id": "6",
+						"name": {
+							"en": "Exchange rate adjustments"
+						}
+					},
+					"7": {
+						"id": "7",
+						"name": {
+							"en": "Reclassification, other adjustments and other revaluations"
+						}
+					},
+					"8": {
+						"id": "8",
+						"name": {
+							"en": "Stocks at the end of the period / Gross stocks"
+						}
+					}
+				}
+			},
+			"EMI:CL_BOP_ITEM(1.0)": {
+				"id": "CL_BOP_ITEM",
+				"name": {
+					"en": "BoP item code list"
+				},
+				"agencyID": "EMI",
+				"version": "1.0",
+				"codes": {
+					"269": {
+						"id": "269",
+						"name": {
+							"en": "Merchanting and other trade-related services "
+						}
+					},
+					"379": {
+						"id": "379",
+						"name": {
+							"en": "Current transfers"
+						}
+					},
+					"971": {
+						"id": "971",
+						"name": {
+							"en": "Freight transport by air and sea"
+						}
+					},
+					"981": {
+						"id": "981",
+						"name": {
+							"en": "Other services"
+						}
+					},
+					"982": {
+						"id": "982",
+						"name": {
+							"en": "Services not allocated"
+						}
+					},
+					"991": {
+						"id": "991",
+						"name": {
+							"en": "Goods and services"
+						}
+					}
+				}
+			},
+			"EMI:CL_BASIS(1.0)": {
+				"id": "CL_BASIS",
+				"name": {
+					"en": "Data basis code list"
+				},
+				"agencyID": "EMI",
+				"version": "1.0",
+				"codes": {
+					"1": {
+						"id": "1",
+						"name": {
+							"en": "Transaction"
+						}
+					},
+					"2": {
+						"id": "2",
+						"name": {
+							"en": "Cash"
+						}
+					},
+					"3": {
+						"id": "3",
+						"name": {
+							"en": "Accruals"
+						}
+					},
+					"Z": {
+						"id": "Z",
+						"name": {
+							"en": "Other"
+						}
+					}
+				}
+			},
+			"EMI:CL_OBS_STATUS(1.0)": {
+				"id": "CL_OBS_STATUS",
+				"name": {
+					"en": "Observation status code list"
+				},
+				"agencyID": "EMI",
+				"version": "1.0",
+				"codes": {
+					"A": {
+						"id": "A",
+						"name": {
+							"en": "normal value"
+						}
+					},
+					"E": {
+						"id": "E",
+						"name": {
+							"en": "estimated value"
+						}
+					},
+					"F": {
+						"id": "F",
+						"name": {
+							"en": "forecast value"
+						}
+					},
+					"H": {
+						"id": "H",
+						"name": {
+							"en": "missing, holiday or weekend"
+						}
+					}
+				}
+			},
+			"EMI:CL_OBS_CONF(1.0)": {
+				"id": "CL_OBS_CONF",
+				"name": {
+					"en": "Observation confidentiality code list"
+				},
+				"agencyID": "EMI",
+				"version": "1.0",
+				"codes": {
+					"F": {
+						"id": "F",
+						"name": {
+							"en": "Free"
+						}
+					},
+					"C": {
+						"id": "C",
+						"name": {
+							"en": "Confidential (and non-publishable)"
+						}
+					}
+				}
+			},
+			"EMI:CL_UNIT(1.0)": {
+				"id": "CL_UNIT",
+				"name": {
+					"en": "Unit code list"
+				},
+				"agencyID": "EMI",
+				"version": "1.0",
+				"codes": {
+					"BEF": {
+						"id": "BEF",
+						"name": {
+							"en": "Belgian Franc"
+						}
+					},
+					"DEM": {
+						"id": "DEM",
+						"name": {
+							"en": "German Deutsche Mark"
+						}
+					},
+					"ITL": {
+						"id": "ITL",
+						"name": {
+							"en": "Italian Lira"
+						}
+					}
+				}
+			},
+			"EMI:CL_UNIT_MULT(1.0)": {
+				"id": "CL_UNIT_MULT",
+				"name": {
+					"en": "Unit multiplier code list"
+				},
+				"agencyID": "EMI",
+				"version": "1.0",
+				"codes": {
+					"6": {
+						"id": "6",
+						"name": {
+							"en": "millions"
+						}
+					},
+					"9": {
+						"id": "9",
+						"name": {
+							"en": "billions"
+						}
+					}
+				}
+			},
+			"EMI:CL_COLLECTION(1.0)": {
+				"id": "CL_COLLECTION",
+				"name": {
+					"en": "Collection indicator code list"
+				},
+				"agencyID": "EMI",
+				"version": "1.0",
+				"codes": {
+					"C": {
+						"id": "C",
+						"name": {
+							"en": "end of period"
+						}
+					},
+					"M": {
+						"id": "M",
+						"name": {
+							"en": "average of observations through period"
+						}
+					}
+				}
+			},
+			"EMI:CL_ORGANISATION(1.0)": {
+				"id": "CL_ORGANISATION",
+				"name": {
+					"en": "Organisation code list"
+				},
+				"agencyID": "EMI",
+				"version": "1.0",
+				"codes": {
+					"BE2": {
+						"id": "BE2",
+						"name": {
+							"en": "Banque Nationale de Belgique (Belgium)"
+						}
+					},
+					"DK2": {
+						"id": "DK2",
+						"name": {
+							"en": "Danmarks Nationalbank (Denmark)"
+						}
+					},
+					"DE2": {
+						"id": "DE2",
+						"name": {
+							"en": "Deutsche Bundesbank (Germany)"
+						}
+					},
+					"4F0": {
+						"id": "4F0",
+						"name": {
+							"en": "European Central Bank (ECB)"
+						}
+					},
+					"5B0": {
+						"id": "5B0",
+						"name": {
+							"en": "Bank for International Settlements (BIS)"
+						}
+					},
+					"4D0": {
+						"id": "4D0",
+						"name": {
+							"en": "European Commission (Eurostat)"
+						}
+					},
+					"ZZZ": {
+						"id": "ZZZ",
+						"name": {
+							"en": "Unspecified"
+						}
+					}
+				}
+			},
+			"EMI:USS(1.0)": {
+				"id": "USS",
+				"name": {
+					"en": "Usage status code list"
+				},
+				"agencyID": "EMI",
+				"version": "1.0",
+				"codes": {
+					"1": {
+						"id": "1",
+						"name": {
+							"en": "Conditional"
+						}
+					},
+					"2": {
+						"id": "2",
+						"name": {
+							"en": "Mandatory"
+						}
+					}
+				}
+			},
+			"EMI:ALV(1.0)": {
+				"id": "ALV",
+				"name": {
+					"en": "Attachment level code list"
+				},
+				"agencyID": "EMI",
+				"version": "1.0",
+				"codes": {
+					"1": {
+						"id": "1",
+						"name": {
+							"en": "Key family"
+						}
+					},
+					"4": {
+						"id": "4",
+						"name": {
+							"en": "Time series"
+						}
+					},
+					"5": {
+						"id": "5",
+						"name": {
+							"en": "Observation"
+						}
+					},
+					"9": {
+						"id": "9",
+						"name": {
+							"en": "Sibling group"
+						}
+					}
+				}
+			}
+		}
+	}
+]

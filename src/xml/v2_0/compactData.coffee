@@ -1,5 +1,6 @@
 _ = require 'underscore'
 header = require './header'
+sdmx = require '../../pipe/sdmxPipe'
 
 xmlns_msg = 'http://www.SDMX.org/resources/SDMXML/schemas/v2_0/message'
 
@@ -8,7 +9,7 @@ groupCur = {}
 
 entryActions =
 	'DataSet': (attrs) ->
-		@emitSDMX 'dataSet', _.extend( {}, attrs )
+		@emitSDMX sdmx.DATA_SET_HEADER, _.extend( {}, attrs )
 
 	'DataSet/Series': (attrs) ->
 		seriesCur = {}
@@ -30,13 +31,13 @@ entryActions =
 	'DataSet/Group': (attrs) ->
 		groupCur = { type: 'SiblingGroup' }
 		groupCur.components = _.extend {}, attrs
-		@emitSDMX 'group', groupCur
+		@emitSDMX sdmx.ATTRIBUTE_GROUP, groupCur
 
 entryActions['DataSet/SiblingGroup'] = entryActions['DataSet/Group']
 
 exitActions =
 	'DataSet/Series': () ->
-		@emitSDMX 'series', seriesCur
+		@emitSDMX sdmx.SERIES, seriesCur
 
 guards = {}
 
