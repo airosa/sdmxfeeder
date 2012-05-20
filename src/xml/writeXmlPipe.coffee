@@ -24,6 +24,11 @@ stringifiers =
 			doc.att('id',obj.id)
 			stringifiers.intString.v2_1 doc, obj.name, 'Name'
 
+	itemScheme:
+		v2_1: (doc, obj) ->
+			stringifiers.maintainable.v2_1 doc, obj
+			doc.att('isPartial', obj.isPartial) if obj.isPartial?
+
 	urn:
 		v2_1: (doc, obj) ->
 			return unless obj.urn?
@@ -74,7 +79,7 @@ stringifiers =
 	codelist:
 		v2_1: (doc, obj) ->
 			codelist = doc.begin('Codelist')
-			stringifiers.maintainable.v2_1 codelist, obj
+			stringifiers.itemScheme.v2_1 codelist, obj
 			for key, value of obj.codes
 				code = codelist.ele('Code')
 				stringifiers.item.v2_1 code, value
@@ -83,7 +88,7 @@ stringifiers =
 	conceptScheme:
 		v2_1: (doc, obj) ->
 			concepts = doc.begin('ConceptScheme')
-			stringifiers.maintainable.v2_1 concepts, obj
+			stringifiers.itemScheme.v2_1 concepts, obj
 			for key, value of obj.concepts
 				concept = concepts.ele('Concept')
 				stringifiers.item.v2_1 concept, value

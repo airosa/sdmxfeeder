@@ -2,7 +2,7 @@
 
 
 class MegaPipe extends Stream
-	constructor: (@log, @subpipes) ->
+	constructor: (@subpipes, @log) ->
 		@readable = true
 		@writable = true
 		@connectSubpipes()
@@ -58,8 +58,8 @@ class MegaPipe extends Stream
 
 	connectSubpipes: ->
 		@log.debug "#{@constructor.name} connectSubpipes"
-		for subpipe, n in @subpipes
-			subpipe.pipe @subpipes[n+1] if n < @subpipes.length - 1
+		for subpipe, n in @subpipes when n < (@subpipes.length - 1)
+			subpipe.pipe @subpipes[n+1]
 
 
 	wireEvents: ->

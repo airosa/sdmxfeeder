@@ -39,7 +39,6 @@ sdmxData =
 class SdmxPipe extends Stream
 	constructor: (@log) ->
 		@queueLengthMax = 1000
-		@full = false
 		@readable = true
 		@writable = true
 		@paused = false
@@ -82,7 +81,7 @@ class SdmxPipe extends Stream
 		@_drain()
 
 
-	pipe: (destination) ->
+	xpipex: (destination) ->
 		util.pump this, destination, (err) ->
 			if not err then destination.end()
 		return destination
@@ -139,19 +138,22 @@ class SdmxPipe extends Stream
 	_drain: ->
 		@log.debug "#{@constructor.name} drain"
 
+		wasFull = @queueLengthMax < @queue.out.length
+
 		while 0 < @queue.out.length and not @paused
 			event = @queue.out.shift()
 			@log.debug "#{@constructor.name} emit #{event.name}"
 			@counters.emit += 1
 			@emit event.name, event.arg
 
-		if @queueLengthMax < @queue.out.length
-			@full = true
+		isFull = @queueLengthMax < @queue.out.length
+
+		if isFull
 			false
 		else
-			if @full
+			if wasFull
+				@log.debug "#{@constructor.name} emit drain"
 				@emit 'drain'
-				@full = false
 			true
 
 
@@ -166,43 +168,7 @@ class SdmxPipe extends Stream
 		else
 			@counters[direction].missing += 1
 
-
-	#drain: ->
-	#	@log.debug "#{@constructor.name} drain"
-
-	#	while not @paused and 0 < @queue.out.length
-	#		data = @queue.out[0]
-	#		@emitData data
-	#		@queue.out.shift()
-#
-	#	while not @waiting and 0 < @queue.in.length
-	#		data = @queue.in[0]
-	#		@processData data
-	#		@queue.in.shift() unless @waiting
-
-	#	@emitDrain() if not @paused and not @waiting
-
-
-	#close: ->
-	#	@log.debug "#{@constructor.name} close"
-
-
-	#destroy: ->
-	#	@log.debug "#{@constructor.name} destroy"
-
-
-	#wait: ->
-	#	@log.debug "#{@constructor.name} wait"
-	#	@counters.wait += 1
-	#	@waiting = true
-
-
-	#continue: ->
-	#	@log.debug "#{@constructor.name} continue"
-	#	@counters.continue += 1
-	#	@waiting = false
-
-
+#-------------------------------------------------------------------------------
 
 
 class ReadSdmxPipe extends SdmxPipe
@@ -222,6 +188,7 @@ class ReadSdmxPipe extends SdmxPipe
 			sequenceNumber: @sequenceNumber
 			data: artefact
 
+#-------------------------------------------------------------------------------
 
 
 class WriteSdmxPipe extends SdmxPipe
@@ -231,6 +198,7 @@ class WriteSdmxPipe extends SdmxPipe
 
 
 	processData: (sdmxdata) ->
+		@log.debug "#{@constructor.name} processData"
 		current = sdmxdata.type
 		data = sdmxdata.data
 		str = ''
@@ -238,7 +206,7 @@ class WriteSdmxPipe extends SdmxPipe
 			str += @beforeNext( current )
 		else
 			str += @afterLast( @previous )
-			str += @beforeFirst( current )
+			str += @beforeFirst( current, data )
 		str += @before( current, data )
 		str += @stringify( current, data )
 		@previous = current
@@ -246,6 +214,7 @@ class WriteSdmxPipe extends SdmxPipe
 
 
 	processEnd: ->
+		@log.debug "#{@constructor.name} processEnd"
 		current = 'end'
 		str = ''
 		if @previous is current
@@ -263,7 +232,7 @@ class WriteSdmxPipe extends SdmxPipe
 	beforeNext: (event) -> ''
 
 
-	beforeFirst: (event) -> ''
+	beforeFirst: (event, data) -> ''
 
 
 	stringify: (event, data) -> ''
@@ -271,6 +240,7 @@ class WriteSdmxPipe extends SdmxPipe
 
 	afterLast: (event) -> ''
 
+#-------------------------------------------------------------------------------
 
 exports.SdmxPipe = SdmxPipe
 exports.ReadSdmxPipe = ReadSdmxPipe

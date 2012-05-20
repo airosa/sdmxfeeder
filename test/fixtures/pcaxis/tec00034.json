@@ -1,0 +1,203 @@
+[
+	{
+		'id': "tec00034",
+		'test': false,
+		'prepared': "20120504T0630",
+		'sender': {
+			'EUROSTAT': {
+				'id': "EUROSTAT",
+				'name {
+					'en': "Eurostat",
+					'fi': "Eurostat"
+				},
+				'contact': [
+					{
+						'name': {
+							'en': "Contact"
+						},
+						'telephone': "+358 9 1734 2354",
+						'email': "tietokannat@tilastokeskus.fi"
+					}
+				]
+			}
+		},
+		'structure': {
+			'TEC00034': {
+				'structureID': "TEC00034",
+				'structureRef': {
+					'id': "TEC00034",
+					'agencyID': "EUROSTAT",
+					'version': "1.0"
+				}
+			}
+		}
+	},
+	{
+		'codelists': {
+			'GEO': {
+				'id': "GEO",
+				'agencyID': "EUROSTAT",
+				'version': "1.0",
+				'name': {
+					'en': "geo"
+				},
+				'codes': {
+					'BG': {
+						'id': "BG",
+						'name': {
+							'en': "Bulgaria",
+							'fi': "Bulgaria"
+						}
+					}
+				}
+			}
+		},
+		'conceptSchemes': {
+			'CONCEPT_SCHEME': {
+				'id': "CONCEPT_SCHEME",
+				'agencyID': "EUROSTAT",
+				'version': "1.0",
+				'concepts': {
+					'GEO': {
+						'id': "GEO",
+						'name': {
+							'en': "Geo"
+						}
+					}
+				}
+			},
+			'CROSS_DOMAIN_CONCEPTS': {
+				'id': "CROSS_DOMAIN_CONCEPTS",
+				'agencyID': "SDMX",
+				'version': "1.0",
+				'concepts': {
+					'FREQ': {
+						'id': "FREQ",
+						'name': {
+							'en': "Frequency"
+						}
+					},
+					'TIME_PERIOD': {
+						'id': "TIME_PERIOD",
+						'name': {
+							'en': "time"
+						}
+					},
+					'OBS_STATUS': {
+						'id': "OBS_STATUS",
+						'name': {
+							'en': "Observation status"
+						}
+					}
+
+				}
+			}
+		},
+		'dataStructureDefinitions': {
+			'TEC00034': {
+				'id': "TEC00034",
+				'agencyID': "EUROSTAT",
+				'version': "1.0",
+				'dimensionDescriptor': {
+					'FREQ': {
+						'id': "FREQ",
+						'order': 1,
+						'type': "dimension",
+						'conceptIdentity': {
+							'ref': {
+								'id': "FREQ",
+								'agencyID': "SDMX",
+								'maintainableParentID': "CROSS_DOMAIN_CONCEPTS",
+								'maintainableParentVersion': "1.0"
+							}
+						},
+						'localRepresentation': {
+							'enumeration': {
+								'ref': {
+									'id': "FREQ",
+									'agencyID': "SDMX",
+									'version': "1.0"
+								}
+							}
+						}
+					'GEO': {
+						'id': GEO,
+						'order': 1,
+						'type': "dimension",
+						'conceptIdentity': {
+							'ref': {
+								'id': "GEO",
+								'agencyID': "EUROSTAT",
+								'maintainableParentID': "CONCEPT_SCHEME",
+								'maintainableParentVersion': "1.0"
+							}
+						},
+						'localRepresentation': {
+							'enumeration': {
+								'ref': {
+									'id': "GEO",
+									'agencyID': "EUROSTAT",
+									'version': "1.0"
+								}
+							}
+						}
+					},
+					'TIME_PERIOD': {
+						'id': "TIME_PERIOD",
+						'order': 2
+						'type': "timeDimension",
+						'conceptIdentity': {
+							'ref': {
+								'id': "TIME_PERIOD",
+								'agencyID': "SDMX",
+								'maintainableParentID': "CROSS_DOMAIN_CONCEPTS",
+								'maintainableParentVersion': "1.0"
+							}
+						},
+						'localRepresentation': {
+						}
+					}
+				}
+			}
+		},
+		'measureDescriptor': {
+			'primaryMeasure': {
+				'id': "OBS_VALUE",
+				'conceptIdentity': {
+					'ref': {
+						'id': "OBS_VALUE",
+						'agencyID': "SDMX",
+						'maintainableParentID': "CROSS_DOMAIN_CONCEPTS",
+						'maintainableParentVersion': "1.0"
+					}
+				}
+			}
+		}
+		'attributeDescriptor': {
+			'OBS_STATUS': {
+				'id': "OBS_STATUS",
+				'assignmentStatus': "Mandatory",
+				'conceptIdentity': {
+					'ref': {
+						'agencyID': "SDMX",
+						'maintainableParentID': "CROSS_DOMAIN_CONCEPTS",
+						'maintainableParentVersion': "1.0",
+						'id': "OBS_STATUS"
+					}
+				},
+				'attributeRelationship': {
+					'primaryMeasure': "OBS_VALUE"
+				},
+				'localRepresentation': {
+					'enumeration': {
+						'ref': {
+							'id': "CL_OBS_STATUS",
+							'agencyID': "SDMX",
+							'version': "1.0"
+						}
+					}
+				}
+			}
+		}
+	}
+]

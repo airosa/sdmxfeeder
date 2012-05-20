@@ -8,6 +8,9 @@
 {ConvertCompactPipe} = require '../transform/convertCompactPipe'
 {GenericCheckPipe} = require '../checks/genericCheckPipe'
 {DebugPipe} = require '../util/debugPipe'
+{ReadPcAxisPipe} = require '../pcaxis/readPcAxisPipe'
+{WriteCsvPipe} = require '../csv/writeCsvPipe'
+{CompactSeriesPipe} = require '../transform/compactSeriesPipe'
 
 
 exports.READ_XML = 0
@@ -18,38 +21,44 @@ exports.SUBMIT = 4
 exports.CONVERT = 5
 exports.CHECK = 6
 exports.DEBUG = 7
+exports.READ_PX = 8
+exports.WRITE_CSV = 9
+exports.COMPACT = 10
 
 
-class PipeFactory
-	constructor: ->
-
-	build: (pipes, options) ->
-		subpipes = []
-		for name in pipes
-			subpipes.push @createSubPipe name, options
-		new MegaPipe options.log, subpipes
+build = (pipes, options) ->
+	subpipes = []
+	for name in pipes
+		subpipes.push createSubPipe name, options
+	new MegaPipe subpipes, options.log
 
 
-	createSubPipe: (name, options) ->
-		throw new Error "Invalid subpipe name: #{name}" unless exports[name]?
+createSubPipe = (name, options) ->
+	throw new Error "Invalid subpipe name: #{name}" unless exports[name]?
 
-		switch exports[name]
-			when exports.READ_XML
-				new ReadXmlPipe options.log
-			when exports.WRITE_XML
-				new WriteXmlPipe options.log
-			when exports.READ_EDI
-				new ReadEdifactPipe options.log
-			when exports.WRITE_JSON
-				new WriteJsonPipe options.log
-			when exports.SUBMIT
-				new SubmitToRegistryPipe options.log, options.registry
-			when exports.CONVERT
-				new ConvertCompactPipe options.log, options.registry
-			when exports.CHECK
-				new GenericCheckPipe options.log
-			when exports.DEBUG
-				new DebugPipe options.log
+	switch exports[name]
+		when exports.READ_XML
+			new ReadXmlPipe options.log
+		when exports.WRITE_XML
+			new WriteXmlPipe options.log
+		when exports.READ_EDI
+			new ReadEdifactPipe options.log
+		when exports.WRITE_JSON
+			new WriteJsonPipe options.log
+		when exports.SUBMIT
+			new SubmitToRegistryPipe options.log, options.registry
+		when exports.CONVERT
+			new ConvertCompactPipe options.log, options.registry
+		when exports.CHECK
+			new GenericCheckPipe options.log
+		when exports.DEBUG
+			new DebugPipe options.log
+		when exports.READ_PX
+			new ReadPcAxisPipe options.log
+		when exports.WRITE_CSV
+			new WriteCsvPipe options.log
+		when exports.COMPACT
+			new CompactSeriesPipe options.log
 
 
-exports.PipeFactory = PipeFactory
+exports.build = build

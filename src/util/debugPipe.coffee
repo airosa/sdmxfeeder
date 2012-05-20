@@ -7,7 +7,7 @@ class DebugPipe extends SdmxPipe
 		super
 
 	processData: (sdmxdata) ->
-		console.log  util.inspect( sdmxdata, true, null, true )
+		console.log  util.inspect( sdmxdata, true, null, false )
 		super
 
 

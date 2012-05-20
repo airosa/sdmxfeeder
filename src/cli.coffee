@@ -3,6 +3,7 @@ Log = require 'log'
 async = require 'async'
 fs = require 'fs'
 path = require 'path'
+zlib = require 'zlib'
 {SimpleRegistry} = require './registry/simpleRegistry'
 factory = require './pipe/pipeFactory'
 
@@ -11,7 +12,7 @@ factory = require './pipe/pipeFactory'
 start = (new Date).getTime()
 
 argv = optimist
-    .usage( 'Process a SDMX file.\nUsage: sdmxfeeder inputfile [outputfile]' )
+    .usage( 'Process a file.\nUsage: sdmxfeeder inputfile [outputfile]' )
     .demand( 1 )
     .default( level: 'INFO' )
     .describe( log: 'Log file name', level: 'Logging level' )
@@ -31,7 +32,6 @@ options =
 	log: log
 	registry: registry
 
-pipeFactory = new factory.PipeFactory()
 
 #-------------------------------------------------------------------------------
 
@@ -54,15 +54,25 @@ loadStructuresFromFiles = (callback) ->
 
 processInputFile = (callback) ->
 	formatIn = getFileFormat sourcePath
-	pipes = [ 'READ_' + formatIn, 'CONVERT', 'CHECK' ]
+	pipes = [ 'READ_' + formatIn, 'CONVERT' ]#, 'CHECK' ]
 	source = createReadStream sourcePath, formatIn
+
+	if fileIsCompressed sourcePath
+		gzipIn = zlib.createGzip()
+		source.pipe gzipIn
+		source = gzipIn
 
 	if destinationPath?
 		formatOut = getFileFormat destinationPath
 		destination = createWriteStream destinationPath, formatOut
 		pipes.push 'WRITE_' + formatOut
 
-	pipe = pipeFactory.build pipes, options
+		if fileIsCompressed destinationPath
+			gzipOut = zlib.createGzip()
+			gzipOut.pipe destination
+			destination = gzipOut
+
+	pipe = factory.build pipes, options
 
 	if destination?
 		destination.on 'end', callback
@@ -82,24 +92,28 @@ findFiles = (path, callback) ->
 
 
 createReadStream = (fullpath, format) ->
-	len = countTo1Mb = 0
+	len = countTo10Mb = 0
 	start = (new Date).getTime()
 	log.info "Source: #{fullpath}"
 	log.info "Source format: #{format}"
 	source = fs.createReadStream fullpath
-	source.setEncoding if format is 'EDI' then 'ascii' else 'utf8'
+	switch format
+		when 'EDI'
+			source.setEncoding 'ascii'
+		when 'XML', 'JSON'
+			source.setEncoding 'utf8'
 	source.on 'close', ->
 		diff = ((new Date).getTime() - start) / 1000
 		log.info "Source closed: #{fullpath}"
 		log.info "Read #{len} bytes in #{diff} seconds"
 	source.on 'data', ( data ) ->
 		len += data.length
-		countTo1Mb += data.length
-		if countTo1Mb > 1000000
+		countTo10Mb += data.length
+		if countTo10Mb > 10000000
 			diff = ((new Date).getTime() - start) / 1000
-			log.info "#{fullpath} read #{len} bytes in #{diff} seconds"
-			countTo1Mb = 0
-			start = (new Date).getTime()
+			log.info "read #{len} bytes in #{diff} seconds"
+			countTo10Mb = 0
+			#start = (new Date).getTime()
 	source
 
 
@@ -111,8 +125,16 @@ createWriteStream = (fullpath, format) ->
 	destination
 
 
+fileIsCompressed = (fullpath) ->
+	path.extname(fullpath) in ['.gz','.zip']
+
+
 getFileFormat = (fullpath) ->
-	format = path.extname(fullpath).toUpperCase().slice 1
+	if fileIsCompressed fullpath
+		pos = fullpath.length - path.extname(fullpath).length - 1
+		getFileFormat fullpath[0..pos]
+	else
+		path.extname(fullpath).toUpperCase().slice 1
 
 #-------------------------------------------------------------------------------
 
