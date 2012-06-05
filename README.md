@@ -25,8 +25,9 @@ Examples directory contains some sample JSON files.
 Data structure specific validation is also supported.
 - Streams data from input to output. Should convert and check large files.
 - PC-AXIS support is limited to files without KEYS.
-- Reads and writes compressed files. If the file name ends with ".gz" or ".zip"
-it will be compressed/decompressed.
+- Reads and writes compressed files. If the file name ends with ".gz"
+it will be compressed/decompressed [Update: looks like zip is not working afterall.
+Use .gz if you need file compression].
 
 ## Installation
 
@@ -65,3 +66,10 @@ Conversion of all SDMX-EDI and some SDMX-ML data files requires access to the
 relevant data structure definitions. Create a directory named registry in the current
 directory and copy the structure files (in any supported format) there. Application
 will use them automatically.
+
+## Production quality tools
+
+[SDMX tools registry](http://www.sdmxtools.org/index.php) contains links to
+production quality tools for converting SDMX files. Many of the tools are
+available free of charge.
+
