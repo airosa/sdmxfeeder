@@ -18,6 +18,7 @@ Written in [CoffeeScript](http://coffeescript.org), runs with [Node](http://node
 	- SDMX-ML (XML) version 2.1
 	- JSON
 	- CSV
+	- oData
 - JSON is not supported by the SDMX technical standards.
 Examples directory contains some sample JSON files.
 - Validates input data. Generic validation rules are defined in
@@ -28,6 +29,7 @@ Data structure specific validation is also supported.
 - Reads and writes compressed files. If the file name ends with ".gz"
 it will be compressed/decompressed [Update: looks like zip is not working afterall.
 Use .gz if you need file compression].
+- The file extension for oData is atom.
 
 ## Installation
 
@@ -59,7 +61,8 @@ Run from the install directory:
 
 	bin/sdmxfeeder my_input_sdmx_file.xml my_output_sdmx_file.json
 
-File formats depend on the file extensions: .xml -> XML, .json -> JSON, .edi -> EDIFACT.
+File formats depend on the file extensions: .xml -> XML, .json -> JSON, 
+.edi -> EDIFACT, .atom -> oData.
 Additional extensions for compressed file are .gz and .zip (e.g. myfile.xml.gz).
 
 Conversion of all SDMX-EDI and some SDMX-ML data files requires access to the
