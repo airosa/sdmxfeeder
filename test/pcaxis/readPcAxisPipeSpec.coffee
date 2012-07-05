@@ -79,9 +79,11 @@ DATA=
 					ASHI1:
 						structureID: 'ASHI1'
 						structureRef:
-							id: 'ASHI1'
-							agencyID: 'TILASTOKESKUS'
-							version: '1.0'
+							ref:
+								id: 'ASHI1'
+								agencyID: 'TILASTOKESKUS'
+								version: '1.0'
+						dimensionAtObservation: 'D6'
 				name:
 					fi: 'Vanhojen asuntojen hintaindeksi 2005=100 muuttujina Vuosi, Alue, Neljännes, Talotyyppi, Huoneluku ja Tiedot'
 

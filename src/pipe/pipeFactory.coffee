@@ -11,6 +11,8 @@
 {ReadPcAxisPipe} = require '../pcaxis/readPcAxisPipe'
 {WriteCsvPipe} = require '../csv/writeCsvPipe'
 {CompactSeriesPipe} = require '../transform/compactSeriesPipe'
+{WriteAtomPipe} = require '../odata/writeAtomPipe'
+{DecodingPipe} = require '../transform/decodingPipe'
 
 
 exports.READ_XML = 0
@@ -24,6 +26,8 @@ exports.DEBUG = 7
 exports.READ_PX = 8
 exports.WRITE_CSV = 9
 exports.COMPACT = 10
+exports.WRITE_ATOM = 11
+exports.DECODE = 12
 
 
 build = (pipes, options) ->
@@ -59,6 +63,10 @@ createSubPipe = (name, options) ->
 			new WriteCsvPipe options.log
 		when exports.COMPACT
 			new CompactSeriesPipe options.log
+		when exports.WRITE_ATOM
+			new WriteAtomPipe options.log, options.registry
+		when exports.DECODE
+			new DecodingPipe options.log, options.registry
 
 
 exports.build = build

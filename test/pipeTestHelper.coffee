@@ -5,11 +5,13 @@ should = require 'should'
 util = require 'util'
 
 
-runTest = ( pipes, before, after, done ) ->
-	log = new Log Log.ERROR, process.stderr
+log = new Log Log.ERROR, process.stderr
+
+
+runTestWithRegistry = ( pipes, before, after, registry, done ) ->
 	options =
 		log: log
-		registry: new SimpleRegistry log
+		registry: registry
 	testPipe = factory.build pipes, options
 	results = []
 	errors = []
@@ -17,7 +19,8 @@ runTest = ( pipes, before, after, done ) ->
 	testPipe.on 'data', (data) -> results.push data
 	testPipe.on 'error', (err) -> errors.push err
 	testPipe.on 'end', ->
-		data.should.eql results[i] for data, i in after when data?
+		for val, i in after when val?
+			results[i].should.eql after[i]
 		errors.length.should.equal 0
 		done()
 
@@ -25,4 +28,10 @@ runTest = ( pipes, before, after, done ) ->
 	testPipe.end()
 
 
+runTest = ( pipes, before, after, done ) ->
+	registry = new SimpleRegistry log
+	runTestWithRegistry pipes, before, after, registry, done 
+
+
 exports.runTest = runTest
+exports.runTestWithRegistry = runTestWithRegistry

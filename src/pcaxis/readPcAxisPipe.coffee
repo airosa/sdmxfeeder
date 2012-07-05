@@ -300,9 +300,11 @@ class ReadPcAxisPipe extends sdmx.ReadSdmxPipe
 		structure = {}
 		structure.structureID = @dataSetId
 		structure.structureRef = {}
-		structure.structureRef.id = structure.structureID
-		structure.structureRef.agencyID = sender.id
-		structure.structureRef.version = '1.0'
+		structure.structureRef.ref = {}
+		structure.structureRef.ref.id = structure.structureID
+		structure.structureRef.ref.agencyID = sender.id
+		structure.structureRef.ref.version = '1.0'
+		structure.dimensionAtObservation = @dimensions[ @dimensions.length - 1 ].concept.id
 
 		header = {}
 		header.id = @dataSetId

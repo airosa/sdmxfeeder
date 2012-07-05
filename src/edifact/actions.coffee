@@ -191,6 +191,7 @@ entryActions =
 		@component.conceptIdentity.ref.id = @component.id
 		@component.conceptIdentity.ref.agencyID = @helper.maintenanceAgency
 		@component.conceptIdentity.ref.maintainableParentID = 'CONCEPTS'
+		@component.conceptIdentity.ref.maintainableParentVersion = '1.0'
 	'UNB/UNH/ASI/SCD/ATT': (p, spec) ->
 		p.expect('ATT').element().expect('3').element()
 		switch p.next()
@@ -224,6 +225,7 @@ entryActions =
 		@component.localRepresentation.enumeration.ref = {}
 		@component.localRepresentation.enumeration.ref.id = spec.codelistID
 		@component.localRepresentation.enumeration.ref.agencyID = @helper.maintenanceAgency
+		@component.localRepresentation.enumeration.ref.version = '1.0'
 	'UNB/UNH/DSI': (p, spec) ->
 		p.expect('DSI').element().read(spec,'dsi').end()
 		@dataSetBegin.setID = spec.dsi

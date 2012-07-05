@@ -46,7 +46,7 @@ class ConvertCompactPipe extends sdmx.SdmxPipe
 					@state = WAITING_CONVERT
 
 					if ref?
-						@registry.query sdmx.DATA_STRUCTURE_DEFINITION, ref, @doCallbackForFind
+						@registry.query sdmx.DATA_STRUCTURE_DEFINITION, ref, false, @doCallbackForFind
 					else
 						@registry.match sdmxdata.type, sdmxdata.data, @doCallbackForFind
 					@convertQueue.push sdmxdata

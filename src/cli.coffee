@@ -36,7 +36,7 @@ options =
 #-------------------------------------------------------------------------------
 
 loadStructuresFromFiles = (callback) ->
-	path.exists './registry', (exists) ->
+	fs.exists './registry', (exists) ->
 		if exists
 			findFiles './registry', (err, dirPath, files) ->
 				fileIterator = (file, callback1) ->
@@ -57,20 +57,27 @@ processInputFile = (callback) ->
 	pipes = [ 'READ_' + formatIn, 'CONVERT' ]#, 'CHECK' ]
 	source = createReadStream sourcePath, formatIn
 
-	if fileIsCompressed sourcePath
-		gzipIn = zlib.createGzip()
-		source.pipe gzipIn
-		source = gzipIn
+	if path.extname(sourcePath) in ['.gz']
+		unzip = zlib.createUnzip()
+		source.pipe unzip
+		source = unzip
 
 	if destinationPath?
 		formatOut = getFileFormat destinationPath
 		destination = createWriteStream destinationPath, formatOut
+
+		if formatOut is 'ATOM'
+			pipes.push 'SUBMIT'
+			pipes.push 'DECODE'
+
 		pipes.push 'WRITE_' + formatOut
 
-		if fileIsCompressed destinationPath
-			gzipOut = zlib.createGzip()
-			gzipOut.pipe destination
-			destination = gzipOut
+		switch path.extname(destinationPath)
+			when '.gz'
+				console.log 'gz'
+				gzipOut = zlib.createGzip()
+				gzipOut.pipe destination
+				destination = gzipOut
 
 	pipe = factory.build pipes, options
 
@@ -125,12 +132,8 @@ createWriteStream = (fullpath, format) ->
 	destination
 
 
-fileIsCompressed = (fullpath) ->
-	path.extname(fullpath) in ['.gz','.zip']
-
-
 getFileFormat = (fullpath) ->
-	if fileIsCompressed fullpath
+	if path.extname(fullpath) in ['.gz']
 		pos = fullpath.length - path.extname(fullpath).length - 1
 		getFileFormat fullpath[0..pos]
 	else

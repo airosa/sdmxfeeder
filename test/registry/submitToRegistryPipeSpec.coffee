@@ -1,28 +1,30 @@
-{SubmitToRegistryPipe} = require '../../lib/registry/submitToRegistryPipe'
-{SimpleRegistry} = require '../../lib/registry/simpleRegistry'
-sdmx = require '../../lib/pipe/sdmxPipe'
-testData = require '../fixtures/testData'
 Log = require 'log'
+helpers = require '../pipeTestHelper'
+sdmx = require '../../lib/pipe/sdmxPipe'
+{SimpleRegistry} = require '../../lib/registry/simpleRegistry'
+testData = require '../fixtures/testData'
 should = require 'should'
+
+
+log = new Log Log.ERROR, process.stderr
 
 
 describe 'SubmitToRegistryPipe', ->
 
-	it 'submits code lists and other structures into registry', (done) ->
-		log = new Log Log.INFO, process.stderr
-		registry = new SimpleRegistry log
-		pipe = new SubmitToRegistryPipe log, registry
+    it 'submits code lists and other structures into registry', (done) ->
+        registry = new SimpleRegistry log
+        before = []
+        after = []
 
-		checkResult = (err, found) ->
-			should.exist found
-			should.not.exist err
-			found.should.be.a 'object'
-			found.should.eql codelist.data
-			done()
+        before.push testData.codelist
 
-		pipe.on 'data', ->
-			registry.query codelist.type, codelist.data, checkResult
+        checkRegistry = ->
+        	registry.query sdmx.CODE_LIST, testData.codelist.data, false, (err, results) ->
+        		should.not.exist err
+        		should.exist results
+        		results.should.have.property 'codeLists'
+        		results.codeLists.should.have.property 'ISO:CL_CURRENCY(1.0)'
+        		done()
 
-		codelist = testData.codelist
-		pipe.write testData.codelist
+        helpers.runTestWithRegistry [ 'SUBMIT' ], before, after, registry, checkRegistry
 

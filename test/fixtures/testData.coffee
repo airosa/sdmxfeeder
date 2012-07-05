@@ -5,7 +5,7 @@ exports.header =
 	data:
 		id: 'Quarterly BoP reporting'
 		test: false
-		prepared: new Date Date.parse('2010-11-13T16:00:33.000Z')
+		prepared: new Date 2010, 1, 13, 16, 0, 33
 		sender:
 			SDMX:
 				id: 'SDMX'
@@ -38,7 +38,7 @@ exports.codelist =
 		agencyID: 'ISO'
 		version: '1.0'
 		name:
-			en: 'Observation Status'
+			en: 'Currency'
 		codes:
 			EUR:
 				id: 'EUR'
@@ -81,7 +81,7 @@ exports.dataStructureDefinition =
 		name:
 			en: 'Sample Data Structure Definition for exchange rates'
 		dimensionDescriptor:
-			'FREQ':
+			FREQ:
 				id: 'FREQ'
 				order: 1
 				type: 'dimension'
@@ -91,7 +91,7 @@ exports.dataStructureDefinition =
 						agencyID: 'SDMX'
 						maintainableParentID: 'CROSS_DOMAIN_CONCEPTS'
 						maintainableParentVersion: '1.0'
-			'CURRENCY':
+			CURRENCY:
 				id: 'CURRENCY'
 				order: 2
 				type: 'dimension'
@@ -107,7 +107,7 @@ exports.dataStructureDefinition =
 							agencyID: 'ISO'
 							id: 'CL_CURRENCY'
 							version: '1.0'
-			'CURRENCY_DENOM':
+			CURRENCY_DENOM:
 				id: 'CURRENCY_DENOM'
 				order: 3
 				type: 'dimension'
@@ -117,7 +117,7 @@ exports.dataStructureDefinition =
 						maintainableParentID: 'ECB_CONCEPTS'
 						maintainableParentVersion: '1.0'
 						id: 'CURRENCY_DENOM'
-			'EXR_TYPE':
+			EXR_TYPE:
 				id: 'EXR_TYPE'
 				order: 4
 				type: 'dimension'
@@ -127,7 +127,7 @@ exports.dataStructureDefinition =
 						maintainableParentID: 'ECB_CONCEPTS'
 						maintainableParentVersion: '1.0'
 						id: 'EXR_TYPE'
-			'EXR_VAR':
+			EXR_VAR:
 				id: 'EXR_VAR'
 				order: 5
 				type: 'dimension'
@@ -137,7 +137,7 @@ exports.dataStructureDefinition =
 						maintainableParentID: 'ECB_CONCEPTS'
 						maintainableParentVersion: '1.0'
 						id: 'EXR_VAR'
-			'TIME_PERIOD':
+			TIME_PERIOD:
 				id: 'TIME_PERIOD'
 				order: 6
 				type: 'timeDimension'
@@ -160,7 +160,7 @@ exports.dataStructureDefinition =
 						maintainableParentVersion: '1.0'
 						id: 'OBS_VALUE'
 		attributeDescriptor:
-			'UNIT_MEASURE':
+			UNIT_MEASURE:
 				id: 'UNIT_MEASURE'
 				assignmentStatus: 'Conditional'
 				conceptIdentity:
@@ -171,7 +171,7 @@ exports.dataStructureDefinition =
 						id: 'UNIT_MEASURE'
 				attributeRelationship:
 					dimensions: ['CURRENCY','CURRENCY_DENOM','EXR_TYPE']
-			'COLL_METHOD':
+			COLL_METHOD:
 				id: 'COLL_METHOD'
 				assignmentStatus: 'Conditional'
 				conceptIdentity:
@@ -185,7 +185,7 @@ exports.dataStructureDefinition =
 				localRepresentation:
 					textFormat:
 						maxLength: 40
-			'DECIMALS':
+			DECIMALS:
 				id: 'DECIMALS'
 				assignmentStatus: 'Mandatory'
 				conceptIdentity:
@@ -196,7 +196,7 @@ exports.dataStructureDefinition =
 						id: 'DECIMALS'
 				attributeRelationship:
 					dimensions: ['CURRENCY','CURRENCY_DENOM','EXR_TYPE']
-			'OBS_STATUS':
+			OBS_STATUS:
 				id: 'OBS_STATUS'
 				assignmentStatus: 'Mandatory'
 				conceptIdentity:
@@ -210,7 +210,7 @@ exports.dataStructureDefinition =
 				localRepresentation:
 					textFormat:
 						maxLength: 1
-			'CONF_STATUS_OBS':
+			CONF_STATUS_OBS:
 				id: 'CONF_STATUS_OBS'
 				assignmentStatus: 'Conditional'
 				conceptIdentity:

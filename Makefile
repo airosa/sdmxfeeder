@@ -1,7 +1,10 @@
 TESTS = $(shell find test -wholename "*Spec.coffee")
 #TESTS = $(shell find test -wholename "*readPcAxisPipeSpec.coffee")
 #TESTS = $(shell find test -wholename "*pcAxisParserSpec.coffee")
-#TESTS = $(shell find test -wholename "*compactSeriesPipeSpec.coffee")
+#TESTS = $(shell find test -wholename "*writeAtomPipeSpec.coffee")
+#TESTS = $(shell find test -wholename "*decodingPipeSpec.coffee")
+#TESTS = $(shell find test -wholename "*simpleRegistrySpec.coffee")
+#TESTS = $(shell find test -wholename "*submitToRegistryPipeSpec.coffee")
 
 install:
 		@test `which npm` || echo 'You need to have npm installed'

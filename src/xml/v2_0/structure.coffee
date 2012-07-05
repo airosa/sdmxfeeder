@@ -29,6 +29,7 @@ addConceptIdentity = (component, attrs) ->
 	component.conceptIdentity.ref.agencyID = if attrs.conceptAgency? then attrs.conceptAgency else dsdCur.agencyID
 	component.conceptIdentity.ref.maintainableParentID = 'CONCEPTS'
 	component.conceptIdentity.ref.maintainableParentVersion = attrs.conceptVersion if attrs.conceptVersion?
+	component.conceptIdentity.ref.maintainableParentVersion ?= '1.0'
 
 addEnumeration = (component, attrs) ->
 	return unless attrs.codelist?
@@ -38,6 +39,7 @@ addEnumeration = (component, attrs) ->
 	component.localRepresentation.enumeration.ref.id = attrs.codelist
 	component.localRepresentation.enumeration.ref.agencyID = if attrs.codelistAgency? then attrs.codelistAgency else dsdCur.agencyID
 	component.localRepresentation.enumeration.ref.version = attrs.codelistVersion if attrs.codelistVersion?
+	component.localRepresentation.enumeration.ref.version ?= '1.0'
 
 addTextFormat = (component, attrs) ->
 	component.localRepresentation ?= {}

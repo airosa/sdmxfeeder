@@ -1,15 +1,65 @@
 sdmx = require '../pipe/sdmxPipe'
 
 
+queryCache = (type, ref, cache) ->
+	switch type
+		when sdmx.DATA_STRUCTURE_DEFINITION
+			cache[type]?[ref.agencyID]?[ref.id]?[ref.version]
+		when sdmx.CONCEPT_SCHEME
+			cache[type]?[ref.agencyID]?[ref.maintainableParentID]?[ref.maintainableParentVersion]
+		when sdmx.CODE_LIST
+			cache[type]?[ref.agencyID]?[ref.id]?[ref.version]
+
+
+addToQueryResults = (type, obj, results) ->
+	return unless obj?
+	key = "#{obj.agencyID}:#{obj.id}(#{obj.version})"
+	switch type
+		when sdmx.DATA_STRUCTURE_DEFINITION
+			results.dataStructureDefinitions ?= {}
+			results.dataStructureDefinitions[key] = obj
+		when sdmx.CONCEPT_SCHEME
+			results.conceptSchemes ?= {}
+			results.conceptSchemes[key] = obj
+		when sdmx.CODE_LIST
+			results.codeLists ?= {}
+			results.codeLists[key] = obj
+
+
+resolveReferences = (type, ref, cache, results) ->
+
+	resolveComponent = (component) ->
+		resolveReferences sdmx.CONCEPT_SCHEME, component.conceptIdentity.ref, cache, results
+		if component.localRepresentation?.enumeration?
+			resolveReferences sdmx.CODE_LIST, component.localRepresentation.enumeration.ref, cache, results
+
+	switch type
+		when sdmx.DATA_STRUCTURE_DEFINITION
+			dsd = queryCache type, ref, cache
+			addToQueryResults type, dsd, results
+			resolveComponent value for key, value of dsd.dimensionDescriptor
+			resolveComponent value for key, value of dsd.attributeDescriptor
+			resolveComponent dsd.measureDescriptor.primaryMeasure
+		when sdmx.CONCEPT_SCHEME
+			cs = queryCache type, ref, cache
+			addToQueryResults type, cs, results
+		when sdmx.CODE_LIST
+			cl = queryCache type, ref, cache
+			addToQueryResults type, cl, results
+
+
 class SimpleRegistry
 	constructor: (@log) ->
 		@cache = {}
 
 
-	query: (type, ref, callback) ->
+	query: (type, ref, resolveRefs, callback) ->
 		@log.debug "#{@constructor.name} query"
-		result = @cache[type]?[ref.agencyID]?[ref.id]?[ref.version]
-		process.nextTick ( -> callback null, result )
+		results = {}
+		addToQueryResults type, queryCache( type, ref, @cache ), results
+		resolveReferences type, ref, @cache, results if resolveRefs
+
+		process.nextTick ( -> callback null, results )
 
 
 	match: (type, data, callback ) ->

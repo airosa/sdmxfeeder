@@ -80,12 +80,6 @@ class SdmxPipe extends Stream
 		@paused = false
 		@_drain()
 
-
-	xpipex: (destination) ->
-		util.pump this, destination, (err) ->
-			if not err then destination.end()
-		return destination
-
 #-------------------------------------------------------------------------------
 
 	processData: (data) ->
