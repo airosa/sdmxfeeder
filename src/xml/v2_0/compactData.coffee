@@ -12,14 +12,17 @@ entryActions =
 		@emitSDMX sdmx.DATA_SET_HEADER, _.extend( {}, attrs )
 
 	'DataSet/Series': (attrs) ->
-		seriesCur = {}
+		seriesCur = 
+			seriesKey: {}
+			attributes: {}
+			obs:
+				obsDimension: []
+				obsValue: []
+				attributes: {}
+
 		seriesCur.components = _.extend {}, attrs
 
 	'DataSet/Series/Obs': (attrs) ->
-		seriesCur.obs ?= {}
-		seriesCur.obs.obsDimension ?= []
-		seriesCur.obs.obsValue ?= []
-		seriesCur.obs.attributes ?= {}
 		for key, value of attrs
 			switch key
 				when 'TIME_PERIOD' then seriesCur.obs.obsDimension.push value

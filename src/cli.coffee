@@ -43,7 +43,7 @@ loadStructuresFromFiles = (callback) ->
 					fullpath = path.join(dirPath, file)
 					format = getFileFormat fullpath
 					source = createReadStream fullpath, format
-					pipe = pipeFactory.build [ 'READ_' + format, 'CHECK', 'SUBMIT' ], options
+					pipe = factory.build [ 'READ_' + format, 'CHECK', 'SUBMIT' ], options
 					pipe.on 'end', callback1
 					pipe.pump source
 
@@ -54,7 +54,7 @@ loadStructuresFromFiles = (callback) ->
 
 processInputFile = (callback) ->
 	formatIn = getFileFormat sourcePath
-	pipes = [ 'READ_' + formatIn, 'CONVERT' ]#, 'CHECK' ]
+	pipes = [ 'READ_' + formatIn, 'CONVERT'] #, 'CHECK' ]
 	source = createReadStream sourcePath, formatIn
 
 	if path.extname(sourcePath) in ['.gz']

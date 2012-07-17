@@ -4,6 +4,7 @@
 {ReadEdifactPipe} = require '../edifact/readEdifactPipe'
 {WriteEdifactPipe} = require '../edifact/writeEdifactPipe'
 {WriteJsonPipe} = require '../json/writeJsonPipe'
+{WriteJsonProtoPipe} = require '../json/writeJsonProtoPipe'
 {SubmitToRegistryPipe} = require '../registry/submitToRegistryPipe'
 {ConvertCompactPipe} = require '../transform/convertCompactPipe'
 {GenericCheckPipe} = require '../checks/genericCheckPipe'
@@ -48,7 +49,7 @@ createSubPipe = (name, options) ->
 		when exports.READ_EDI
 			new ReadEdifactPipe options.log
 		when exports.WRITE_JSON
-			new WriteJsonPipe options.log
+			new WriteJsonProtoPipe options.log
 		when exports.SUBMIT
 			new SubmitToRegistryPipe options.log, options.registry
 		when exports.CONVERT

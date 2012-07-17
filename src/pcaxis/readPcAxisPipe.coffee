@@ -159,26 +159,30 @@ class ReadPcAxisPipe extends sdmx.ReadSdmxPipe
 
 
 	onDataValue: (data) =>
-		status = []
+		obsDimensionCodes = @dimensions[ @dimensions.length - 1 ].codelist.codes 
+		obsDimension = []
+		obsValue = []
+		obsStatus = []
+
 		for value, i in data
-			data[i] = if value is '.' then NaN else value
-			status.push if value is '.' then 'M' else 'A'
+			continue if value is '.'
+			obsDimension.push obsDimensionCodes[i]
+			obsValue.push if value is '..' or value is '...' then NaN else value
+			obsStatus.push if value is '..' or value is '...' then 'M' else 'A'
 
 		key = {}
 		for dim, i in @dimensions when i < @dimensions.length - 1
 			index = Math.floor(@dataCount / dim.step) % dim.codelist.codes.length
 			key[dim.concept.id] = dim.codelist.codes[index]
 
-		obsDimension = @dimensions[ @dimensions.length - 1 ].codelist.codes
-
 		series =
 			seriesKey: key
 			attributes: {}
 			obs:
 				obsDimension: obsDimension
-				obsValue: data
+				obsValue: obsValue
 				attributes:
-					OBS_STATUS: status
+					OBS_STATUS: obsStatus
 
 		@dataCount += 1
 		@emitSDMX sdmx.SERIES, series
