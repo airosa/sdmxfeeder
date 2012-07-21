@@ -232,7 +232,7 @@ stringifiers =
 
 	header:
 		v2_1: (doc, obj) ->
-			header = doc.ele('Header')
+			header = doc.begin('Header')
 				.ele('ID').txt(obj.id).up()
 				.ele('Test').txt(obj.test).up()
 				.ele('Prepared').txt(obj.prepared.toISOString()).up()

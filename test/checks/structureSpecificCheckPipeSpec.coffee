@@ -77,17 +77,17 @@ describe 'StructureSpecificCheckPipe', ->
 	it 'checks string lengths', ->
 		series.data.attributes.COLL_METHOD = 'This value is                             too long'
 		checker.write series
-		checker.errors[0].should.match /greater then the required maximum length/
+		checker.errors[0].should.match /greater than the required maximum length/
 
 	it 'checks string lenghts from core representation', ->
 		series.data.attributes.UNIT_MEASURE = 'INVALID'
 		checker.write series
-		checker.errors[0].should.match /greater then the required maximum length/
+		checker.errors[0].should.match /greater than the required maximum length/
 
 	it 'checks string lengths of obs level attributes', ->
 		series.data.obs.attributes.OBS_STATUS[0] = 'INVALID'
 		checker.write series
-		checker.errors[0].should.match /greater then the required maximum length/
+		checker.errors[0].should.match /greater than the required maximum length/
 
 	it 'checks that all dimensions are valid', ->
 		series.data.seriesKey.INVALID = 'INVALID'

@@ -1,5 +1,5 @@
 sdmx = require '../pipe/sdmxPipe'
-builder = require 'xmlbuilder'
+xmlbuilder = require 'xmlbuilder'
 
 
 stringifiers =
@@ -38,7 +38,7 @@ stringifiers =
 
 class WriteAtomPipe extends sdmx.WriteSdmxPipe
 	constructor: (@log) ->
-		@doc = builder.create()
+		@doc = xmlbuilder.create()
 		super @log
 
 #-------------------------------------------------------------------------------
@@ -50,9 +50,9 @@ class WriteAtomPipe extends sdmx.WriteSdmxPipe
 				str.push '<feed xmlns="http://www.w3.org/2005/Atom"'
 				str.push ' xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices"'
 				str.push ' xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">\n'
-				str.push @doc.e( 'id' ).text( data.id ).toString pretty: true
-				str.push @doc.e( 'title' ).text( data.id ).toString pretty: true
-				str.push @doc.e( 'updated' ).text( data.prepared.toISOString() ).toString pretty: true
+				str.push @doc.begin( 'id' ).text( data.id ).toString pretty: true
+				str.push @doc.begin( 'title' ).text( data.id ).toString pretty: true
+				str.push @doc.begin( 'updated' ).text( data.prepared.toISOString() ).toString pretty: true
 				@structures = data.structure
 			when 'end'
 				str.push '</feed>'
