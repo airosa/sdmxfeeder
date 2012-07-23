@@ -36,28 +36,37 @@ class WriteJsonProtoPipe extends sdmx.SdmxPipe
     processEnd: ->
         @log.debug "#{@constructor.name} processEnd"
         @log.info "cache size #{@cache.length}"
-        @buildMessage()
+        @buildMessage 'Array'
 
 #-------------------------------------------------------------------------------
 
-    buildMessage: ->
-        msg = 
+    buildMessage: (dataType) ->
+        msg =
             codes: []
-            data: []
         obsAttributeDefaults = []
         frameOfReference = null
 
-        @log.info "starting to build the message"
+        @log.info "starting to build data message"
 
+        obsCount = 1
         for dim, i in @dimensions.concat 'obsDimension'
             msg.codes[i] = Object.keys( @codes[dim] ).sort()
+            obsCount = obsCount * msg.codes[i].length
         obsDimCodes = msg.codes[ msg.codes.length - 1 ]
 
-        multipliers = calculateIndexMultipliers @dimensions.concat('obsDimension'), @codes
-        obsAttributeDefaults = calculateObsAttributeDefaults @cache, @obsAttributes
-        @log.info util.inspect( obsAttributeDefaults, true, null)
-        frameOfReference = calculateFrameOfReference @cache
+        if dataType is 'Array'
+            @log.info 'using an Array to store observations'
+            msg.data = new Array obsCount
+        else
+            @log.info 'using an Object to store observations'
+            msg.data = {}
 
+        multipliers = calculateIndexMultipliers @dimensions.concat('obsDimension'), @codes
+
+        @log.info "starting to calculate observation attribute defaults"
+        obsAttributeDefaults = calculateObsAttributeDefaults @cache, @obsAttributes
+
+        @log.info "starting to process #{@cache.length} series"
         for series in @cache
             index = 0
             for dim, i in @dimensions
@@ -65,20 +74,27 @@ class WriteJsonProtoPipe extends sdmx.SdmxPipe
         
             for code, i in series.obs.obsDimension
                 obsIndex = index + obsDimCodes.indexOf( code )
+
                 value = []
                 value.push series.obs.obsValue[i]
 
                 for attr, j in @obsAttributes when series.obs.attributes[attr]?
-                    if series.obs.attributes[attr][i] isnt obsAttributeDefaults[j]
+                    if series.obs.attributes[attr][i] isnt obsAttributeDefaults[attr]
                         value[j+1] = series.obs.attributes[attr][i]
 
                 msg.data[obsIndex] = value
 
-        @log.info "starting to stringify json"
-
+        @log.info 'stating to produce JSON'
         @emitData JSON.stringify msg
 
         @log.info "finished building the message"
+
+
+    seriesSort = (a, b) ->
+        for key, value of a.seriesKey
+            return -1 if value < b.seriesKey[key]
+            return 1 if b.seriesKey[key] < value
+        0
 
 
     calculateIndexMultipliers = (dimensions, codes) ->
@@ -107,7 +123,7 @@ class WriteJsonProtoPipe extends sdmx.SdmxPipe
                     else
                         obsAttributeValueCounts[attr][value] = 1
         
-        obsAttributeDefaults = []
+        obsAttributeDefaults = {}
         for attr of obsAttributeValueCounts
             maxCount = 0
             maxValue = null
