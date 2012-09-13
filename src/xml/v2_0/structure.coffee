@@ -12,7 +12,8 @@ dimensionPos = 1
 attributeCur = {}
 groupCur = {}
 primaryMeasureCur = {}
-conceptSchemeTmp = {}
+conceptSchemeCur = {}
+conceptSchemeTmp = null
 dsdCur = {}
 comp = {}
 
@@ -23,12 +24,18 @@ renameProperty = (obj, oldName, newName) ->
 
 addConceptIdentity = (component, attrs) ->
 	component.conceptIdentity = {}
-	component.id = if attrs.concept? then attrs.concept else attrs.conceptRef
+	component.id = attrs.concept
+	component.id ?= attrs.conceptRef
 	component.conceptIdentity.ref = {}
-	component.conceptIdentity.ref.id = if attrs.concept? then attrs.concept else attrs.conceptRef
-	component.conceptIdentity.ref.agencyID = if attrs.conceptAgency? then attrs.conceptAgency else dsdCur.agencyID
-	component.conceptIdentity.ref.maintainableParentID = 'CONCEPTS'
-	component.conceptIdentity.ref.maintainableParentVersion = attrs.conceptVersion if attrs.conceptVersion?
+	component.conceptIdentity.ref.id = attrs.concept
+	component.conceptIdentity.ref.id ?= attrs.conceptRef
+	component.conceptIdentity.ref.agencyID = attrs.conceptAgency
+	component.conceptIdentity.ref.agencyID ?= attrs.conceptSchemeAgency
+	component.conceptIdentity.ref.agencyID ?= dsdCur.agencyID
+	component.conceptIdentity.ref.maintainableParentID ?= attrs.conceptSchemeRef
+	component.conceptIdentity.ref.maintainableParentID ?= 'CONCEPTS'
+	component.conceptIdentity.ref.maintainableParentVersion = attrs.conceptVersion
+	component.conceptIdentity.ref.maintainableParentVersion ?= attrs.conceptSchemeVersion
 	component.conceptIdentity.ref.maintainableParentVersion ?= '1.0'
 
 addEnumeration = (component, attrs) ->
@@ -60,14 +67,20 @@ entryActions =
 		codeCur = _.extend {}, attrs
 		renameProperty codeCur, 'value', 'id'
 	'Concepts': (attrs) ->
-		conceptSchemeTmp = {}
+		conceptSchemeTmp = null
+	'Concepts/ConceptScheme': (attrs) ->
+		conceptSchemeCur = _.extend {}, attrs
+		conceptSchemeCur.concepts = {}
+	'Concepts/ConceptScheme/Concept': (attrs) ->
+		conceptCur = _.extend {}, attrs
 	'Concepts/Concept': (attrs) ->
-		conceptSchemeTmp.id = 'CONCEPTS' unless conceptSchemeTmp.id?
-		conceptSchemeTmp.agencyID = attrs.agency if not conceptSchemeTmp.agencyID? and attrs.agency?
-		conceptSchemeTmp.agencyID = attrs.agencyID if not conceptSchemeTmp.agencyID? and attrs.agencyID?
-		conceptSchemeTmp.name = {} unless conceptSchemeTmp.name?
-		conceptSchemeTmp.name.en = 'Statistical concepts' unless conceptSchemeTmp.name.en?
-		conceptSchemeTmp.concepts = {} unless conceptSchemeTmp.concepts?
+		conceptSchemeTmp ?= {}
+		conceptSchemeTmp.id ?= 'CONCEPTS'
+		conceptSchemeTmp.agencyID ?= attrs.agency
+		conceptSchemeTmp.agencyID ?= attrs.agencyID
+		conceptSchemeTmp.name ?= {}
+		conceptSchemeTmp.name.en ?= 'Statistical concepts'
+		conceptSchemeTmp.concepts ?= {}
 		conceptCur = {}
 		conceptCur.id = attrs.id
 		conceptCur.uri = attrs.uri
@@ -108,6 +121,8 @@ entryActions =
 			comp.attributeRelationship.primaryMeasure = @primaryMeasureID
 		if attrs.attachmentLevel is 'Series'
 			comp.attributeRelationship.dimensions = @dimensions
+		if attrs.attachmentLevel is 'Group'
+			comp.attributeRelationship.dimensions = @dimensions.slice 1
 	'KeyFamilies/KeyFamily/Components/Attribute/TextFormat': (attrs) ->
 		addTextFormat comp, attrs
 	'KeyFamilies/KeyFamily/Components/Group': (attrs) ->
@@ -131,10 +146,22 @@ exitActions =
 		attrs['xml:lang'] ?= 'en'
 		codeCur.name ?= {}
 		codeCur.name[ attrs['xml:lang'] ] = @stringBuffer
+	'Concepts/ConceptScheme/Concept': () ->
+		conceptSchemeCur.concepts[conceptCur.id] = conceptCur
 	'Concepts/Concept': (attrs) ->
 		conceptSchemeTmp.concepts[conceptCur.id] = conceptCur
 	'Concepts': (attrs) ->
-		@emitSDMX sdmx.CONCEPT_SCHEME, conceptSchemeTmp
+		@emitSDMX sdmx.CONCEPT_SCHEME, conceptSchemeTmp if conceptSchemeTmp?
+	'Concepts/ConceptScheme': (attrs) ->
+		@emitSDMX sdmx.CONCEPT_SCHEME, conceptSchemeCur
+	'Concepts/ConceptScheme/Name': (attrs) ->
+		attrs['xml:lang'] ?= 'en'
+		conceptSchemeCur.name ?= {}
+		conceptSchemeCur.name[ attrs['xml:lang'] ] = @stringBuffer
+	'Concepts/ConceptScheme/Concept/Name': (attrs) ->
+		attrs['xml:lang'] ?= 'en'
+		conceptCur.name ?= {}
+		conceptCur.name[ attrs['xml:lang'] ] = @stringBuffer
 	'Concepts/Concept/Name': (attrs) ->
 		attrs['xml:lang'] ?= 'en'
 		conceptCur.name ?= {}

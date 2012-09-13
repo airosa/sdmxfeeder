@@ -150,11 +150,11 @@ DATA=
 		helpers.runTest [ 'READ_PX' ], [ before ], after, done
 
 
-	it 'extracts concept schemes from PC-Axis files', (done) ->
+	it 'extracts data structures from PC-Axis files', (done) ->
 
-		after[11] =
+		after[12] =
 			type: sdmx.DATA_STRUCTURE_DEFINITION
-			sequenceNumber: 12
+			sequenceNumber: 13
 			data:
 				id: 'ASHI1'
 				agencyID: 'TILASTOKESKUS'
@@ -298,6 +298,49 @@ DATA=
 									id: 'CL_OBS_STATUS'
 									agencyID: 'SDMX'
 									version: '1.0'
+					'CONTENTS':
+						id: 'CONTENTS'
+						assignmentStatus: 'Conditional'
+						conceptIdentity:
+							ref:
+								agencyID: 'SDMXFEEDER'
+								maintainableParentID: 'PC_AXIS_CONCEPTS'
+								maintainableParentVersion: '1.0'
+								id: 'CONTENTS'
+						attributeRelationship: null
+					'UNITS':
+						id: 'UNITS'
+						assignmentStatus: 'Conditional'
+						conceptIdentity:
+							ref:
+								agencyID: 'SDMXFEEDER'
+								maintainableParentID: 'PC_AXIS_CONCEPTS'
+								maintainableParentVersion: '1.0'
+								id: 'UNITS'
+						attributeRelationship: null
 
+		helpers.runTest [ 'READ_PX' ], [ before ], after, done
+
+
+	it 'extracts dataset headers from pcaxis files', (done) ->
+
+		after[13] =
+			type: 'datasetheader',
+			sequenceNumber: 14,
+			data:
+				structureRef: 'ASHI1'
+
+		helpers.runTest [ 'READ_PX' ], [ before ], after, done
+
+
+	it 'extracts attributes from pcaxis files', (done) ->
+
+		after[14] =
+			type: 'datasetattributes'
+			sequenceNumber: 15
+			data:
+				attributes:
+					CONTENTS: 'Vanhojen asuntojen hintaindeksi 2005=100'
+					UNITS: 'euroa/neliö'
 
 		helpers.runTest [ 'READ_PX' ], [ before ], after, done

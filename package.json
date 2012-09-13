@@ -1,7 +1,7 @@
 {
   "name":         	"sdmxfeeder",
   "version":      	"0.1.1",
-  "description": 	"Experimental SDMX converter written in coffeescript",
+  "description":    "Experimental SDMX converter written in coffeescript",
   "keywords":     	["sdmx", "coffeescript"],
   "author":       	"Sami Airo",
   "licenses": [{

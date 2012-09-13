@@ -49,7 +49,7 @@ createSubPipe = (name, options) ->
 		when exports.READ_EDI
 			new ReadEdifactPipe options.log
 		when exports.WRITE_JSON
-			new WriteJsonProtoPipe options.log
+			new WriteJsonProtoPipe options.log, options.registry
 		when exports.SUBMIT
 			new SubmitToRegistryPipe options.log, options.registry
 		when exports.CONVERT

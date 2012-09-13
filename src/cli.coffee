@@ -66,9 +66,12 @@ processInputFile = (callback) ->
 		formatOut = getFileFormat destinationPath
 		destination = createWriteStream destinationPath, formatOut
 
-		if formatOut is 'ATOM'
-			pipes.push 'SUBMIT'
-			pipes.push 'DECODE'
+		switch formatOut
+			when 'ATOM'
+				pipes.push 'SUBMIT'
+				pipes.push 'DECODE'
+			when 'JSON'
+				pipes.push 'SUBMIT'
 
 		pipes.push 'WRITE_' + formatOut
 

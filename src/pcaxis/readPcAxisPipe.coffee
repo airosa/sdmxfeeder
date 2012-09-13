@@ -1,10 +1,12 @@
 sdmx = require '../pipe/sdmxPipe'
 {PcAxisParser} = require './pcAxisParser'
 cdc = require '../sdmx/crossDomainConcepts'
+pcxc = require './pcAxisConcepts'
 cdcl = require '../sdmx/crossDomainCodeLists'
 
 MANDATORY = 0
 LANGUAGE = 1
+CONCEPT = 2
 
 
 PCAXIS_KEYWORDS =
@@ -20,7 +22,7 @@ PCAXIS_KEYWORDS =
 	CODES:					[	false,	true	]
 	CONFIDENTIAL:			[	false,	false	]
 	CONTACT:				[	false,	true	]
-	CONTENTS:				[	true,	true	]
+	CONTENTS:				[	true,	true,  'CONTENTS' ]
 	CONTVARIABLE:			[	false,	true	]
 	COPYRIGHT:				[	false,	false	]
 	'CREATION-DATE':		[	false,	false	]
@@ -60,7 +62,7 @@ PCAXIS_KEYWORDS =
 	MAP:					[	false,	true	]
 	MATRIX:					[	true,	false	]
 	'NEXT-UPDATE':			[	false,	false	]
-	NOTE:					[	false,	true	]
+	NOTE:					[	false,	true   ,'NOTE' ]
 	NOTEX:					[	false,	true	]
 	PARTITIONED:			[	false,	true	]
 	PRECISION:				[	false,	true	]
@@ -80,7 +82,7 @@ PCAXIS_KEYWORDS =
 	TABLEID:				[	false,	false	]
 	TIMEVAL:				[	false,	true	]
 	TITLE:					[	true,	true	]
-	UNITS:					[	true,	true	]
+	UNITS:					[	true,	true	, 'UNITS' ]
 	'UPDATE-FREQUENCY':		[	false,	false	]
 	VALUENOTE:				[	false,	true	]
 	VALUENOTEX:				[	false,	true	]
@@ -155,6 +157,7 @@ class ReadPcAxisPipe extends sdmx.ReadSdmxPipe
 		@emitConceptScheme()
 		@emitDataStructureDefinition()
 		@emitDatasetHeader()
+		@emitAttributes()
 		@parser.dataArrayMaxLength = @dimensions[ @dimensions.length - 1 ].codelist.codes.length
 
 
@@ -372,6 +375,7 @@ class ReadPcAxisPipe extends sdmx.ReadSdmxPipe
 
 		@emitSDMX sdmx.CONCEPT_SCHEME, conceptScheme
 		@emitSDMX sdmx.CONCEPT_SCHEME, cdc.CROSS_DOMAIN_CONCEPTS
+		@emitSDMX sdmx.CONCEPT_SCHEME, pcxc.PC_AXIS_CONCEPTS
 
 
 	emitDataStructureDefinition:->
@@ -443,6 +447,20 @@ class ReadPcAxisPipe extends sdmx.ReadSdmxPipe
 						agencyID: 'SDMX'
 						version: '1.0'
 
+		for key, value of @keywords
+			conceptId = PCAXIS_KEYWORDS[key][CONCEPT]
+			continue unless conceptId?
+
+			dsd.attributeDescriptor[key] =
+				id: conceptId
+				assignmentStatus: 'Conditional'
+				conceptIdentity:
+					ref:
+						id: conceptId
+						agencyID: pcxc.PC_AXIS_CONCEPTS.agencyID
+						maintainableParentID: pcxc.PC_AXIS_CONCEPTS.id
+						maintainableParentVersion: pcxc.PC_AXIS_CONCEPTS.version
+				attributeRelationship: null
 
 		@emitSDMX sdmx.DATA_STRUCTURE_DEFINITION, dsd
 
@@ -452,6 +470,17 @@ class ReadPcAxisPipe extends sdmx.ReadSdmxPipe
 			structureRef: @dataSetId
 
 		@emitSDMX sdmx.DATA_SET_HEADER, header
+
+
+	emitAttributes: ->
+		attribute =
+			attributes: {}
+
+		for key, keyword of @keywords
+			continue unless PCAXIS_KEYWORDS[key][CONCEPT]?
+			attribute.attributes[ PCAXIS_KEYWORDS[key][CONCEPT] ] = keyword[0].value
+
+		@emitSDMX sdmx.DATA_SET_ATTRIBUTES, attribute
 
 
 #-------------------------------------------------------------------------------

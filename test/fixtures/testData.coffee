@@ -257,8 +257,9 @@ exports.series =
 exports.testDataSetAttributes =
 	type: sdmx.DATA_SET_ATTRIBUTES
 	data:
-		UNIT_MULT: '0'
-		COLL_METHOD: 'Average of observations through period'
+		attributes:
+			UNIT_MULT: '0'
+			COLL_METHOD: 'Average of observations through period'
 
 exports.dataSetHeader =
 	type: sdmx.DATA_SET_HEADER
