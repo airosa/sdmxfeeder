@@ -391,6 +391,7 @@ class WriteJsonProtoPipe extends sdmx.SdmxPipe
             measure: []
             dimensions:
                 id: @getDimIds()
+                size: []
             attributes: null
 
         @log.info "starting to build data message"
@@ -401,6 +402,8 @@ class WriteJsonProtoPipe extends sdmx.SdmxPipe
             msg.dimensions[dim] = {}
             @buildDimension dim, msg.dimensions[dim], @cache
             obsCount *= msg.dimensions[dim].codes.id.length
+            msg.dimensions.size[i] = msg.dimensions[dim].codes.id.length
+
 
         @log.info "starting to process attributes"
         for attr in @attributes
@@ -427,7 +430,7 @@ class WriteJsonProtoPipe extends sdmx.SdmxPipe
         @buildMeasure 'OBS_VALUE', msg, @cache
 
         @log.info 'starting to produce JSON'
-        @emitData JSON.stringify msg #, no, 2
+        @emitData JSON.stringify msg, no, 2
 
         @log.info "finished building the data message"
 
