@@ -121,5 +121,74 @@ class DistinctTimePeriod
 
 	toDate: -> @date
 
+
+
+# Parses dates in reporting period format e.g. 2010-Q1
+# Returns a date object set to the beginning of the reporting period.
+# if end is true return the beginning of the next period
+exports.timePeriodToDate = timePeriodToDate = (frequency, year, period, end) ->
+    return null if year % 1 isnt 0
+    return null if period % 1 isnt 0
+    return null if period < 1
+
+    date = new Date Date.UTC(year,0,1,0,0,0)
+    period = period - 1 unless end
+
+    switch frequency
+        when 'A'
+            return null if 1 < period
+            date.setUTCMonth date.getUTCMonth() + (12 * period)
+        when 'S'
+            return null if 2 < period
+            date.setUTCMonth date.getUTCMonth() + (6 * period)
+        when 'T'
+            return null if 3 < period
+            date.setUTCMonth date.getUTCMonth() + (4 * period)
+        when 'Q'
+            return null if 4 < period
+            date.setUTCMonth date.getUTCMonth() + (3 * period)
+        when 'M'
+            return null if 12 < period
+            date.setUTCMonth date.getUTCMonth() + period
+        when 'W'
+            return null if 53 < period
+            if date.getUTCDay() isnt 4
+                date.setUTCMonth 0, 1 + (((4 - date.getUTCDay()) + 7) % 7)
+            date.setUTCDate date.getUTCDate() - 3
+            date.setUTCDate date.getUTCDate() + (7 * period)
+        when 'D'
+            return null if 366 < period
+            date.setUTCDate date.getUTCDate() + period
+        else
+            return null
+
+    date
+
+
+# Parses time periods in all supported formats. 
+# Returns date object set the beginning of the period. If end is true
+# then returned date is set to the end of the period.
+exports.parseDate = parseDate = (value, end) ->
+    date = null
+
+    if /^\d\d\d\d-[A|S|T|Q]\d$/.test value
+        date = timePeriodToDate value[5], +value[0..3], +value[6], end
+    else if /^\d\d\d\d-[M|W]\d\d$/.test value
+        date = timePeriodToDate value[5], +value[0..3], +value[6..7], end
+    else if /^\d\d\d\d-D\d\d\d$/.test value
+        date = timePeriodToDate value[5], +value[0..3], +value[6..8], end
+    else # give up on pattern matching and assume it is a date in ISO format
+        date = new Date value
+        if end
+            switch value.length
+                when 4 then date.setUTCFullYear date.getUTCFullYear() + 1
+                when 7 then date.setUTCMonth date.getUTCMonth() + 1
+                when 10 then date.setUTCDate date.getUTCDate() + 1
+    
+    date.setUTCSeconds date.getUTCSeconds() - 1 if date? and end 
+
+    date
+
+
 exports.fromTimeValue = fromTimeValue
 exports.fromEdifactTimeValue = fromEdifactTimeValue

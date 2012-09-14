@@ -1,4 +1,5 @@
 sdmx = require '../pipe/sdmxPipe'
+time = require '../util/time'
 util = require 'util'
 
 #-------------------------------------------------------------------------------
@@ -127,10 +128,11 @@ class WriteJsonProtoPipe extends sdmx.SdmxPipe
         dims
 
 
-    getDimRole: (dimID) ->
+    getDimType: (dimID) ->
         dsd = @structures.dataStructureDefinitions[@dsdKey]
         switch dsd.dimensionDescriptor[dimID].type
             when 'timeDimension' then 'time'
+            when 'measureDimension' then 'measure'
             else null
 
 
@@ -198,12 +200,13 @@ class WriteJsonProtoPipe extends sdmx.SdmxPipe
 #-------------------------------------------------------------------------------
 
     buildObsAttribute: (attrId, msg, cache) ->
-        attrObj = msg.attribute[attrId]
+        attrObj = msg.attributes[attrId]
 
+        attrObj.id = attrId
         attrObj.name = @getAttrName attrId
         attrObj.role = @getAttrRole attrId
         attrObj.mandatory = @getAttrMandatory attrId
-        attrObj.code = null
+        attrObj.codes = null
         attrObj.default = null
 
         values = {}
@@ -216,11 +219,13 @@ class WriteJsonProtoPipe extends sdmx.SdmxPipe
                 values[ value ] += 1
 
         if @attrIsCoded attrId
-            attrObj.code = id: [], index: {}, name: {}
+            attrObj.codes = id: []
             for code, i in Object.keys( values ).sort()
-                attrObj.code.id.push code
-                attrObj.code.index[code] = i
-                attrObj.code.name[code] = @getAttrCodeName code, attrId
+                attrObj.codes.id[i] = code
+                attrObj.codes[code] =
+                    id: code
+                    index: i
+                    name: @getAttrCodeName code, attrId
 
         if attrObj.mandatory
             maxCount = 0
@@ -237,7 +242,11 @@ class WriteJsonProtoPipe extends sdmx.SdmxPipe
         valCount += count for value, count of values
         valCount -= values[ attrObj.default ] if attrObj.default?
 
-        if valCount isnt 0 and valCount < ( attrObj.size / 10 )
+        size = 1
+        for dim in attrObj.dimension
+            size *= msg.dimensions[dim].codes.id.length
+
+        if valCount isnt 0 and valCount < ( size / 10 )
             @log.info "Storing #{attrId} in object"
             attrObj.value = {} 
         else
@@ -246,10 +255,11 @@ class WriteJsonProtoPipe extends sdmx.SdmxPipe
 
 
     buildAttribute: (attrId, attrObj, data, msg) ->
+        attrObj.id = attrId
         attrObj.name = @getAttrName attrId
         attrObj.mandatory = @getAttrMandatory attrId
         attrObj.role = null
-        attrObj.code = null
+        attrObj.codes = null
         attrObj.default = null
         attrObj.default = @getAttrDefault attrId, data if attrObj.mandatory
 
@@ -258,16 +268,16 @@ class WriteJsonProtoPipe extends sdmx.SdmxPipe
                 attrObj.value = obj.attributes[attrId]
                 return
 
-        attrObj.size = 1
+        size = 1
         for dim in attrObj.dimension
-            attrObj.size *= msg.dimension[dim].code.size
+            size *= msg.dimensions[dim].codes.id.length
 
         valCount = 0
         for obj in data when obj.attributes[attrId]?
             continue if obj.attributes[attrId] is attrObj.default
             valCount += 1 
 
-        if valCount isnt 0 and valCount < ( attrObj.size / 10 )
+        if valCount isnt 0 and valCount < ( size / 10 )
             @log.info "Storing #{attrId} in object"
             attrObj.value = {} 
         else
@@ -279,7 +289,7 @@ class WriteJsonProtoPipe extends sdmx.SdmxPipe
         prev = 1
         for dim in reversedDims
             multipliers[dim] = prev
-            prev = msg.dimension[dim].code.size * prev
+            prev = msg.dimensions[dim].codes.id.length * prev
 
         for obj in data when obj.attributes[attrId]?
             continue if obj.attributes[attrId] is attrObj.default
@@ -287,11 +297,11 @@ class WriteJsonProtoPipe extends sdmx.SdmxPipe
             key ?= obj.groupKey
             index = 0
             for dim, i in attrObj.dimension
-                index += msg.dimension[dim].code.index[ key[dim] ] * multipliers[dim]
+                index += msg.dimensions[dim].codes[ key[dim] ].index * multipliers[dim]
             attrObj.value[index] = obj.attributes[attrId]
 
         if @attrIsCoded attrId
-            attrObj.code = id: [], index: {}, name: {}
+            attrObj.codes = id: []
 
             codes = {}
             codes[ attrObj.default ] = null if attrObj.default?
@@ -299,126 +309,125 @@ class WriteJsonProtoPipe extends sdmx.SdmxPipe
                 codes[ attrObj.value[i] ] = null if attrObj.value[i]?
 
             for code, i in Object.keys( codes ).sort()
-                attrObj.code.id.push code
-                attrObj.code.index[code] = i
-                attrObj.code.name[code] = @getAttrCodeName code, attrId
-
-            attrObj.code.size = attrObj.code.id.length
+                attrObj.codes.id.push code
+                attrObj.codes[code] =
+                    id: code
+                    index: i
+                    name: @getAttrCodeName code, attrId
   
 
     buildDimension: (dimId, dimObj, cache) ->
+        dimObj.id = dimId
         dimObj.name = @getDimName dimId
-        dimObj.role = @getDimRole dimId
-        dimObj.code = id: [], index: {}, name: {}
+        dimObj.type = @getDimType dimId
+        dimObj.role = null
+        dimObj.codes = id: []
 
+        codes = {}
         if dimId is cache.obsDimension
             for series in cache.series
                 for code in series.obs.obsDimension
                     continue unless code?
-                    continue if dimObj.code.name[code]?
-                    dimObj.code.name[code] = @getDimCodeName code, dimId, dimObj.role
+                    codes[code] = null
         else
             for series in cache.series
                 code = series.seriesKey[dimId]
                 continue unless code?
-                continue if dimObj.code.name[code]?
-                dimObj.code.name[code] = @getDimCodeName code, dimId, dimObj.role
+                codes[code] = null
 
             for group in cache.groups when group.groupKey?
                 code = group.groupKey[dimId]
                 continue unless code?
-                continue if dimObj.code.name[code]?
-                dimObj.code.name[code] = @getDimCodeName code, dimId, dimObj.role
+                codes[code] = null
 
-        for code, i in Object.keys( dimObj.code.name ).sort()
-            dimObj.code.id[i] = code
-            dimObj.code.index[code] = i
+        for code, i in Object.keys( codes ).sort()
+            dimObj.codes.id[i] = code
+            dimObj.codes[code] =
+                id: code
+                name: @getDimCodeName code, dimId, dimObj.type
+                index: i
 
-        dimObj.code.size = dimObj.code.id.length
+        if dimObj.type is 'time'
+            for code in dimObj.codes.id
+                dimObj.codes[code].start = time.parseDate dimObj.codes[code].id, false
+                date = time.parseDate code, false
+                dimObj.codes[code].end = time.parseDate code, true
 
 
     buildMeasure: (measureId, msg, cache) ->
-        measureObj = msg.measure[measureId]
-        measureObj.value = []
-            #name: @getMeasureName measureId
-
         for series in cache.series
             index = 0
-            prev = msg.dimension[@cache.obsDimension].code.size
-            for dim, i in msg.dimension.id.slice().reverse()
+            prev = msg.dimensions[@cache.obsDimension].codes.id.length
+            for dim, i in msg.dimensions.id.slice().reverse()
                 continue unless series.seriesKey[dim]?
-                codeIndex = msg.dimension[dim].code.index[ series.seriesKey[dim] ]
-                codeCount = msg.dimension[dim].code.size
+                codeIndex = msg.dimensions[dim].codes[ series.seriesKey[dim] ].index
+                codeCount = msg.dimensions[dim].codes.id.length
                 index += codeIndex * prev
                 prev = prev * codeCount
         
             for code, i in series.obs.obsDimension
-                obsIndex = index + msg.dimension[@cache.obsDimension].code.index[ code ]
+                obsIndex = index + msg.dimensions[@cache.obsDimension].codes[ code ].index
 
                 if typeof series.obs.obsValue[i] isnt 'undefined'
                     if isNaN series.obs.obsValue[i]
-                        measureObj.value[obsIndex] = '-'
+                        msg.measure[obsIndex] = '-'
                     else    
-                        measureObj.value[obsIndex] = series.obs.obsValue[i]
+                        msg.measure[obsIndex] = series.obs.obsValue[i]
 
                 for key, value of series.obs.attributes
                     continue unless value[i]?
-                    if value[i] isnt msg.attribute[key].default
-                        msg.attribute[key].value[obsIndex] = value[i]
+                    if value[i] isnt msg.attributes[key].default
+                        msg.attributes[key].value[obsIndex] = value[i]
 
 #-------------------------------------------------------------------------------
 
     buildMessage: () ->
         msg =
+            'sdmx-proto-json': '2012-09-13'
             name: @header.name.en
             id: @header.id
             test: @header.test
             prepared: @header.prepared
-            measure: null
-            dimension:
+            measure: []
+            dimensions:
                 id: @getDimIds()
-            attribute: null
+            attributes: null
 
         @log.info "starting to build data message"
 
         obsCount = 1
         @log.info "starting to process dimensions"
-        for dim, i in msg.dimension.id
-            msg.dimension[dim] = {}
-            @buildDimension dim, msg.dimension[dim], @cache
-            obsCount *= msg.dimension[dim].code.size
+        for dim, i in msg.dimensions.id
+            msg.dimensions[dim] = {}
+            @buildDimension dim, msg.dimensions[dim], @cache
+            obsCount *= msg.dimensions[dim].codes.id.length
 
         @log.info "starting to process attributes"
         for attr in @attributes
-            msg.attribute ?= id: []
-            msg.attribute.id.push attr
-            msg.attribute[attr] = {}
-            attrObj = msg.attribute[attr]
+            msg.attributes ?= id: []
+            msg.attributes.id.push attr
+            msg.attributes[attr] = {}
+            attrObj = msg.attributes[attr]
             attrObj.dimension = @getAttrDims attr
 
-            if attrObj.dimension.length is msg.dimension.id.length - 1
+            if attrObj.dimension.length is msg.dimensions.id.length - 1
                 @buildAttribute attr, attrObj, @cache.series, msg
             else
                 @buildAttribute attr, attrObj, @cache.groups, msg
 
         @log.info "starting to process observation level attributes"
         for attr in @obsAttributes
-            msg.attribute ?= id: []
-            msg.attribute.id.push attr
-            msg.attribute[attr] = {}
-            msg.attribute[attr].dimension = msg.dimension.id.slice()
-            msg.attribute[attr].size = obsCount
+            msg.attributes ?= id: []
+            msg.attributes.id.push attr
+            msg.attributes[attr] = {}
+            msg.attributes[attr].dimension = msg.dimensions.id.slice()
             @buildObsAttribute attr, msg, @cache
  
         @log.info "starting to process measures"
-        for measureId in ['OBS_VALUE']
-            msg.measure ?= id: [], size: obsCount
-            msg.measure.id.push measureId
-            msg.measure[measureId] = {}
-            @buildMeasure measureId, msg, @cache
+        @buildMeasure 'OBS_VALUE', msg, @cache
 
         @log.info 'starting to produce JSON'
-        @emitData JSON.stringify msg, no, 2
+        @emitData JSON.stringify msg #, no, 2
 
         @log.info "finished building the data message"
 
