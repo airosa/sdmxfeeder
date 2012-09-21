@@ -392,6 +392,7 @@ class WriteJsonProtoPipe extends sdmx.SdmxPipe
             dimensions:
                 id: @getDimIds()
                 size: []
+                dimensionAtObservation: 'AllDimensions'
             attributes: null
 
         @log.info "starting to build data message"
