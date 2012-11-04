@@ -289,7 +289,7 @@ class WriteJsonProtoPipe extends sdmx.SdmxPipe
         prev = 1
         for dim in reversedDims
             multipliers[dim] = prev
-            prev = msg.dimensions[dim].codes.id.length * prev
+            prev *= msg.dimensions[dim].codes.id.length
 
         for obj in data when obj.attributes[attrId]?
             continue if obj.attributes[attrId] is attrObj.default
@@ -363,8 +363,9 @@ class WriteJsonProtoPipe extends sdmx.SdmxPipe
                 codeIndex = msg.dimensions[dim].codes[ series.seriesKey[dim] ].index
                 codeCount = msg.dimensions[dim].codes.id.length
                 index += codeIndex * prev
-                prev = prev * codeCount
+                prev *= codeCount
         
+            # loop over each value in the obsDimension (normally TIME_PERIOD) array
             for code, i in series.obs.obsDimension
                 obsIndex = index + msg.dimensions[@cache.obsDimension].codes[ code ].index
 
@@ -404,7 +405,6 @@ class WriteJsonProtoPipe extends sdmx.SdmxPipe
             @buildDimension dim, msg.dimensions[dim], @cache
             obsCount *= msg.dimensions[dim].codes.id.length
             msg.dimensions.size[i] = msg.dimensions[dim].codes.id.length
-
 
         @log.info "starting to process attributes"
         for attr in @attributes

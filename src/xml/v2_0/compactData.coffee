@@ -6,12 +6,14 @@ xmlns_msg = 'http://www.SDMX.org/resources/SDMXML/schemas/v2_0/message'
 
 seriesCur = {}
 groupCur = {}
+obsCounter = 0
 
 entryActions =
 	'DataSet': (attrs) ->
 		@emitSDMX sdmx.DATA_SET_HEADER, _.extend( {}, attrs )
 
 	'DataSet/Series': (attrs) ->
+		obsCounter = 0
 		seriesCur = 
 			seriesKey: {}
 			attributes: {}
@@ -25,11 +27,12 @@ entryActions =
 	'DataSet/Series/Obs': (attrs) ->
 		for key, value of attrs
 			switch key
-				when 'TIME_PERIOD' then seriesCur.obs.obsDimension.push value
-				when 'OBS_VALUE' then seriesCur.obs.obsValue.push Number(value)
+				when 'TIME_PERIOD' then seriesCur.obs.obsDimension[obsCounter] = value
+				when 'OBS_VALUE' then seriesCur.obs.obsValue[obsCounter] = +value
 				else
 					seriesCur.obs.attributes[key] ?= []
-					seriesCur.obs.attributes[key].push value
+					seriesCur.obs.attributes[key][obsCounter] = value
+		obsCounter += 1
 
 	'DataSet/Group': (attrs) ->
 		groupCur = { type: 'SiblingGroup' }
